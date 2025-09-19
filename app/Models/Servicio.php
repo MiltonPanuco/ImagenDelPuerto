@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Servicio extends Model
+{
+    protected $table = 'servicios';
+
+    protected $fillable = [
+        'icon',
+        'color',
+        'servicio',
+        'categoria',
+        'descripcion',
+        'caracteristicas',
+        'activo'
+    ];
+
+    protected $casts = [
+        'caracteristicas' => 'array',
+        'activo' => 'boolean',
+    ];
+}

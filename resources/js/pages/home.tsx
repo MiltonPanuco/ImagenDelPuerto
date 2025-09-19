@@ -1,18 +1,27 @@
-import "../../css/global.css";
-import "../../css/home.css";
+import "@styles/home.css"
+import "@styles/global.css"
 
-import NavbarLayout from '../layouts/navbar-layout';
-import FooterLayout from '../layouts/footer-layout';
-
+import NavbarLayout from '@/layouts/navbar-layout'
+import FooterLayout from '@/layouts/footer-layout'
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Activity, Stethoscope, Shield, Users, Zap, Star, Award } from "lucide-react"
+import * as Icons from 'lucide-react'
+import { Shield, Users, Star, Award } from "lucide-react"
+import React from "react"
 
-export default function Home() {
+interface Servicio {
+  icon: keyof typeof Icons; // Clave que corresponde al nombre del icono
+  title: string;
+  description: string;
+}
 
+interface HomeProps {
+    servicios: Servicio[];
+}
+
+export default function Home({servicios}: HomeProps) {
     return (
         <NavbarLayout>
-
             <div className="min-h-screen bg-slate-50">
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,86 +36,37 @@ export default function Home() {
                         </div>
 
                         <div className="grid lg:grid-cols-3 gap-8">
-                            <Card className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-300">
-                                <CardContent className="p-12 text-center">
-                                    <div className="w-24 h-24 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                        <Zap className="h-12 w-12 text-blue-600" />
-                                    </div>
-                                    <h3 className="text-2xl font-light text-slate-900 mb-4">Rayos X</h3>
-                                    <h4 className="text-lg font-medium text-blue-600 mb-6">Digitales</h4>
-                                    <p className="text-slate-600 leading-relaxed mb-8 text-pretty">
-                                        Tecnología de imagen digital avanzada para diagnósticos precisos con menor exposición a radiación.
-                                    </p>
-                                    <div className="space-y-3 text-left">
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-blue-500 rounded-full shadow-sm"></div>
-                                            Resultados inmediatos
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-blue-500 rounded-full shadow-sm"></div>
-                                            Alta resolución
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-blue-500 rounded-full shadow-sm"></div>
-                                            Menor radiación
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
 
-                            <Card className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-emerald-300">
-                                <CardContent className="p-12 text-center">
-                                    <div className="w-24 h-24 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                        <Activity className="h-12 w-12 text-emerald-600" />
-                                    </div>
-                                    <h3 className="text-2xl font-light text-slate-900 mb-4">Electrocardiogramas</h3>
-                                    <h4 className="text-lg font-medium text-emerald-600 mb-6">Especializados</h4>
-                                    <p className="text-slate-600 leading-relaxed mb-8 text-pretty">
-                                        Monitoreo cardíaco completo con equipos de última generación y análisis médico especializado.
-                                    </p>
-                                    <div className="space-y-3 text-left">
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-emerald-500 rounded-full shadow-sm animate-pulse"></div>
-                                            ECG en reposo
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-emerald-500 rounded-full shadow-sm animate-pulse"></div>
-                                            Interpretación médica
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-emerald-500 rounded-full shadow-sm animate-pulse"></div>
-                                            Reporte detallado
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
 
-                            <Card className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-amber-300">
-                                <CardContent className="p-12 text-center">
-                                    <div className="w-24 h-24 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                        <Stethoscope className="h-12 w-12 text-amber-600" />
-                                    </div>
-                                    <h3 className="text-2xl font-light text-slate-900 mb-4">Equipos</h3>
-                                    <h4 className="text-lg font-medium text-amber-600 mb-6">Médicos</h4>
-                                    <p className="text-slate-600 leading-relaxed mb-8 text-pretty">
-                                        Renta de equipos médicos certificados para rehabilitación y cuidado domiciliario.
-                                    </p>
-                                    <div className="space-y-3 text-left">
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-amber-500 rounded-full shadow-sm"></div>
-                                            Sillas de ruedas
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-amber-500 rounded-full shadow-sm"></div>
-                                            Camillas especializadas
-                                        </div>
-                                        <div className="flex items-center gap-3 text-sm text-slate-600">
-                                            <div className="w-2 h-2 bg-amber-500 rounded-full shadow-sm"></div>
-                                            Muletas y andadores
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                            {servicios.map((servicio, index) => {
+                                const IconComponent = Icons[servicio.icon];
+
+                                return (
+                                    <Card
+                                        key={index}
+                                        className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-300`}
+                                    >
+                                        <CardContent className="p-12 text-center">
+                                            <div className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
+                                                {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-600`} /> : null}
+                                            </div>
+                                            <h3 className="text-2xl font-light text-slate-900 mb-4">{servicio.servicio}</h3>
+                                            <h4 className={`text-lg font-medium text-${servicio.color}-600 mb-6`}>{servicio.categoria}</h4>
+                                            <p className="text-slate-600 leading-relaxed mb-8 text-pretty">
+                                                {servicio.descripcion}
+                                            </p>
+                                            <div className="space-y-3 text-left">
+                                                {servicio.caracteristicas.map((caracteristica, idx) => (
+                                                    <div key={idx} className="flex items-center gap-3 text-sm text-slate-600">
+                                                        <div className={`w-2 h-2 bg-${servicio.color}-500 rounded-full shadow-sm`}></div>
+                                                        {caracteristica}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
@@ -278,7 +238,7 @@ export default function Home() {
                 </section>
 
             </div>
-        
+
         <FooterLayout />
         </NavbarLayout>
 
