@@ -7,19 +7,18 @@ import FooterLayout from '@/layouts/footer-layout'
 import { Card, CardContent } from "@/components/ui/card"
 import * as Icons from 'lucide-react'
 import { Shield, Users, Star, Award } from "lucide-react"
-import React from "react"
 
 interface Servicio {
-  icon: keyof typeof Icons; // Clave que corresponde al nombre del icono
-  title: string;
-  description: string;
+    icon: keyof typeof Icons; // Clave que corresponde al nombre del icono
+    title: string;
+    description: string;
 }
 
 interface HomeProps {
     servicios: Servicio[];
 }
 
-export default function Home({servicios}: HomeProps) {
+export default function Home({ servicios }: HomeProps) {
     return (
         <NavbarLayout>
             <div className="min-h-screen bg-slate-50">
@@ -102,7 +101,7 @@ export default function Home({servicios}: HomeProps) {
                                             role: "Cliente",
                                             content:
                                                 "El servicio de renta de equipos médicos fue impecable. Equipos en perfecto estado y asesoría profesional durante todo el proceso de recuperación.",
-                                            rating: 5,
+                                            rating: 4,
                                         },
                                         {
                                             name: "Ana López",
@@ -239,7 +238,7 @@ export default function Home({servicios}: HomeProps) {
 
             </div>
 
-        <FooterLayout />
+            <FooterLayout />
         </NavbarLayout>
 
     )
