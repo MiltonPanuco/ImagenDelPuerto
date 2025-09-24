@@ -1,26 +1,55 @@
 import "@styles/home.css"
 import "@styles/global.css"
+import { testimonials } from "../data/testimonials"
 
-import NavbarLayout from '@/layouts/navbar-layout'
-import FooterLayout from '@/layouts/footer-layout'
+import NavbarLayout from "@/layouts/navbar-layout"
+import CarouselLayout from "@/layouts/carousel-layout"
+import FooterLayout from "@/layouts/footer-layout"
 
 import { Card, CardContent } from "@/components/ui/card"
-import * as Icons from 'lucide-react'
+import * as Icons from "lucide-react"
 import { Shield, Users, Star, Award } from "lucide-react"
 
+const getRandomTestimonials = () => {
+    const shuffled = [...testimonials].sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, 5)
+}
+
+const sliderHome = [
+    {
+        image: "",
+        title: "Imagen del Puerto",
+        description: "Tu salud y comodidad, nuestra prioridad",
+    },
+    {
+        image: "",
+        title: "Cuidado al Alcance",
+        description: "Resuelve tus dudas y accede a nuestros servicios de salud sin complicaciones, rápido y seguro.",
+    },
+    {
+        image: "",
+        title: "Bienestar para ti",
+        description: "Explora consejos, recomendaciones y acompañamiento médico que se adaptan a tu estilo de vida.",
+    },
+]
+
 interface Servicio {
-    icon: keyof typeof Icons; // Clave que corresponde al nombre del icono
-    title: string;
-    description: string;
+    icon: keyof typeof Icons // Clave que corresponde al nombre del icono
+    title: string
+    description: string
 }
 
 interface HomeProps {
-    servicios: Servicio[];
+    servicios: Servicio[]
 }
 
 export default function Home({ servicios }: HomeProps) {
+    const randomTestimonials = getRandomTestimonials()
+
     return (
         <NavbarLayout>
+            <CarouselLayout slides={sliderHome} />
+
             <div className="min-h-screen bg-slate-50">
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,10 +64,8 @@ export default function Home({ servicios }: HomeProps) {
                         </div>
 
                         <div className="grid lg:grid-cols-3 gap-8">
-
-
                             {servicios.map((servicio, index) => {
-                                const IconComponent = Icons[servicio.icon];
+                                const IconComponent = Icons[servicio.icon]
 
                                 return (
                                     <Card
@@ -46,14 +73,14 @@ export default function Home({ servicios }: HomeProps) {
                                         className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-500`}
                                     >
                                         <CardContent className="p-12 text-center">
-                                            <div className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
+                                            <div
+                                                className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
+                                            >
                                                 {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-500`} /> : null}
                                             </div>
                                             <h3 className="text-2xl font-light text-slate-900 mb-4">{servicio.servicio}</h3>
                                             <h4 className={`text-lg font-medium text-${servicio.color}-500 mb-6`}>{servicio.categoria}</h4>
-                                            <p className="text-slate-600 leading-relaxed mb-8 text-pretty">
-                                                {servicio.descripcion}
-                                            </p>
+                                            <p className="text-slate-600 leading-relaxed mb-8 text-pretty">{servicio.descripcion}</p>
                                             <div className="space-y-3 text-left">
                                                 {servicio.caracteristicas.map((caracteristica, idx) => (
                                                     <div key={idx} className="flex items-center gap-3 text-sm text-slate-600">
@@ -64,7 +91,7 @@ export default function Home({ servicios }: HomeProps) {
                                             </div>
                                         </CardContent>
                                     </Card>
-                                );
+                                )
                             })}
                         </div>
                     </div>
@@ -83,48 +110,12 @@ export default function Home({ servicios }: HomeProps) {
                         </div>
 
                         <div className="relative">
-                            <div className="absolute -left-16  top-0 bottom-0 w-80 bg-gradient-to-r from-blue-50 via-blue-50/90 to-transparent z-10 pointer-events-none blur-lg"></div>
-                            <div className="absolute -right-16 top-0 bottom-0 w-80 bg-gradient-to-l from-blue-50 via-blue-50/90 to-transparent z-10 pointer-events-none blur-lg"></div>
+                            <div className="absolute -left-50 top-0 bottom-0 w-80 bg-gradient-to-r from-blue-50 via-blue-50/90 to-transparent z-10 pointer-events-none blur-lg"></div>
+                            <div className="absolute -right-50 top-0 bottom-0 w-80 bg-gradient-to-l from-blue-50 via-blue-50/90 to-transparent z-10 pointer-events-none blur-lg"></div>
 
                             <div className="flex animate-scroll-fast">
                                 {[...Array(3)].map((_, setIndex) =>
-                                    [
-                                        {
-                                            name: "Rafa Samaniego",
-                                            role: "Paciente",
-                                            content:
-                                                "La precisión en los diagnósticos y la calidez humana del equipo médico superaron todas mis expectativas. Tecnología de vanguardia con trato personalizado.",
-                                            rating: 5,
-                                        },
-                                        {
-                                            name: "Carlos Rodríguez",
-                                            role: "Cliente",
-                                            content:
-                                                "El servicio de renta de equipos médicos fue impecable. Equipos en perfecto estado y asesoría profesional durante todo el proceso de recuperación.",
-                                            rating: 4,
-                                        },
-                                        {
-                                            name: "Ana López",
-                                            role: "Paciente",
-                                            content:
-                                                "Los electrocardiogramas fueron realizados con la más alta profesionalidad. Explicaciones claras y resultados que me dieron total tranquilidad.",
-                                            rating: 5,
-                                        },
-                                        {
-                                            name: "Roberto Silva",
-                                            role: "Cliente",
-                                            content:
-                                                "Excelente atención y equipos de primera calidad. El personal siempre dispuesto a ayudar y explicar cada procedimiento con detalle.",
-                                            rating: 5,
-                                        },
-                                        {
-                                            name: "Laura Martínez",
-                                            role: "Paciente",
-                                            content:
-                                                "Rapidez en los resultados y profesionalismo excepcional. Me sentí en las mejores manos desde el primer momento.",
-                                            rating: 5,
-                                        },
-                                    ].map((testimonial, index) => (
+                                    randomTestimonials.map((testimonial, index) => (
                                         <Card
                                             key={`${setIndex}-${index}`}
                                             className="flex-shrink-0 w-96 shadow-lg bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer border border-slate-200 hover:border-emerald-300 mr-6"
@@ -135,7 +126,9 @@ export default function Home({ servicios }: HomeProps) {
                                                         <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
                                                     ))}
                                                 </div>
-                                                <p className="text-slate-600 leading-relaxed mb-6 text-pretty italic">"{testimonial.content}"</p>
+                                                <p className="text-slate-600 leading-relaxed mb-6 text-pretty italic">
+                                                    "{testimonial.content}"
+                                                </p>
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
                                                         <span className="text-white font-medium text-sm">
@@ -232,14 +225,11 @@ export default function Home({ servicios }: HomeProps) {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </section>
-
             </div>
 
             <FooterLayout />
         </NavbarLayout>
-
     )
 }
