@@ -18,31 +18,31 @@ const navItems: NavItem[] = [
         name: "Inicio",
         href: "/",
         icon: Home,
-        color: "hover:text-[var(--color-principal)] hover:bg-[var(--color-principal)]/10",
+        color: "hover:text-blue-700",
     },
     {
         name: "Acerca de",
         href: "/about",
         icon: User,
-        color: "hover:text-[var(--color-secundario)] hover:bg-[var(--color-secundario)]/10",
+        color: "hover:text-blue-700",
     },
     {
         name: "Servicios",
         href: "/service",
         icon: Briefcase,
-        color: "hover:text-[var(--color-acento)] hover:bg-[var(--color-acento)]/10",
+        color: "hover:text-blue-700",
     },
     {
         name: "Galería",
         href: "/gallery",
         icon: Images,
-        color: "hover:text-[var(--color-principal)] hover:bg-[var(--color-principal)]/10",
+        color: "hover:text-blue-700",
     },
     {
         name: "Contacto",
         href: "/contact",
         icon: Phone,
-        color: "hover:text-[var(--color-secundario)] hover:bg-[var(--color-secundario)]/10",
+        color: "hover:text-blue-700",
     },
 ]
 
@@ -61,7 +61,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
     return (
         <div className="min-h-screen bg-background">
             <nav
-                className={`fixed top-0 left-0 right-0 z-[50] transition-all duration-300 ${isScrolled
+                className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${isScrolled
                         ? "bg-card/95 backdrop-blur-xl shadow-xl border-b border-border/50"
                         : "bg-card/80 backdrop-blur-md shadow-lg border-b border-border/30"
                     }`}
@@ -69,7 +69,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                 <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12 h-16 w-full max-w-8xl mx-auto">
                     <a href="/" className="flex items-center space-x-3 group hover:scale-105 transition-all duration-300">
                         <div
-                            className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[var(--color-principal)] via-[var(--color-principal)] to-[var(--color-secundario)] rounded-xl shadow-lg transition-all duration-300 p-1 group-hover:shadow-xl group-hover:rotate-6 ${isScrolled ? "shadow-[var(--color-principal)]/20" : "shadow-[var(--color-principal)]/30"
+                            className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-700 via-blue-700 to-emerald-600 rounded-xl shadow-lg transition-all duration-300 p-1 group-hover:shadow-xl group-hover:rotate-6 ${isScrolled ? "shadow-blue-700/20" : "shadow-blue-700/30"
                                 }`}
                         >
                             <div className="absolute inset-0 bg-white/20 rounded-xl"></div>
@@ -95,7 +95,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                     key={item.name}
                                     variant="ghost"
                                     size="lg"
-                                    className={`relative group flex items-center space-x-3 px-6 py-3 text-sm font-medium text-muted-foreground transition-all duration-300 rounded-2xl hover:text-[var(--color-principal)] hover:scale-105 hover:shadow-none ${item.color}`}
+                                    className={`relative group flex items-center space-x-3 px-6 py-3 text-sm font-medium text-muted-foreground transition-all duration-300 rounded-2xl hover:scale-105 hover:shadow-none ${item.color}`}
                                     asChild
                                 >
                                     <a href={item.href}>
@@ -115,7 +115,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                             <Button
                                 variant="ghost"
                                 size="lg"
-                                className="lg:hidden p-3 hover:bg-[var(--color-principal)]/10 hover:text-[var(--color-principal)] transition-all duration-300 rounded-2xl border border-transparent hover:border-[var(--color-principal)]/20 hover:shadow-lg hover:scale-105"
+                                className="lg:hidden p-3 hover:bg-blue-700/10 hover:text-blue-700 transition-all duration-300 rounded-2xl border border-transparent hover:border-blue-700/20 hover:shadow-lg hover:scale-105"
                                 aria-label="Abrir menú de navegación"
                             >
                                 <Menu className="w-6 h-6" />
@@ -123,10 +123,10 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                         </SheetTrigger>
                         <SheetContent side="right" className="w-80 sm:w-96 p-0 bg-card border-l border-border/50 shadow-2xl z-[60]">
                             <div className="flex flex-col h-full">
-                                <div className="relative flex items-center justify-between p-8 bg-gradient-to-br from-[var(--color-principal)]/5 via-[var(--color-secundario)]/5 to-[var(--color-acento)]/5 border-b border-border/50">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-principal)]/5 via-[var(--color-secundario)]/5 to-[var(--color-acento)]/5"></div>
+                                <div className="relative flex items-center justify-between p-8 bg-gradient-to-br from-blue-700/5 via-emerald-600/5 to-orange-600/5 border-b border-border/50">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-700/5 via-emerald-600/5 to-orange-600/5"></div>
                                     <a href="/" className="relative flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
-                                        <div className="relative flex items-center justify-center w-10 h-10 bg-gradient-to-br from-[var(--color-principal)] via-[var(--color-principal)] to-[var(--color-secundario)] rounded-xl shadow-lg transition-all duration-300 p-1 group-hover:shadow-xl group-hover:rotate-6">
+                                        <div className="relative flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-700 via-blue-700 to-emerald-600 rounded-xl shadow-lg transition-all duration-300 p-1 group-hover:shadow-xl group-hover:rotate-6">
                                             <div className="absolute inset-0 bg-white/20 rounded-xl"></div>
                                             <img
                                                 src="/idp-white.png"
@@ -151,7 +151,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                                 <Button
                                                     key={item.name}
                                                     variant="ghost"
-                                                    className={`group w-full justify-start space-x-4 px-6 py-5 text-base font-medium text-muted-foreground transition-all duration-300 rounded-2xl hover:text-[var(--color-principal)] hover:scale-105 hover:shadow-none ${item.color}`}
+                                                    className={`group w-full justify-start space-x-4 px-6 py-5 text-base font-medium text-muted-foreground transition-all duration-300 rounded-2xl hover:scale-105 hover:shadow-none ${item.color}`}
                                                     asChild
                                                     onClick={() => setIsOpen(false)}
                                                 >
@@ -168,25 +168,25 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                     </nav>
                                 </div>
 
-                                <div className="relative p-8 bg-gradient-to-br from-muted/30 via-[var(--color-principal)]/5 to-[var(--color-secundario)]/5 border-t border-border/50">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-principal)]/5 via-[var(--color-secundario)]/5 to-[var(--color-acento)]/5"></div>
+                                <div className="relative p-8 bg-gradient-to-br from-muted/30 via-blue-700/5 to-emerald-600/5 border-t border-border/50">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-700/5 via-emerald-600/5 to-orange-600/5"></div>
                                     <div className="relative text-center">
                                         <div className="flex items-center justify-center gap-2 mb-3">
-                                            <div className="w-2 h-2 bg-[var(--color-principal)] rounded-full animate-pulse"></div>
+                                            <div className="w-2 h-2 bg-blue-700 rounded-full animate-pulse"></div>
                                             <p className="text-sm font-medium text-foreground">Servicios médicos profesionales</p>
-                                            <div className="w-2 h-2 bg-[var(--color-secundario)] rounded-full animate-pulse"></div>
+                                            <div className="w-2 h-2 bg-emerald-600 rounded-full animate-pulse"></div>
                                         </div>
                                         <div className="flex items-center justify-center gap-3 text-xs text-muted-foreground">
                                             <span className="flex items-center gap-1">
-                                                <div className="w-1 h-1 bg-[var(--color-principal)] rounded-full"></div>
+                                                <div className="w-1 h-1 bg-blue-700 rounded-full"></div>
                                                 Rayos X
                                             </span>
                                             <span className="flex items-center gap-1">
-                                                <div className="w-1 h-1 bg-[var(--color-secundario)] rounded-full"></div>
+                                                <div className="w-1 h-1 bg-emerald-600 rounded-full"></div>
                                                 Electrocardiogramas
                                             </span>
                                             <span className="flex items-center gap-1">
-                                                <div className="w-1 h-1 bg-[var(--color-acento)] rounded-full"></div>
+                                                <div className="w-1 h-1 bg-orange-600 rounded-full"></div>
                                                 Renta de equipo
                                             </span>
                                         </div>
@@ -198,7 +198,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                 </div>
             </nav>
 
-            <main className="pt-16">{children}</main>
+            <main className="">{children}</main>
         </div>
     )
 }

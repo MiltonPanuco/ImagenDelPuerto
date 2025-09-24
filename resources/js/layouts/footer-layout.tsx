@@ -32,7 +32,7 @@ export default function FooterLayout() {
                     {/* Brand section */}
                     <div className="space-y-6">
                         <div className="flex items-center space-x-3">
-                            <div className="flex items-center justify-center w-12 h-12 bg-primary rounded-xl shadow-lg">
+                            <div className="flex items-center justify-center w-12 h-12 bg-blue-700 rounded-xl shadow-lg">
                                 <img src="/idp-white.png" alt="Imagen del Puerto Logo" className="w-8 h-8 object-contain" />
                             </div>
                             <div>
@@ -55,9 +55,9 @@ export default function FooterLayout() {
                                 <li key={index}>
                                     <a
                                         href="#"
-                                        className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-200"
+                                        className="flex items-center gap-3 text-muted-foreground hover:text-blue-700 transition-colors duration-200"
                                     >
-                                        <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                                        <div className="w-1.5 h-1.5 bg-blue-700 rounded-full"></div>
                                         <span className="text-sm">{service}</span>
                                     </a>
                                 </li>
@@ -78,11 +78,13 @@ export default function FooterLayout() {
                                     <ContactElement
                                         key={index}
                                         {...contactProps}
-                                        className={`flex items-center gap-3 transition-colors duration-200 ${contact.href ? "text-muted-foreground hover:text-primary cursor-pointer" : "text-muted-foreground"
+                                        className={`flex items-center gap-3 transition-colors duration-200 ${contact.href
+                                                ? "text-muted-foreground hover:text-blue-700 cursor-pointer"
+                                                : "text-muted-foreground"
                                             }`}
                                     >
                                         <div className="flex items-center justify-center w-8 h-8 bg-muted rounded-lg">
-                                            <Icon className="w-4 h-4 text-primary" />
+                                            <Icon className="w-4 h-4 text-blue-700" />
                                         </div>
                                         <span className="text-sm">{contact.text}</span>
                                     </ContactElement>
@@ -103,13 +105,13 @@ export default function FooterLayout() {
                         <div className="flex items-center gap-6">
                             <a
                                 href="/privacy"
-                                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                                className="text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200"
                             >
                                 Aviso de privacidad
                             </a>
                             <a
                                 href="/terms"
-                                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                                className="text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200"
                             >
                                 Términos y condiciones
                             </a>
