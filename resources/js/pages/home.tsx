@@ -43,14 +43,14 @@ export default function Home({ servicios }: HomeProps) {
                                 return (
                                     <Card
                                         key={index}
-                                        className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-300`}
+                                        className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-500`}
                                     >
                                         <CardContent className="p-12 text-center">
                                             <div className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
-                                                {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-600`} /> : null}
+                                                {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-500`} /> : null}
                                             </div>
                                             <h3 className="text-2xl font-light text-slate-900 mb-4">{servicio.servicio}</h3>
-                                            <h4 className={`text-lg font-medium text-${servicio.color}-600 mb-6`}>{servicio.categoria}</h4>
+                                            <h4 className={`text-lg font-medium text-${servicio.color}-500 mb-6`}>{servicio.categoria}</h4>
                                             <p className="text-slate-600 leading-relaxed mb-8 text-pretty">
                                                 {servicio.descripcion}
                                             </p>

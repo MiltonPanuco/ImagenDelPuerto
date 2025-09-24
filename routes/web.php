@@ -1,23 +1,30 @@
 <?php
 
+use App\Http\Controllers\Cms\ServicioController;
 use App\Http\Controllers\WebPageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+/** Páginas Públicas */
 Route::get('/', [WebPageController::class, 'index'])->name('home');
+Route::get('/about', [WebPageController::class, 'about'])->name('about');
+Route::get('/service', [WebPageController::class, 'service'])->name('service');
+Route::get('/gallery', [WebPageController::class, 'gallery'])->name('gallery');
+Route::get('/contact', [WebPageController::class, 'contact'])->name('contact');
 
-Route::get('/about', function () {
-    return Inertia::render('about');
-})->name('about');
+/** CMS */
+Route::middleware('auth')->group(function () {
+    Route::get('admin/dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
 
-Route::get('/service', function () {
-    return Inertia::render('service');
-})->name('service');
+    /** Servicios */
+    Route::resource('admin/servicios', ServicioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios');
+    Route::patch('admin/servicios/{servicio}/activo', [ServicioController::class, 'toggleActivo'])->name('cms.servicios.activo');
 
-Route::get('/gallery', function () {
-    return Inertia::render('gallery');
-})->name('gallery');
+    /** Testimonios */
+    // ...
+});
 
-Route::get('/contact', function () {
-    return Inertia::render('contact');
-})->name('contact');
+require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';

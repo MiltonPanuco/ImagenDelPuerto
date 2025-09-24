@@ -16,4 +16,24 @@ class WebPageController extends Controller
             'servicios' => $servicios
         ]);
     }
+
+    public function about()
+    {
+        return Inertia::render('about');
+    }
+
+    public function service()
+    {
+        return Inertia::render('service');
+    }
+
+    public function gallery()
+    {
+        return Inertia::render('gallery');
+    }
+
+    public function contact()
+    {
+        return Inertia::render('contact');
+    }
 }

@@ -1,17 +1,37 @@
-import "@styles/home.css"
 import "@styles/global.css"
 
 import NavbarLayout from "@/layouts/navbar-layout"
+import CarouselLayout from "@/layouts/carousel-layout"
 import FooterLayout from "@/layouts/footer-layout"
 
 import { Phone, Mail, Clock, Calendar, AlertCircle, Instagram } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
+const sliderContact = [
+    {
+        image: "",
+        title: "Escríbenos",
+        description: "Envíanos un mensaje y recibe la atención que necesitas de forma rápida y personalizada.",
+    },
+    {
+        image: "",
+        title: "Llámanos",
+        description: "Comunícate con nuestro equipo para resolver tus dudas o agendar una cita fácilmente.",
+    },
+    {
+        image: "",
+        title: "Visítanos",
+        description: "Encuentra nuestras instalaciones y recibe atención directa de nuestros especialistas.",
+    },
+]
+
+
 export default function ContactSection() {
     return (
-        
+
         <NavbarLayout>
-            
+            <CarouselLayout slides={sliderContact} />
+
             <div className="min-h-screen bg-slate-50">
                 {/* Hero Contact Section */}
                 <section className="py-32 bg-white">
@@ -146,7 +166,7 @@ export default function ContactSection() {
                     </div>
                 </section>
 
-                {/* Services Section */}
+                {/* Services */}
                 <section className="py-32 bg-blue-50 overflow-hidden relative">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
