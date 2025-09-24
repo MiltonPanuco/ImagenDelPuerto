@@ -1,15 +1,36 @@
 import "@styles/global.css"
 
 import NavbarLayout from "@/layouts/navbar-layout"
+import CarouselLayout from "@/layouts/carousel-layout"
 import FooterLayout from "@/layouts/footer-layout"
 
 import { Heart, Target, Eye, Stethoscope, Truck, Shield, Users, Award } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
+const sliderAbout = [
+    {
+        image: "",
+        title: "Quiénes Somos",
+        description: "Somos un equipo comprometido con brindar servicios de salud confiables y de la más alta calidad.",
+    },
+    {
+        image: "",
+        title: "Nuestra Misión",
+        description: "Cuidar de tu bienestar ofreciendo atención profesional, tecnología avanzada y un trato humano.",
+    },
+    {
+        image: "",
+        title: "Nuestros Valores",
+        description: "Trabajamos con honestidad, respeto y dedicación para garantizar tu confianza y seguridad.",
+    },
+]
+
+
 export default function AboutSection() {
     return (
 
         <NavbarLayout>
+            <CarouselLayout slides={sliderAbout} />
 
             <div className="min-h-screen bg-slate-50">
                 {/* Hero About Section */}
@@ -52,11 +73,11 @@ export default function AboutSection() {
 
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="text-center p-6 bg-blue-50 rounded-2xl hover:bg-blue-100 transition-colors duration-300">
-                                            <div className="text-3xl font-light text-blue-600 mb-2">10+</div>
+                                            <div className="text-3xl font-light text-blue-600 mb-2">X+</div>
                                             <div className="text-sm text-slate-600">Años de experiencia</div>
                                         </div>
                                         <div className="text-center p-6 bg-emerald-50 rounded-2xl hover:bg-emerald-100 transition-colors duration-300">
-                                            <div className="text-3xl font-light text-emerald-600 mb-2">5000+</div>
+                                            <div className="text-3xl font-light text-emerald-600 mb-2">XXX+</div>
                                             <div className="text-sm text-slate-600">Pacientes atendidos</div>
                                         </div>
                                     </div>
@@ -71,9 +92,16 @@ export default function AboutSection() {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent"></div>
                                         <div className="absolute bottom-6 left-6 right-6">
-                                            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
-                                                <h3 className="text-xl font-medium text-slate-900 mb-2">Dr. Especialista</h3>
-                                                <p className="text-slate-600 text-sm">Radiólogo certificado con más de 15 años de experiencia</p>
+                                            <div className="bg-white rounded-lg p-3 shadow-md">
+                                                <div className="text-center">
+                                                    <h3 className="text-base font-medium text-slate-900">Dr. Especialista</h3>
+                                                    <p className="text-slate-500 text-xs">Radiólogo • 15+ años</p>
+                                                    <div className="mt-2 pt-2 border-t border-slate-100">
+                                                        <p className="text-slate-600 text-xs italic">
+                                                            "Tu salud y comodidad, nuestra prioridad"
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -87,7 +115,7 @@ export default function AboutSection() {
                 <section className="py-32 bg-blue-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
+                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4 ">
                                 Nuestros Valores
                             </div>
                             <h2 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 text-balance">
@@ -102,7 +130,7 @@ export default function AboutSection() {
                                     <div className="w-24 h-24 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
                                         <Target className="h-12 w-12 text-white" />
                                     </div>
-                                    <h3 className="text-3xl font-light text-slate-900 mb-6">Nuestra Misión</h3>
+                                    <h3 className="text-3xl font-medium text-slate-900 mb-6">Nuestra Misión</h3>
                                     <p className="text-lg text-slate-600 leading-relaxed text-pretty">
                                         Brindar servicios médicos especializados de alta calidad en la comodidad del hogar, eliminando
                                         barreras de acceso y garantizando atención oportuna y profesional para toda la familia. Nos
@@ -117,7 +145,7 @@ export default function AboutSection() {
                                     <div className="w-24 h-24 bg-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
                                         <Eye className="h-12 w-12 text-white" />
                                     </div>
-                                    <h3 className="text-3xl font-light text-slate-900 mb-6">Nuestra Visión</h3>
+                                    <h3 className="text-3xl font-medium text-slate-900 mb-6">Nuestra Visión</h3>
                                     <p className="text-lg text-slate-600 leading-relaxed text-pretty">
                                         Ser la empresa líder en servicios médicos domiciliarios en la región, reconocida por nuestra
                                         excelencia, innovación y compromiso con la salud comunitaria. Aspiramos a transformar la experiencia
@@ -198,51 +226,6 @@ export default function AboutSection() {
                     </div>
                 </section>
 
-                {/* Why Choose Us */}
-                <section className="py-32 bg-slate-50">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
-                                ¿Por qué elegirnos?
-                            </div>
-                            <h2 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 text-balance">
-                                La diferencia
-                                <span className="block font-normal text-emerald-600">Imagen del Puerto</span>
-                            </h2>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {[
-                                {
-                                    icon: Users,
-                                    title: "Equipo Profesional",
-                                    description: "Médicos y técnicos certificados con años de experiencia",
-                                },
-                                {
-                                    icon: Award,
-                                    title: "Tecnología Avanzada",
-                                    description: "Equipos médicos de última generación para diagnósticos precisos",
-                                },
-                                {
-                                    icon: Heart,
-                                    title: "Atención Personalizada",
-                                    description: "Cada paciente recibe cuidado individualizado y humano",
-                                },
-                            ].map((feature, index) => (
-                                <div
-                                    key={index}
-                                    className="text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
-                                >
-                                    <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <feature.icon className="h-8 w-8 text-white" />
-                                    </div>
-                                    <h3 className="text-xl font-medium text-slate-900 mb-4">{feature.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed text-pretty">{feature.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
             </div>
 
             <FooterLayout />
