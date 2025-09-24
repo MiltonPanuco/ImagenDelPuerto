@@ -392,7 +392,7 @@ export default function ServicesSection() {
 
 
                 {/* Diagnostic Services */}
-                <section className="py-32 bg-blue-50">
+                <section className="py-32 bg-blue-50" id="services">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
                             <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">

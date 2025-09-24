@@ -22,7 +22,20 @@ export default function FooterLayout() {
         },
     ]
 
-    const services = ["Rayos X Digitales", "Electrocardiogramas", "Renta de Equipo Médico"]
+    const services = [
+        {
+            name: "Rayos X Digitales",
+            url: "/service#services",
+        },
+        {
+            name: "Electrocardiogramas",
+            url: "/service#services",
+        },
+                {
+            name: "Renta de Equipo Médico",
+            url: "/service#products",
+        },
+    ]
 
     return (
         <footer className="bg-slate-50 border-t border-slate-200">
@@ -54,11 +67,11 @@ export default function FooterLayout() {
                             {services.map((service, index) => (
                                 <li key={index}>
                                     <a
-                                        href="#"
+                                        href={service.url}
                                         className="flex items-center gap-3 text-muted-foreground hover:text-blue-700 transition-colors duration-200"
                                     >
                                         <div className="w-1.5 h-1.5 bg-blue-700 rounded-full"></div>
-                                        <span className="text-sm">{service}</span>
+                                        <span className="text-sm">{service.name}</span>
                                     </a>
                                 </li>
                             ))}
@@ -79,8 +92,8 @@ export default function FooterLayout() {
                                         key={index}
                                         {...contactProps}
                                         className={`flex items-center gap-3 transition-colors duration-200 ${contact.href
-                                                ? "text-muted-foreground hover:text-blue-700 cursor-pointer"
-                                                : "text-muted-foreground"
+                                            ? "text-muted-foreground hover:text-blue-700 cursor-pointer"
+                                            : "text-muted-foreground"
                                             }`}
                                     >
                                         <div className="flex items-center justify-center w-8 h-8 bg-muted rounded-lg">
@@ -103,19 +116,14 @@ export default function FooterLayout() {
                         </p>
 
                         <div className="flex items-center gap-6">
-                            <a
-                                href="/privacy"
-                                className="text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200"
-                            >
+                            <a href="/privacy" className="text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200">
                                 Aviso de privacidad
                             </a>
-                            <a
-                                href="/terms"
-                                className="text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200"
-                            >
+                            <a href="/terms" className="text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200">
                                 Términos y condiciones
                             </a>
                         </div>
+
                     </div>
                 </div>
             </div>
