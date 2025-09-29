@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Eleccion;
 use App\Models\Servicio;
+
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -10,10 +12,12 @@ class WebPageController extends Controller
 {
     public function index()
     {
-        $servicios = Servicio::where('activo', true)->get();
+        $servicios = Servicio::where('activo', true)->limit(3)->get();
+        $elecciones = Eleccion::where('activo', true)->limit(3)->get();
 
         return Inertia::render('home', [
-            'servicios' => $servicios
+            'servicios' => $servicios,
+            'elecciones' => $elecciones
         ]);
     }
 

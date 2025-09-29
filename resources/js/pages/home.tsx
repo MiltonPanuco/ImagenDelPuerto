@@ -8,7 +8,7 @@ import FooterLayout from "@/layouts/footer-layout"
 
 import { Card, CardContent } from "@/components/ui/card"
 import * as Icons from "lucide-react"
-import { Shield, Users, Star, Award } from "lucide-react"
+import { Star } from "lucide-react"
 
 const getRandomTestimonials = () => {
     const shuffled = [...testimonials].sort(() => 0.5 - Math.random())
@@ -34,16 +34,25 @@ const sliderHome = [
 ]
 
 interface Servicio {
-    icon: keyof typeof Icons // Clave que corresponde al nombre del icono
+    icon: keyof typeof Icons
     title: string
     description: string
 }
 
-interface HomeProps {
-    servicios: Servicio[]
+interface Eleccion {
+    title: string
+    icon: keyof typeof Icons
+    color: string
+    descripcion: string
+    caracteristicas: string[]
 }
 
-export default function Home({ servicios }: HomeProps) {
+interface HomeProps {
+    servicios: Servicio[]
+    elecciones: Eleccion[]
+}
+
+export default function Home({ servicios, elecciones = [] }: HomeProps) {
     const randomTestimonials = getRandomTestimonials()
 
     return (
@@ -169,61 +178,68 @@ export default function Home({ servicios }: HomeProps) {
                         </div>
 
                         <div className="grid lg:grid-cols-3 gap-12 mb-20">
-                            {[
-                                {
-                                    icon: Shield,
-                                    title: "Tecnología certificada",
-                                    description:
-                                        "Equipos médicos de última generación con certificaciones internacionales y mantenimiento preventivo constante.",
-                                    color: "bg-blue-600",
-                                },
-                                {
-                                    icon: Users,
-                                    title: "Equipo especializado",
-                                    description:
-                                        "Profesionales certificados con años de experiencia que garantizan la excelencia en cada procedimiento médico.",
-                                    color: "bg-emerald-600",
-                                },
-                                {
-                                    icon: Award,
-                                    title: "Resultados inmediatos",
-                                    description:
-                                        "Diagnósticos rápidos y precisos con reportes detallados entregados en el menor tiempo posible.",
-                                    color: "bg-amber-600",
-                                },
-                            ].map((feature, index) => (
-                                <Card
-                                    key={index}
-                                    className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-300"
-                                >
-                                    <CardContent className="p-8 text-center">
-                                        <div
-                                            className={`w-20 h-20 ${feature.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}
+                            {elecciones && elecciones.length > 0 ? (
+                                elecciones.map((eleccion, index) => {
+                                    const IconComponent = Icons[eleccion.icon]
+                                    const colorClasses = {
+                                        blue: "bg-blue-600",
+                                        emerald: "bg-emerald-600",
+                                        amber: "bg-amber-600",
+                                        red: "bg-red-600",
+                                        purple: "bg-purple-600",
+                                        teal: "bg-teal-600",
+                                    }
+
+                                    return (
+                                        <Card
+                                            key={index}
+                                            className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-300"
                                         >
-                                            <feature.icon className="h-10 w-10 text-white" />
-                                        </div>
-                                        <h3 className="text-2xl font-medium text-slate-900 mb-4">{feature.title}</h3>
-                                        <p className="text-slate-600 leading-relaxed text-pretty">{feature.description}</p>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                                            <CardContent className="p-8 text-center">
+                                                <div
+                                                    className={`w-20 h-20 ${colorClasses[eleccion.color] || "bg-blue-600"} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}
+                                                >
+                                                    {IconComponent ? <IconComponent className="h-10 w-10 text-white" /> : null}
+                                                </div>
+                                                <h3 className="text-2xl font-medium text-slate-900 mb-4">{eleccion.eleccion}</h3>
+                                                <p className="text-slate-600 leading-relaxed text-pretty">{eleccion.descripcion}</p>
+                                            </CardContent>
+                                        </Card>
+                                    )
+                                })
+                            ) : (
+                                <div className="col-span-3 text-center text-slate-500 py-12">
+                                    <p>No hay elecciones disponibles en este momento.</p>
+                                </div>
+                            )}
                         </div>
 
                         <div className="text-center">
-                            <div className="flex items-center justify-center gap-8 text-slate-500">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                                    <span className="text-sm">Disponible 24/7</span>
+                            {elecciones && elecciones.length > 0 && (
+                                <div className="flex items-center justify-center gap-8 text-slate-500 flex-wrap">
+                                    {elecciones.map((eleccion, index) => {
+                                        const colorDot = {
+                                            blue: "bg-blue-500",
+                                            emerald: "bg-emerald-500",
+                                            amber: "bg-amber-500",
+                                            red: "bg-red-500",
+                                            purple: "bg-purple-500",
+                                            teal: "bg-teal-500",
+                                        }
+
+                                        return eleccion.caracteristicas && eleccion.caracteristicas.length > 0
+                                            ? eleccion.caracteristicas.map((caracteristica, idx) => (
+                                                <div key={`${index}-${idx}`} className="flex items-center gap-2">
+                                                    <div
+                                                        className={`w-2 h-2 ${colorDot[eleccion.color] || "bg-blue-500"} rounded-full animate-pulse`}
+                                                    ></div>
+                                                    <span className="text-sm">{caracteristica}</span>
+                                                </div>
+                                            ))
+                                            : null
+                                    })}
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                                    <span className="text-sm">Servicio móvil</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-                                    <span className="text-sm">Resultados inmediatos</span>
-                                </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </section>

@@ -7,11 +7,11 @@ import * as LucideIcons from 'lucide-react';
 import TagsInput from '@/components/ui/TagsInput';
 import Swal from 'sweetalert2';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Servicios' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Elección' }];
 
-interface Servicio {
+interface Eleccion {
     id?: number;
-    servicio: string;
+    eleccion: string;
     icon?: string;
     color: string;
     categoria: string;
@@ -20,9 +20,9 @@ interface Servicio {
     activo: boolean;
 }
 
-export default function FormServicio({ servicio }: { servicio: Servicio }) {
+export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
     const [caracteristicas, setCaracteristicas] = useState<string[]>([]);
-    const isEdit = !!servicio?.id;
+    const isEdit = !!eleccion?.id;
 
     useEffect(() => {
         setData('caracteristicas', caracteristicas);
@@ -30,19 +30,19 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
 
     /** Para mostrar etiquetas de las caracteristicas en bd */
     useEffect(() => {
-        if (isEdit && servicio.caracteristicas) {
-            setCaracteristicas(servicio.caracteristicas);
+        if (isEdit && eleccion.caracteristicas) {
+            setCaracteristicas(eleccion.caracteristicas);
         }
-    }, [isEdit, servicio.caracteristicas]);
+    }, [isEdit, eleccion.caracteristicas]);
 
-    const { data, setData, post, put, processing, errors } = useForm<Servicio>({
-        servicio: servicio.servicio || '',
-        icon: servicio.icon || '',
-        color: servicio.color || '',
-        categoria: servicio.categoria || '',
-        descripcion: servicio.descripcion || '',
-        caracteristicas: servicio.caracteristicas || [],
-        activo: servicio.activo || false,
+    const { data, setData, post, put, processing, errors } = useForm<Eleccion>({
+        eleccion: eleccion.eleccion || '',
+        icon: eleccion.icon || '',
+        color: eleccion.color || '',
+        categoria: eleccion.categoria || '',
+        descripcion: eleccion.descripcion || '',
+        caracteristicas: eleccion.caracteristicas || [],
+        activo: eleccion.activo || false,
     });
 
     const [showError, setShowError] = useState(true);
@@ -59,8 +59,8 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
         const successCallback = () => {
             Swal.fire({
                 icon: 'success',
-                title: isEdit ? 'Servicio actualizado' : 'Servicio creado',
-                text: isEdit ? 'El servicio ha sido actualizado correctamente.' : 'El servicio ha sido creado correctamente.',
+                title: isEdit ? 'Elección actualizado' : 'Elección creado',
+                text: isEdit ? 'La elección ha sido actualizado correctamente.' : 'El serelecciónvicio ha sido creado correctamente.',
                 timer: 2000,
                 showConfirmButton: false,
                 allowEscapeKey: false,
@@ -70,11 +70,11 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
         };
 
         if (isEdit) {
-            put(route('cms.servicios.update', servicio.id), {
+            put(route('cms.eleccion.update', eleccion.id), {
                 onSuccess: successCallback,
             });
         } else {
-            post(route('cms.servicios.store'), {
+            post(route('cms.eleccion.store'), {
                 onSuccess: successCallback,
             });
         }
@@ -82,14 +82,14 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={isEdit ? 'Editar Servicio' : 'Crear Servicio'} />
+            <Head title={isEdit ? 'Editar Elección' : 'Crear Elección'} />
 
             <div className="mb-6 md:p-15 p-10">
                 <div className="flex items-center justify-between mb-6">
                     <h1 className="text-2xl font-semibold">
-                        {isEdit ? 'Editar Servicio' : 'Crear Nuevo Servicio'}
+                        {isEdit ? 'Editar Elección' : 'Crear Nuevo Elección'}
                     </h1>
-                    <Link href={route('cms.servicios.index')}>
+                    <Link href={route('cms.eleccion.index')}>
                         <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-300 text-white rounded">
                             <LucideIcons.ArrowBigLeft className="w-4 h-4 mr-2" />
                             Regresar
@@ -111,15 +111,16 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                             </button>
                         </div>
                     )}
+                    
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre del Servicio</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre de la elección</label>
                         <input
                             type="text"
                             className="w-full border rounded px-3 py-2"
-                            value={data.servicio}
-                            onChange={(e) => setData('servicio', e.target.value)}
+                            value={data.eleccion}
+                            onChange={(e) => setData('eleccion', e.target.value)}
                         />
-                        {errors.servicio && <div className="text-red-500 text-sm">{errors.servicio}</div>}
+                        {errors.eleccion && <div className="text-red-500 text-sm">{errors.eleccion}</div>}
                     </div>
 
                     <div>
@@ -211,17 +212,6 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                     </div>
 
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Categoría</label>
-                        <input
-                            type="text"
-                            className="w-full border rounded px-3 py-2"
-                            value={data.categoria}
-                            onChange={(e) => setData('categoria', e.target.value)}
-                        />
-                        {errors.categoria && <div className="text-red-500 text-sm">{errors.categoria}</div>}
-                    </div>
-
-                    <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700">Descripción</label>
                         <textarea
                             className="w-full border rounded px-3 py-2"
@@ -260,7 +250,7 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                             disabled={processing}
                             className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
                         >
-                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Servicio' : 'Crear Servicio'}
+                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Elección' : 'Crear Elección'}
                         </button>
                     </div>
                 </form>

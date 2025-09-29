@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Cms\EleccionController;
 use App\Http\Controllers\Cms\ServicioController;
 use App\Http\Controllers\WebPageController;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('admin/servicios', ServicioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios');
     Route::patch('admin/servicios/{servicio}/activo', [ServicioController::class, 'toggleActivo'])->name('cms.servicios.activo');
 
-    /** Testimonios */
-    // ...
+    /** Elecciones */
+    Route::resource('admin/eleccion', EleccionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.eleccion');
+    Route::patch('admin/eleccion/{eleccion}/activo', [EleccionController::class, 'toggleActivo'])->name('cms.eleccion.activo');
 });
 
 require __DIR__.'/auth.php';
