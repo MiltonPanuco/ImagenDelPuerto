@@ -11,10 +11,9 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Elección' }];
 
 interface Eleccion {
     id?: number;
-    eleccion: string;
+    title: string;  // ✅ Cambiado de 'eleccion' a 'title'
     icon?: string;
     color: string;
-    categoria: string;
     descripcion: string;
     caracteristicas: Array<string>;
     activo: boolean;
@@ -36,10 +35,9 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
     }, [isEdit, eleccion.caracteristicas]);
 
     const { data, setData, post, put, processing, errors } = useForm<Eleccion>({
-        eleccion: eleccion.eleccion || '',
+        title: eleccion.title || '',  // ✅ Cambiado
         icon: eleccion.icon || '',
         color: eleccion.color || '',
-        categoria: eleccion.categoria || '',
         descripcion: eleccion.descripcion || '',
         caracteristicas: eleccion.caracteristicas || [],
         activo: eleccion.activo || false,
@@ -59,8 +57,8 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
         const successCallback = () => {
             Swal.fire({
                 icon: 'success',
-                title: isEdit ? 'Elección actualizado' : 'Elección creado',
-                text: isEdit ? 'La elección ha sido actualizado correctamente.' : 'El serelecciónvicio ha sido creado correctamente.',
+                title: isEdit ? 'Elección actualizada' : 'Elección creada',
+                text: isEdit ? 'La elección ha sido actualizada correctamente.' : 'La elección ha sido creada correctamente.',
                 timer: 2000,
                 showConfirmButton: false,
                 allowEscapeKey: false,
@@ -87,7 +85,7 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
             <div className="mb-6 md:p-15 p-10">
                 <div className="flex items-center justify-between mb-6">
                     <h1 className="text-2xl font-semibold">
-                        {isEdit ? 'Editar Elección' : 'Crear Nuevo Elección'}
+                        {isEdit ? 'Editar Elección' : 'Crear Nueva Elección'}
                     </h1>
                     <Link href={route('cms.eleccion.index')}>
                         <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-300 text-white rounded">
@@ -113,14 +111,14 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
                     )}
                     
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre de la elección</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Título de la elección</label>
                         <input
                             type="text"
                             className="w-full border rounded px-3 py-2"
-                            value={data.eleccion}
-                            onChange={(e) => setData('eleccion', e.target.value)}
+                            value={data.title}  // ✅ Cambiado
+                            onChange={(e) => setData('title', e.target.value)}  // ✅ Cambiado
                         />
-                        {errors.eleccion && <div className="text-red-500 text-sm">{errors.eleccion}</div>}
+                        {errors.title && <div className="text-red-500 text-sm">{errors.title}</div>}
                     </div>
 
                     <div>
@@ -156,7 +154,6 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
                                 );
                             })}
                         </div>
-
 
                         {/* Previsualización */}
                         {data.icon && (

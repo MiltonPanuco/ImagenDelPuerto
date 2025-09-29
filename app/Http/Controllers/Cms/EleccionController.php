@@ -24,9 +24,19 @@ class EleccionController extends Controller
     /** Formulario para editar */
     public function edit(Eleccion $eleccion)
     {
-        $eleccion->color = 'bg-' . $eleccion->color . '-500'; // Agregar prefijo y sufijo para el color
+        // ✅ Convertir el modelo a array para evitar problemas con Inertia
+        $eleccionData = [
+            'id' => $eleccion->id,
+            'title' => $eleccion->title,
+            'icon' => $eleccion->icon,
+            'color' => 'bg-' . $eleccion->color . '-500', // Agregar prefijo y sufijo
+            'descripcion' => $eleccion->descripcion,
+            'caracteristicas' => $eleccion->caracteristicas ?? [],
+            'activo' => $eleccion->activo,
+        ];
+
         return Inertia::render('cms/eleccion/formEleccion', [
-            'eleccion' => $eleccion
+            'eleccion' => $eleccionData
         ]);
     }
 
@@ -54,15 +64,13 @@ class EleccionController extends Controller
 
         Log::info('Datos recibidos para actualizar eleccion ID '.$eleccion->id.': ', $data);
         try {
-            // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
+            // Si el color tiene el prefijo 'bg-', extraer solo el color
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }
+            
             $eleccion->update($data);
-            /**
-             * Regresar al formulario por si quiere seguir editando el mismo eleccion
-             * sweetalert le confirma que sí se actualizó
-             */
+            
             return back()->with('success', 'Elección actualizada correctamente');
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Error al actualizar la elección. '. $e->getMessage()])->withInput();
@@ -72,7 +80,17 @@ class EleccionController extends Controller
     /** Formulario para crear */
     public function create()
     {
-        return Inertia::render('cms/eleccion/formEleccion', ['eleccion' => new Eleccion()]);
+        // ✅ Pasar datos vacíos pero estructurados correctamente
+        return Inertia::render('cms/eleccion/formEleccion', [
+            'eleccion' => [
+                'title' => '',
+                'icon' => '',
+                'color' => '',
+                'descripcion' => '',
+                'caracteristicas' => [],
+                'activo' => false,
+            ]
+        ]);
     }
 
     /** Registrar eleccion */
@@ -104,7 +122,9 @@ class EleccionController extends Controller
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }
+            
             Eleccion::create($data);
+            
             return redirect()->route('cms.eleccion.index')->with('success', 'Elección creada correctamente');
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Error al crear la elección. '. $e->getMessage()])->withInput();

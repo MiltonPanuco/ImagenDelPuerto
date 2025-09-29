@@ -201,7 +201,8 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                                                 >
                                                     {IconComponent ? <IconComponent className="h-10 w-10 text-white" /> : null}
                                                 </div>
-                                                <h3 className="text-2xl font-medium text-slate-900 mb-4">{eleccion.eleccion}</h3>
+                                                {/* ✅ CAMBIADO: eleccion.eleccion -> eleccion.title */}
+                                                <h3 className="text-2xl font-medium text-slate-900 mb-4">{eleccion.title}</h3>
                                                 <p className="text-slate-600 leading-relaxed text-pretty">{eleccion.descripcion}</p>
                                             </CardContent>
                                         </Card>
