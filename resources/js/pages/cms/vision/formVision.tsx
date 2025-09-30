@@ -7,42 +7,26 @@ import * as LucideIcons from 'lucide-react';
 import TagsInput from '@/components/ui/TagsInput';
 import Swal from 'sweetalert2';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Servicios' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Visión' }];
 
-interface Servicio {
+interface Vision {
     id?: number;
-    servicio: string;
+    title: string;
     icon?: string;
     color: string;
-    categoria: string;
     descripcion: string;
-    caracteristicas: Array<string>;
     activo: boolean;
 }
 
-export default function FormServicio({ servicio }: { servicio: Servicio }) {
-    const [caracteristicas, setCaracteristicas] = useState<string[]>([]);
-    const isEdit = !!servicio?.id;
+export default function FormMision({ vision }: { vision : Vision }) {
+    const isEdit = !!vision?.id;
 
-    useEffect(() => {
-        setData('caracteristicas', caracteristicas);
-    }, [caracteristicas]);
-
-    /** Para mostrar etiquetas de las caracteristicas en bd */
-    useEffect(() => {
-        if (isEdit && servicio.caracteristicas) {
-            setCaracteristicas(servicio.caracteristicas);
-        }
-    }, [isEdit, servicio.caracteristicas]);
-
-    const { data, setData, post, put, processing, errors } = useForm<Servicio>({
-        servicio: servicio.servicio || '',
-        icon: servicio.icon || '',
-        color: servicio.color || '',
-        categoria: servicio.categoria || '',
-        descripcion: servicio.descripcion || '',
-        caracteristicas: servicio.caracteristicas || [],
-        activo: servicio.activo || false,
+    const { data, setData, post, put, processing, errors } = useForm<Vision>({
+        title: vision.title || '',
+        icon: vision.icon || '',
+        color: vision.color || '',
+        descripcion: vision.descripcion || '',
+        activo: vision.activo || false,
     });
 
     const [showError, setShowError] = useState(true);
@@ -59,8 +43,8 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
         const successCallback = () => {
             Swal.fire({
                 icon: 'success',
-                title: isEdit ? 'Servicio actualizado' : 'Servicio creado',
-                text: isEdit ? 'El servicio ha sido actualizado correctamente.' : 'El servicio ha sido creado correctamente.',
+                title: isEdit ? 'Visión actualizado' : 'Visión creado',
+                text: isEdit ? 'La Visión ha sido actualizado correctamente.' : 'La Visión ha sido creado correctamente.',
                 timer: 2000,
                 showConfirmButton: false,
                 allowEscapeKey: false,
@@ -70,11 +54,11 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
         };
 
         if (isEdit) {
-            put(route('cms.servicios.update', servicio.id), {
+            put(route('cms.vision.update', vision.id), {
                 onSuccess: successCallback,
             });
         } else {
-            post(route('cms.servicios.store'), {
+            post(route('cms.vision.store'), {
                 onSuccess: successCallback,
             });
         }
@@ -82,14 +66,14 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={isEdit ? 'Editar Servicio' : 'Crear Servicio'} />
+            <Head title={isEdit ? 'Editar Visión' : 'Crear Visión'} />
 
             <div className="mb-6 md:p-15 p-10">
                 <div className="flex items-center justify-between mb-6">
                     <h1 className="text-2xl font-semibold">
-                        {isEdit ? 'Editar Servicio' : 'Crear Nuevo Servicio'}
+                        {isEdit ? 'Editar Visión' : 'Crear Nueva Visión'}
                     </h1>
-                    <Link href={route('cms.servicios.index')}>
+                    <Link href={route('cms.vision.index')}>
                         <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-300 text-white rounded">
                             <LucideIcons.ArrowBigLeft className="w-4 h-4 mr-2" />
                             Regresar
@@ -112,14 +96,14 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                         </div>
                     )}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre del Servicio</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre de la Visión</label>
                         <input
                             type="text"
                             className="w-full border rounded px-3 py-2"
-                            value={data.servicio}
-                            onChange={(e) => setData('servicio', e.target.value)}
+                            value={data.vision}
+                            onChange={(e) => setData('vision', e.target.value)}
                         />
-                        {errors.servicio && <div className="text-red-500 text-sm">{errors.servicio}</div>}
+                        {errors.vision && <div className="text-red-500 text-sm">{errors.vision}</div>}
                     </div>
 
                     <div>
@@ -220,19 +204,6 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                         {errors.descripcion && <div className="text-red-500 text-sm">{errors.descripcion}</div>}
                     </div>
 
-                    <div>
-                        <TagsInput
-                            label="Características"
-                            value={caracteristicas}
-                            onChange={setCaracteristicas}
-                            placeholder="Escribe una característica y presiona Enter"
-                            maxTagLength={100}
-                            textButton="+"
-                            maxTags={30}
-                        />
-                        {errors.caracteristicas && <div className="text-red-500 text-sm">{errors.caracteristicas}</div>}
-                    </div>
-
                     <div className="flex items-center space-x-2">
                         <input
                             id="activo"
@@ -249,7 +220,7 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                             disabled={processing}
                             className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
                         >
-                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Servicio' : 'Crear Servicio'}
+                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Visión' : 'Crear Visión'}
                         </button>
                     </div>
                 </form>

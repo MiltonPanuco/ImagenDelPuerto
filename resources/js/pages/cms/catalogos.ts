@@ -1,5 +1,7 @@
 import { index as cmsServicios } from '@/routes/cms/servicios';
 import { index as cmsEleccion } from '@/routes/cms/eleccion';
+import { index as cmsMision } from '@/routes/cms/mision';
+
 import * as LucideIcons from 'lucide-react';
 
 export const secciones = [
@@ -14,6 +16,12 @@ export const secciones = [
         icon: LucideIcons.Shrink,
         color: 'blue',
         url: cmsEleccion.url(),
+    },
+    {
+        seccion: 'Mision',
+        icon: LucideIcons.Shrink,
+        color: 'blue',
+        url: cmsMision.url(),
     },
 ];
 
@@ -46,6 +54,7 @@ export const iconOptions = [
     'Users',
     'Award',
     'Zap',
+    'Eye',
     
 ];
 

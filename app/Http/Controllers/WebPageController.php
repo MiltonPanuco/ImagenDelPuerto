@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Eleccion;
 use App\Models\Servicio;
+use App\Models\Mision;
+use App\Models\Vision;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -17,13 +19,19 @@ class WebPageController extends Controller
 
         return Inertia::render('home', [
             'servicios' => $servicios,
-            'elecciones' => $elecciones
+            'elecciones' => $elecciones,
         ]);
     }
 
     public function about()
     {
-        return Inertia::render('about');
+        $mision = Mision::where('activo', true)->limit(3)->get();
+        $vision = Vision::where('activo', true)->limit(3)->get();
+
+        return Inertia::render('about', [
+            'mision' => $mision,
+            'vision' => $vision,
+        ]);
     }
 
     public function service()

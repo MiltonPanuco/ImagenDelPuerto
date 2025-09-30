@@ -82,9 +82,7 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                                         className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-500`}
                                     >
                                         <CardContent className="p-12 text-center">
-                                            <div
-                                                className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
-                                            >
+                                            <div className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
                                                 {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-500`} /> : null}
                                             </div>
                                             <h3 className="text-2xl font-light text-slate-900 mb-4">{servicio.servicio}</h3>

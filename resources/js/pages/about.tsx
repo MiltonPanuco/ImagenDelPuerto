@@ -5,6 +5,7 @@ import CarouselLayout from "@/layouts/carousel-layout"
 import FooterLayout from "@/layouts/footer-layout"
 
 import { Heart, Target, Eye, Stethoscope, Truck, Shield, Users, Award } from "lucide-react"
+import * as Icons from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
 const sliderAbout = [
@@ -25,8 +26,26 @@ const sliderAbout = [
     },
 ]
 
+interface Mision {
+    title: string
+    icon: keyof typeof Icons
+    color: string
+    descripcion: string
+}
 
-export default function AboutSection() {
+interface Vision {
+    title: string
+    icon: keyof typeof Icons
+    color: string
+    descripcion: string
+}
+
+interface AboutProps {
+    mision: Mision[]
+    vision: Vision[]
+}
+
+export default function AboutSection({ mision, vision }: AboutProps) {
     return (
 
         <NavbarLayout>
@@ -111,7 +130,7 @@ export default function AboutSection() {
                     </div>
                 </section>
 
-                {/* Mission & Vision Section */}
+                {/* Mision & Vision Section */}
                 <section className="py-32 bg-blue-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
@@ -124,35 +143,50 @@ export default function AboutSection() {
                         </div>
 
                         <div className="grid lg:grid-cols-2 gap-12 mb-20">
-                            {/* Mission */}
-                            <Card className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200">
-                                <CardContent className="p-12 text-center">
-                                    <div className="w-24 h-24 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                        <Target className="h-12 w-12 text-white" />
-                                    </div>
-                                    <h3 className="text-3xl font-medium text-slate-900 mb-6">Nuestra Misión</h3>
-                                    <p className="text-lg text-slate-600 leading-relaxed text-pretty">
-                                        Brindar servicios médicos especializados de alta calidad en la comodidad del hogar, eliminando
-                                        barreras de acceso y garantizando atención oportuna y profesional para toda la familia. Nos
-                                        comprometemos a ser el puente entre la tecnología médica avanzada y la calidez humana.
-                                    </p>
-                                </CardContent>
-                            </Card>
+
+                            {/* Mision */}
+                            {mision.map((mision, index) => {
+                                const IconComponent = Icons[mision.icon]
+
+                                return (
+                                    <Card
+                                        key={index}
+                                        className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200"
+                                    >
+                                        <CardContent className="p-12 text-center">
+                                            <div className={`w-24 h-24 bg-${mision.color}-600 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
+                                                {IconComponent ? <IconComponent className="h-12 w-12 text-white" /> : null}
+                                            </div>
+                                            <h3 className="text-3xl font-medium text-slate-900 mb-6">{mision.title}</h3>
+                                            <p className="text-lg text-slate-600 leading-relaxed text-pretty">
+                                                {mision.descripcion}
+                                            </p>
+                                        </CardContent>
+                                    </Card>
+                                )
+                            })}
 
                             {/* Vision */}
-                            <Card className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200">
-                                <CardContent className="p-12 text-center">
-                                    <div className="w-24 h-24 bg-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                                        <Eye className="h-12 w-12 text-white" />
-                                    </div>
-                                    <h3 className="text-3xl font-medium text-slate-900 mb-6">Nuestra Visión</h3>
-                                    <p className="text-lg text-slate-600 leading-relaxed text-pretty">
-                                        Ser la empresa líder en servicios médicos domiciliarios en la región, reconocida por nuestra
-                                        excelencia, innovación y compromiso con la salud comunitaria. Aspiramos a transformar la experiencia
-                                        de atención médica, haciendo que cada hogar sea un espacio de cuidado y bienestar.
-                                    </p>
-                                </CardContent>
-                            </Card>
+                            {vision.map((vision, index) => {
+                                const IconComponent = Icons[vision.icon]
+
+                                return (
+                                    <Card
+                                        key={index}
+                                        className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200"
+                                    >
+                                        <CardContent className="p-12 text-center">
+                                            <div className={`w-24 h-24 bg-${vision.color}-500 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
+                                                {IconComponent ? <IconComponent className="h-12 w-12 text-white" /> : null}
+                                            </div>
+                                            <h3 className="text-3xl font-medium text-slate-900 mb-6">{vision.title}</h3>
+                                            <p className="text-lg text-slate-600 leading-relaxed text-pretty">
+                                                {vision.descripcion}
+                                            </p>
+                                        </CardContent>
+                                    </Card>
+                                )
+                            })}
                         </div>
                     </div>
                 </section>
