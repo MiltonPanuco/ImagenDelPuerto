@@ -7,14 +7,14 @@ import { dashboard } from '@/routes';
 import { index as cmsServicios } from '@/routes/cms/servicios';
 import { index as cmsEleccion} from '@/routes/cms/eleccion';
 import { index as cmsMision} from '@/routes/cms/mision';
-import { index as cmsVision} from '@/routes/cms/vision';
+import { index as cmsVision } from '@/routes/cms/vision';
 import { index as cmsOfrecemos} from '@/routes/cms/ofrecemos';
+import { index as cmsGaleriaRecuerdos } from '@/routes/cms/galeria/recuerdos';
 
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Shrink, LayoutGrid, BookUser, Target, Eye, Hand, } from 'lucide-react';
+import { Shrink, LayoutGrid, BookUser, Target, Eye, Image, Hand } from 'lucide-react';
 import AppLogo from './app-logo';
-import cms from '@/routes/cms';
 
 const homeItems: NavItem[] = [
     {
@@ -47,6 +47,14 @@ const aboutItems: NavItem[] = [
     }
 ];
 
+const GalleryItems: NavItem[] = [
+    {
+        title: 'Carrusel / Recuerdos',
+        icon: Image,
+        href: cmsGaleriaRecuerdos(),
+    },
+];
+
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
@@ -55,17 +63,18 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Inicio',
-        icon: Shrink,
-        href: "#",
         type: 'label',
         children: homeItems,
     },
     {
         title: 'About Us',
-        icon: Target,
-        href: "#",
         type: 'label',
         children: aboutItems,
+    },
+    {
+        title: 'Gallery',
+        type: 'label',
+        children: GalleryItems,
     },
 ];
 
