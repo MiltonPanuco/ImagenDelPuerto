@@ -11,17 +11,17 @@ import { Card, CardContent } from "@/components/ui/card"
 
 const sliderService = [
     {
-        image: "",
+        image: "storage/service/carrusel1.jpg",
         title: "Rayos X",
         description: "Tu centro de confianza para radiografías especializadas",
     },
     {
-        image: "",
+        image: "storage/service/carrusel2.jpg",
         title: "Electrocardiogramas",
         description: "Monitoreo preciso de tu corazón para un diagnóstico seguro",
     },
     {
-        image: "",
+        image: "storage/service/carrusel3.jpg",
         title: "Equipo Médico",
         description: "Tecnología de calidad para el cuidado y bienestar de tu salud",
     },
@@ -150,10 +150,11 @@ export default function ServicesSection() {
             title: "Rayos X",
             subtitle: "Estudios Radiológicos Completos",
             images: [
-                "/portable-x-ray-machine-in-medical-setting.jpg",
-                "/chest-x-ray-being-taken-at-home.jpg",
-                "/digital-x-ray-equipment-portable.jpg",
-                "/x-ray-technician-with-portable-equipment.jpg",
+                "storage/service/rx1.jpg",
+                "storage/service/rx2.jpg",
+                "storage/service/rx3.jpg",
+                "storage/service/rx4.jpg",
+                "storage/service/rx5.jpg",
             ],
             description:
                 "Realizamos estudios radiológicos de tórax, abdomen, extremidades y columna vertebral con equipos portátiles de última generación.",
@@ -175,10 +176,10 @@ export default function ServicesSection() {
             title: "Electrocardiogramas",
             subtitle: "Monitoreo Cardíaco Profesional",
             images: [
-                "/ecg-electrocardiogram-machine-portable.jpg",
-                "/patient-getting-ecg-test-at-home.jpg",
-                "/digital-ecg-monitor-12-lead.jpg",
-                "/holter-monitor-cardiac-device.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
             ],
             description:
                 "Evaluación completa de la actividad eléctrica del corazón con electrocardiógrafos digitales de 12 derivaciones.",
@@ -203,10 +204,10 @@ export default function ServicesSection() {
             title: "Bombas de Infusión",
             subtitle: "Administración Precisa de Medicamentos",
             images: [
-                "/medical-infusion-pump-iv-drip.jpg",
-                "/programmable-infusion-pump-hospital-grade.jpg",
-                "/portable-iv-infusion-pump-with-display.jpg",
-                "/infusion-pump-setup-home-care.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
             ],
             description:
                 "Bombas de infusión programables para administración controlada de medicamentos, sueros y nutrición parenteral.",
@@ -229,10 +230,10 @@ export default function ServicesSection() {
             title: "Camas de Hospital",
             subtitle: "Confort y Funcionalidad Médica",
             images: [
-                "/storage/app/public/service/camilla-1.jpeg",
-                "/storage/app/public/service/camilla-2.jpeg",
-                "/storage/app/public/service/camilla-3.jpeg",
-                "/storage/app/public/service/camilla-4.jpeg",
+                "storage/service/camilla-1.jpeg",
+                "storage/service/camilla-2.jpeg",
+                "storage/service/camilla-3.jpeg",
+                "storage/service/camilla-4.jpeg",
             ],
             description:
                 "Camas hospitalarias eléctricas y manuales con colchones antiescaras. Diseñadas para brindar comodidad al paciente.",
@@ -255,10 +256,10 @@ export default function ServicesSection() {
             title: "Eleva Piernas",
             subtitle: "Mejora la Circulación y Comodidad",
             images: [
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
             ],
             description:
                 "Dispositivos ergonómicos para elevación de extremidades inferiores, ideales para problemas circulatorios.",
@@ -281,10 +282,10 @@ export default function ServicesSection() {
             title: "Muletas",
             subtitle: "Apoyo Seguro para la Movilidad",
             images: [
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
             ],
             description:
                 "Muletas axilares y de antebrazo en diferentes tamaños, fabricadas con materiales ligeros y resistentes.",
@@ -307,11 +308,11 @@ export default function ServicesSection() {
             title: "Concentradores de Oxígeno",
             subtitle: "Oxigenoterapia Domiciliaria Confiable",
             images: [
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-            ],
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                ],
             description:
                 "Concentradores de oxígeno de alta eficiencia para terapia respiratoria continua. Equipos silenciosos con alarmas.",
             features: [
@@ -333,10 +334,10 @@ export default function ServicesSection() {
             title: "Sillas de Ruedas",
             subtitle: "Movilidad e Independencia",
             images: [
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
-                "/placeholder.svg?height=300&width=400",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
             ],
             description:
                 "Sillas de ruedas manuales y eléctricas para diferentes necesidades de movilidad. Desde modelos básicos hasta especializadas.",
@@ -372,16 +373,16 @@ export default function ServicesSection() {
                 {/* Hero Services Section */}
                 <section className="min-h-screen bg-white flex items-center justify-center">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
+                        <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                             Nuestros Servicios
                         </div>
-                        <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 text-balance">
+                        <h1 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
                             Equipos médicos y
-                            <span className="block font-normal text-emerald-600">
+                            <span className="block font-semibold text-emerald-600">
                                 estudios especializados
                             </span>
                         </h1>
-                        <p className="text-xl text-slate-600 text-pretty font-light leading-relaxed max-w-4xl mx-auto">
+                        <p className="text-xl text-slate-600 text-pretty leading-relaxed max-w-4xl mx-auto">
                             Ofrecemos una amplia gama de servicios médicos domiciliarios, renta y venta de
                             equipo especializado. Cada servicio está respaldado por profesionales
                             certificados y tecnología de vanguardia para garantizar la mejor atención
@@ -395,14 +396,14 @@ export default function ServicesSection() {
                 <section className="py-32 bg-blue-50" id="services">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
+                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                                 Estudios Diagnósticos
                             </div>
-                            <h2 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 text-balance">
+                            <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
                                 Diagnósticos precisos
-                                <span className="block font-normal text-emerald-600">en tu hogar</span>
+                                <span className="block font-semibold text-emerald-600">en tu hogar</span>
                             </h2>
-                            <p className="text-xl text-slate-600 mb-16 text-pretty font-light leading-relaxed max-w-3xl mx-auto">
+                            <p className="text-xl text-slate-600 mb-16 text-pretty leading-relaxed max-w-3xl mx-auto">
                                 Realizamos estudios médicos especializados con la misma calidad y precisión que encontrarías en cualquier
                                 hospital, pero en la comodidad de tu casa.
                             </p>
@@ -486,14 +487,14 @@ export default function ServicesSection() {
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20" id="products">
-                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
+                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                                 Renta de Equipo Médico
                             </div>
-                            <h2 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 text-balance">
+                            <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
                                 Todo el equipo que
-                                <span className="block font-normal text-emerald-600">necesitas</span>
+                                <span className="block font-semibold text-emerald-600">necesitas</span>
                             </h2>
-                            <p className="text-xl text-slate-600 mb-16 text-pretty font-light leading-relaxed max-w-3xl mx-auto">
+                            <p className="text-xl text-slate-600 mb-16 text-pretty leading-relaxed max-w-3xl mx-auto">
                                 Contamos con el equipo médico más completo para cuidados domiciliarios, rehabilitación y tratamientos
                                 especializados. Todos nuestros equipos están certificados y reciben mantenimiento regular.
                             </p>
@@ -508,23 +509,7 @@ export default function ServicesSection() {
                                     <CardContent className="p-0">
                                         {/* Image section */}
                                         <div className="relative p-4 pb-2">
-                                            <div className="relative">
-                                                <ImageCarouselEquipment images={equipment.images} title={equipment.title} />
-                                                <div className="absolute top-3 right-3 z-20">
-                                                    <div
-                                                        className={`flex items-center space-x-1 px-3 py-1.5 rounded-full text-xs font-medium shadow-lg backdrop-blur-sm ${equipment.availability === "Disponible"
-                                                            ? "bg-emerald-500/90 text-white"
-                                                            : "bg-orange-500/90 text-white"
-                                                            }`}
-                                                    >
-                                                        <div
-                                                            className={`w-2 h-2 rounded-full ${equipment.availability === "Disponible" ? "bg-white" : "bg-white"
-                                                                }`}
-                                                        ></div>
-                                                        <span>{equipment.availability}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <ImageCarouselEquipment images={equipment.images} title={equipment.title} />
                                         </div>
 
                                         {/* Content section */}

@@ -69,7 +69,9 @@ export default function ModernCarousel({ slides = [] }: ModernCarouselProps) {
                         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                         style={{ backgroundImage: `url(${slide.image})` }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-blue-900/40 to-transparent" />
+                    {/* Overlay negro oscuro */}
+                    <div className="absolute inset-0 bg-black/50" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-blue-900/20 to-transparent" />
                     <div className="absolute inset-0 flex items-center justify-center text-center p-8 md:p-12">
                         <div className="max-w-4xl">
                             <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight leading-none font-sans">

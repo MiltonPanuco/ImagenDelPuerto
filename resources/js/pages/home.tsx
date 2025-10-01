@@ -17,17 +17,17 @@ const getRandomTestimonials = () => {
 
 const sliderHome = [
     {
-        image: "",
+        image: "storage/home/carrusel1.jpg",
         title: "Imagen del Puerto",
         description: "Tu salud y comodidad, nuestra prioridad",
     },
     {
-        image: "",
+        image: "storage/home/carrusel2.jpg",
         title: "Cuidado al Alcance",
         description: "Resuelve tus dudas y accede a nuestros servicios de salud sin complicaciones, rápido y seguro.",
     },
     {
-        image: "",
+        image: "storage/home/carrusel3.jpg",
         title: "Bienestar para ti",
         description: "Explora consejos, recomendaciones y acompañamiento médico que se adaptan a tu estilo de vida.",
     },
@@ -63,12 +63,12 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
+                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                                 Nuestros servicios
                             </div>
-                            <h2 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 text-balance">
+                            <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
                                 Excelencia en cada
-                                <span className="block font-normal text-blue-600">diagnóstico</span>
+                                <span className="block font-semibold text-blue-600">diagnóstico</span>
                             </h2>
                         </div>
 
@@ -82,10 +82,12 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                                         className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-500`}
                                     >
                                         <CardContent className="p-12 text-center">
-                                            <div className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
+                                            <div
+                                                className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
+                                            >
                                                 {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-500`} /> : null}
                                             </div>
-                                            <h3 className="text-2xl font-light text-slate-900 mb-4">{servicio.servicio}</h3>
+                                            <h3 className="text-2xl font-semibold text-slate-900 mb-4">{servicio.servicio}</h3>
                                             <h4 className={`text-lg font-medium text-${servicio.color}-500 mb-6`}>{servicio.categoria}</h4>
                                             <p className="text-slate-600 leading-relaxed mb-8 text-pretty">{servicio.descripcion}</p>
                                             <div className="space-y-3 text-left">
@@ -107,12 +109,12 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                 <section className="py-32 bg-blue-50 overflow-hidden relative">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
+                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                                 Testimonios
                             </div>
-                            <h2 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 text-balance">
+                            <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
                                 Confianza que
-                                <span className="block font-normal text-emerald-600">trasciende</span>
+                                <span className="block font-semibold text-emerald-600">trasciende</span>
                             </h2>
                         </div>
 
@@ -138,7 +140,7 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                                                 </p>
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                                                        <span className="text-white font-medium text-sm">
+                                                        <span className="text-white font-semibold text-sm">
                                                             {testimonial.name
                                                                 .split(" ")
                                                                 .map((n) => n[0])
@@ -146,7 +148,7 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                                                         </span>
                                                     </div>
                                                     <div>
-                                                        <p className="font-medium text-slate-900">{testimonial.name}</p>
+                                                        <p className="font-semibold text-slate-900">{testimonial.name}</p>
                                                         <p className="text-sm text-slate-600">{testimonial.role}</p>
                                                     </div>
                                                 </div>
@@ -162,14 +164,14 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-medium text-blue-600 uppercase tracking-wider mb-4">
+                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                                 Por qué elegirnos
                             </div>
-                            <h2 className="text-5xl md:text-6xl font-light text-slate-900 mb-8 text-balance">
+                            <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-8 text-balance">
                                 Innovación al
-                                <span className="block font-normal text-emerald-600">servicio de tu salud</span>
+                                <span className="block font-semibold text-emerald-600">servicio de tu salud</span>
                             </h2>
-                            <p className="text-xl text-slate-600 mb-16 text-pretty font-light leading-relaxed max-w-3xl mx-auto">
+                            <p className="text-xl text-slate-600 mb-16 text-pretty leading-relaxed max-w-3xl mx-auto">
                                 Combinamos tecnología médica de vanguardia con un enfoque humano excepcional para brindarte la mejor
                                 atención médica.
                             </p>
@@ -188,10 +190,19 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                                         teal: "bg-teal-600",
                                     }
 
+                                    const hoverBorderClasses = {
+                                        blue: "hover:border-blue-500",
+                                        emerald: "hover:border-emerald-500",
+                                        amber: "hover:border-amber-500",
+                                        red: "hover:border-red-500",
+                                        purple: "hover:border-purple-500",
+                                        teal: "hover:border-teal-500",
+                                    }
+
                                     return (
                                         <Card
                                             key={index}
-                                            className="group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-300"
+                                            className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 ${hoverBorderClasses[eleccion.color] || "hover:border-blue-500"}`}
                                         >
                                             <CardContent className="p-8 text-center">
                                                 <div
@@ -199,8 +210,7 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                                                 >
                                                     {IconComponent ? <IconComponent className="h-10 w-10 text-white" /> : null}
                                                 </div>
-                                                {/* ✅ CAMBIADO: eleccion.eleccion -> eleccion.title */}
-                                                <h3 className="text-2xl font-medium text-slate-900 mb-4">{eleccion.title}</h3>
+                                                <h3 className="text-2xl font-semibold text-slate-900 mb-4">{eleccion.title}</h3>
                                                 <p className="text-slate-600 leading-relaxed text-pretty">{eleccion.descripcion}</p>
                                             </CardContent>
                                         </Card>
