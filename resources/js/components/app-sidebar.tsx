@@ -8,10 +8,11 @@ import { index as cmsServicios } from '@/routes/cms/servicios';
 import { index as cmsEleccion} from '@/routes/cms/eleccion';
 import { index as cmsMision} from '@/routes/cms/mision';
 import { index as cmsVision} from '@/routes/cms/vision';
+import { index as cmsOfrecemos} from '@/routes/cms/ofrecemos';
 
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Shrink, LayoutGrid, BookUser, Target, Eye } from 'lucide-react';
+import { Shrink, LayoutGrid, BookUser, Target, Eye, Hand, } from 'lucide-react';
 import AppLogo from './app-logo';
 import cms from '@/routes/cms';
 
@@ -38,6 +39,11 @@ const aboutItems: NavItem[] = [
         title: 'Vision',
         icon: Eye,
         href: cmsVision(),
+    },
+    {
+        title: 'Ofrecemos',
+        icon: Hand,
+        href: cmsOfrecemos(),
     }
 ];
 

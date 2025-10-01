@@ -4,6 +4,8 @@ use App\Http\Controllers\Cms\EleccionController;
 use App\Http\Controllers\Cms\ServicioController;
 use App\Http\Controllers\Cms\MisionController;
 use App\Http\Controllers\Cms\VisionController;
+use App\Http\Controllers\Cms\OfrecemosController;
+use App\Http\Controllers\Cms\DataController;
 
 use App\Http\Controllers\WebPageController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,14 @@ Route::middleware('auth')->group(function () {
     /** Vision */
     Route::resource('admin/vision', VisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.vision');
     Route::patch('admin/vision/{vision}/activo', [VisionController::class, 'toggleActivo'])->name('cms.vision.activo');
+
+    /** Ofrecemos */
+    Route::resource('admin/ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
+    Route::patch('admin/ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
+
+    /** Ofrecemos */
+    Route::resource('admin/ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
+    Route::patch('admin/ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
 
 });
 

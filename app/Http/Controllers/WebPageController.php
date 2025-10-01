@@ -6,6 +6,7 @@ use App\Models\Eleccion;
 use App\Models\Servicio;
 use App\Models\Mision;
 use App\Models\Vision;
+use App\Models\Ofrecemos;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -25,12 +26,14 @@ class WebPageController extends Controller
 
     public function about()
     {
-        $mision = Mision::where('activo', true)->limit(3)->get();
-        $vision = Vision::where('activo', true)->limit(3)->get();
+        $mision = Mision::where('activo', true)->limit(1)->get();
+        $vision = Vision::where('activo', true)->limit(1)->get();
+        $ofrecemos = Ofrecemos::where('activo', true)->limit(4)->get();
 
         return Inertia::render('about', [
             'mision' => $mision,
             'vision' => $vision,
+            'ofrecemos' => $ofrecemos,
         ]);
     }
 

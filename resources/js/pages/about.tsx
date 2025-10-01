@@ -40,12 +40,20 @@ interface Vision {
     descripcion: string
 }
 
+interface Ofrecemos {
+    title: string
+    icon: keyof typeof Icons
+    color: string
+    descripcion: string
+}
+
 interface AboutProps {
     mision: Mision[]
     vision: Vision[]
+    ofrecemos: Ofrecemos[]
 }
 
-export default function AboutSection({ mision, vision }: AboutProps) {
+export default function AboutSection({ mision, vision, ofrecemos }: AboutProps) {
     return (
 
         <NavbarLayout>
@@ -209,53 +217,24 @@ export default function AboutSection({ mision, vision }: AboutProps) {
                         </div>
 
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {[
-                                {
-                                    icon: Stethoscope,
-                                    title: "Rayos X",
-                                    description: "Estudios radiológicos completos en la comodidad de tu hogar",
-                                    color: "bg-blue-600",
-                                    bgColor: "bg-blue-50",
-                                    hoverColor: "hover:bg-blue-100",
-                                },
-                                {
-                                    icon: Heart,
-                                    title: "Electrocardiogramas",
-                                    description: "Monitoreo cardíaco profesional con equipos de última generación",
-                                    color: "bg-emerald-600",
-                                    bgColor: "bg-emerald-50",
-                                    hoverColor: "hover:bg-emerald-100",
-                                },
-                                {
-                                    icon: Truck,
-                                    title: "Renta de Equipo",
-                                    description: "Sillas de ruedas, muletas, camillas y más equipo médico",
-                                    color: "bg-pink-600",
-                                    bgColor: "bg-pink-50",
-                                    hoverColor: "hover:bg-pink-100",
-                                },
-                                {
-                                    icon: Shield,
-                                    title: "Atención 24/7",
-                                    description: "Disponibles para emergencias y citas programadas",
-                                    color: "bg-purple-600",
-                                    bgColor: "bg-purple-50",
-                                    hoverColor: "hover:bg-purple-100",
-                                },
-                            ].map((service, index) => (
-                                <div
-                                    key={index}
-                                    className={`text-center p-8 rounded-3xl ${service.bgColor} ${service.hoverColor} transition-all duration-300 group hover:scale-105`}
-                                >
+                            {ofrecemos.map((ofrecemos, index) => {
+                                const IconComponent = Icons[ofrecemos.icon]
+
+                                return (
                                     <div
-                                        className={`w-20 h-20 ${service.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
+                                        key={index}
+                                        className={`text-center p-8 rounded-3xl bg-${ofrecemos.color}-50 hover:bg-${ofrecemos.color}-100 transition-all duration-300 group hover:scale-105`}
                                     >
-                                        <service.icon className="h-10 w-10 text-white" />
+                                        <div
+                                            className={`w-20 h-20 bg-${ofrecemos.color}-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
+                                        >
+                                            {IconComponent ? <IconComponent className="h-10 w-10 text-white" /> : null}
+                                        </div>
+                                        <h3 className="text-xl font-medium text-slate-900 mb-4">{ofrecemos.title}</h3>
+                                        <p className="text-slate-600 text-sm leading-relaxed text-pretty">{ofrecemos.descripcion}</p>
                                     </div>
-                                    <h3 className="text-xl font-medium text-slate-900 mb-4">{service.title}</h3>
-                                    <p className="text-slate-600 text-sm leading-relaxed text-pretty">{service.description}</p>
-                                </div>
-                            ))}
+                                )
+                            })}
                         </div>
                     </div>
                 </section>
