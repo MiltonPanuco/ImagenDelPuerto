@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cms\EleccionController;
+use App\Http\Controllers\Cms\Galeria\GaleriaRecuerdosController;
 use App\Http\Controllers\Cms\ServicioController;
 use App\Http\Controllers\Cms\MisionController;
 use App\Http\Controllers\Cms\VisionController;
@@ -20,36 +21,41 @@ Route::get('/contact', [WebPageController::class, 'contact'])->name('contact');
 
 /** CMS */
 Route::middleware('auth')->group(function () {
-    Route::get('admin/dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::group(['prefix' => 'admin'], function () {
+         Route::get('dashboard', function () {
+            return Inertia::render('dashboard');
+        })->name('dashboard');
 
 
-    /** HOME  */
+        /** HOME  */
 
-    /** Servicios */
-    Route::resource('admin/servicios', ServicioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios');
-    Route::patch('admin/servicios/{servicio}/activo', [ServicioController::class, 'toggleActivo'])->name('cms.servicios.activo');
+        /** Servicios */
+        Route::resource('servicios', ServicioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios');
+        Route::patch('servicios/{servicio}/activo', [ServicioController::class, 'toggleActivo'])->name('cms.servicios.activo');
 
-    /** Elecciones */
-    Route::resource('admin/eleccion', EleccionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.eleccion');
-    Route::patch('admin/eleccion/{eleccion}/activo', [EleccionController::class, 'toggleActivo'])->name('cms.eleccion.activo');
+        /** Elecciones */
+        Route::resource('eleccion', EleccionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.eleccion');
+        Route::patch('eleccion/{eleccion}/activo', [EleccionController::class, 'toggleActivo'])->name('cms.eleccion.activo');
 
 
-    /** ABOUT  */
+        /** ABOUT  */
 
-    /** Misión */
-    Route::resource('admin/mision', MisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.mision');
-    Route::patch('admin/mision/{mision}/activo', [MisionController::class, 'toggleActivo'])->name('cms.mision.activo');
+        /** Misión */
+        Route::resource('mision', MisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.mision');
+        Route::patch('mision/{mision}/activo', [MisionController::class, 'toggleActivo'])->name('cms.mision.activo');
 
-    /** Vision */
-    Route::resource('admin/vision', VisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.vision');
-    Route::patch('admin/vision/{vision}/activo', [VisionController::class, 'toggleActivo'])->name('cms.vision.activo');
+        /** Vision */
+        Route::resource('vision', VisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.vision');
+        Route::patch('vision/{vision}/activo', [VisionController::class, 'toggleActivo'])->name('cms.vision.activo');
 
-    /** Ofrecemos */
-    Route::resource('admin/ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
-    Route::patch('admin/ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
+        /** Ofrecemos */
+        Route::resource('admin/ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
+        Route::patch('admin/ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
 
+        /** GALLERY */
+        Route::resource('galeria/recuerdos', GaleriaRecuerdosController::class)->only(['index', 'create', 'store', 'update', 'destroy'])->names('cms.galeria.recuerdos');
+        Route::patch('galeria/recuerdos/{id}/{field}', [GaleriaRecuerdosController::class, 'updateField'])->name('cms.galeria.recuerdos.field');
+    });
 });
 
 require __DIR__.'/auth.php';

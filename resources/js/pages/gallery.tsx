@@ -8,26 +8,7 @@ import { useState } from "react"
 import { Heart, Stethoscope, ChevronLeft, ChevronRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-
-const sliderGallery = [
-    {
-        image: "storage/gallery/carrusel-1.jpg",
-        title: "Recuerdos Digitales",
-        description: "Guardamos y atesoramos cada momento siempre.",
-    },
-    {
-        image: "storage/gallery/carrusel-2.jpg",
-        title: "Nuestro Equipo",
-        description: "Contamos con tecnología de última generación para garantizar la mejor calidad en cada captura.",
-    },
-    {
-        image: "storage/gallery/carrusel-3.jpg",
-        title: "Tu salud y comodidad",
-        description: "Nuestra prioridad",
-    }
-]
-
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 const xrayTools = [
     {
@@ -77,65 +58,26 @@ const ekgTools = [
     },
 ]
 
-const digitalMemories = [
-    {
-        id: 1,
-        image: "storage/gallery/recuerdos-1.jpg",
-        title: "Servicio a Domicilio",
-        date: "Noviembre 2024",
-    },
-    {
-        id: 2,
-        image: "storage/gallery/recuerdos-2.jpg",
-        title: "Servicio a Domicilio",
-        date: "Diciembre 2024",
-    },
-    {
-        id: 3,
-        image: "storage/gallery/recuerdos-3.jpg",
-        title: "Atendemos a tus mascotas",
-        date: "2025",
-    },
-    {
-        id: 4,
-        image: "storage/gallery/recuerdos-4.jpeg",
-        title: "Atención Personalizada",
-        date: "Marzo 2025",
-    },
-    {
-        id: 5,
-        image: "storage/gallery/recuerdos-5.jpeg",
-        title: "Profesionalismo",
-        date: "Abril 2025",
-    },
-    {
-        id: 6,
-        image: "storage/gallery/recuerdos-6.jpeg",
-        title: "Atención Animales",
-        date: "Mayo 2025",
-    },
-    {
-        id: 7,
-        image: "storage/gallery/recuerdos-7.jpeg",
-        title: "Consulta Domiciliaria",
-        date: "Enero 2025",
-    },
-    {
-        id: 8,
-        image: "storage/gallery/recuerdos-8.jpg",
-        title: "Equipos Avanzados",
-        date: "Enero 2025",
-    },
-    {
-        id: 9,
-        image: "storage/gallery/recuerdos-9.jpg",
-        title: "Cuidado Animal",
-        date: "Julio 2024",
-    },
-]
+interface DigitalMemory {
+    id: number,
+    image: string,
+    title: string,
+    date: string,
+}
 
-export default function MedicalGallery() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+interface Slide {
+    image: string,
+    title: string,
+    description: string,
+}
+
+interface GalleryProps {
+    digitalMemories: DigitalMemory[]
+    sliderGallery: Slide[]
+}
+
+export default function MedicalGallery({ digitalMemories, sliderGallery }: GalleryProps) {
+
     const [showAllMemories, setShowAllMemories] = useState(false)
     const [selectedImageIndex, setSelectedImageIndex] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -356,6 +298,8 @@ export default function MedicalGallery() {
 
                 <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
                     <DialogContent className="max-w-[98vw] sm:max-w-7xl w-full p-0 bg-black/95 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden max-h-[98vh] shadow-2xl">
+                        <DialogTitle className=""></DialogTitle>
+                        <DialogDescription className="sr-only"></DialogDescription>
                         <div className="relative">
                             <button onClick={() => navigateImage("prev")} className="absolute left-6 top-1/2 -translate-y-1/2 z-50 w-14 h-14 bg-white/5 backdrop-blur-md hover:bg-white/15 border border-white/10 rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group">
                                 <ChevronLeft className="h-7 w-7 text-white group-hover:text-white/90 transition-colors duration-200" />
@@ -369,6 +313,7 @@ export default function MedicalGallery() {
                                 <img
                                     src={currentImage?.image || "/placeholder.svg"}
                                     alt={currentImage?.title}
+                                    loading="lazy"
                                     className={`w-full h-auto max-h-[85vh] object-contain rounded-3xl transition-all duration-300 ${imageTransitioning ? "opacity-50 scale-95" : "opacity-100 scale-100"
                                         }`}
                                 />

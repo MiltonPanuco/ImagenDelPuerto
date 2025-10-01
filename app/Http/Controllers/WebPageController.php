@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleccion;
+use App\Models\GaleriaRecuerdo;
 use App\Models\Servicio;
 use App\Models\Mision;
 use App\Models\Vision;
 use App\Models\Ofrecemos;
-
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 
 class WebPageController extends Controller
 {
@@ -44,7 +44,24 @@ class WebPageController extends Controller
 
     public function gallery()
     {
-        return Inertia::render('gallery');
+        $galeria = GaleriaRecuerdo::where('activo', true)->where('carrete', false)
+            ->select('id', 'title', 'date', 'src as image')
+            ->get();
+
+        $carrusel = GaleriaRecuerdo::where('activo', true)->where('carrete', true)
+            ->select('title', 'src as image', 'descripcion as description')
+            ->limit(5)
+            ->get();
+        $galeria->each(function ($item) {
+            $item->image = Storage::url($item->image);
+        });
+        $carrusel->each(function ($item) {
+            $item->image = Storage::url($item->image);
+        });
+        return Inertia::render('gallery', [
+            'digitalMemories' => $galeria,
+            'sliderGallery' => $carrusel,
+        ]);
     }
 
     public function contact()
