@@ -5,58 +5,12 @@ import CarouselLayout from "@/layouts/carousel-layout"
 import FooterLayout from "@/layouts/footer-layout"
 
 import { useState } from "react"
-import { Heart, Stethoscope, ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import * as Icons from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-
-const xrayTools = [
-    {
-        id: 1,
-        name: "Equipo de Rayos X Portátil",
-        description: "Sistema de radiografía digital de alta resolución para estudios domiciliarios",
-        image: "https://i.pinimg.com/736x/bc/88/c3/bc88c3c151b95ffecad0829d92c5aef6.jpg",
-        specs: ["Resolución: 3000x3000 DPI", "Peso: 15kg", "Batería: 8 horas"],
-    },
-    {
-        id: 2,
-        name: "Detector Digital",
-        description: "Panel detector inalámbrico para captura instantánea de imágenes",
-        image: "https://i.pinimg.com/736x/bc/88/c3/bc88c3c151b95ffecad0829d92c5aef6.jpg",
-        specs: ["Tamaño: 35x43cm", "Resolución: 150μm", "Conexión: WiFi"],
-    },
-    {
-        id: 3,
-        name: "Chasis Radiográfico",
-        description: "Sistema de protección y posicionamiento para estudios precisos",
-        image: "https://i.pinimg.com/736x/bc/88/c3/bc88c3c151b95ffecad0829d92c5aef6.jpg",
-        specs: ["Material: Fibra de carbono", "Tamaños: 18x24, 24x30cm", "Peso: 2kg"],
-    },
-]
-
-const ekgTools = [
-    {
-        id: 1,
-        name: "Electrocardiógrafo 12 Derivaciones",
-        description: "Monitor cardíaco profesional con análisis automático e interpretación",
-        image: "https://i.pinimg.com/736x/bc/88/c3/bc88c3c151b95ffecad0829d92c5aef6.jpg",
-        specs: ["12 derivaciones", 'Pantalla táctil 10"', "Impresora térmica"],
-    },
-    {
-        id: 2,
-        name: "Electrodos Desechables",
-        description: "Electrodos de alta conductividad para estudios cardíacos precisos",
-        image: "https://i.pinimg.com/736x/bc/88/c3/bc88c3c151b95ffecad0829d92c5aef6.jpg",
-        specs: ["Gel conductor", "Adhesivo hipoalergénico", "Pack 100 unidades"],
-    },
-    {
-        id: 3,
-        name: "Monitor Holter 24h",
-        description: "Sistema de monitoreo cardíaco continuo para estudios prolongados",
-        image: "https://i.pinimg.com/736x/bc/88/c3/bc88c3c151b95ffecad0829d92c5aef6.jpg",
-        specs: ["Grabación 24-48h", "Memoria 1GB", "Análisis automático"],
-    },
-]
 
 interface DigitalMemory {
     id: number,
@@ -71,12 +25,33 @@ interface Slide {
     description: string,
 }
 
+interface Equipo {
+    id: number,
+    id_galeria_equipamiento: number,
+    icon: keyof typeof Icons,
+    servicio: string,
+    descripcion: string,
+    caracteristicas: string[],
+    image: string,
+    color: string
+}
+
+interface Equipamiento {
+    id: number,
+    categoria: string,
+    titulo: string,
+    subtitulo: string,
+    descripcion: string,
+    equipos: Equipo[]
+}
+
 interface GalleryProps {
     digitalMemories: DigitalMemory[]
     sliderGallery: Slide[]
+    secciones: Equipamiento[]
 }
 
-export default function MedicalGallery({ digitalMemories, sliderGallery }: GalleryProps) {
+export default function MedicalGallery({ digitalMemories, sliderGallery, secciones }: GalleryProps) {
 
     const [showAllMemories, setShowAllMemories] = useState(false)
     const [selectedImageIndex, setSelectedImageIndex] = useState(0)
@@ -139,102 +114,61 @@ export default function MedicalGallery({ digitalMemories, sliderGallery }: Galle
                     </div>
                 </section>
 
-                {/* X-Ray Tools Section */}
-                <section id="xray" className="py-32 bg-blue-50">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
-                                Equipos de Diagnóstico
+                {secciones.map((seccion, idx) => (
+                    <section key={idx} className={`py-32 ${idx % 2 === 0 ? "bg-blue-50" : "bg-white"}`}>
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center mb-20">
+                                <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
+                                    {seccion.categoria}
+                                </div>
+                                <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
+                                    {seccion.titulo}<span className="block font-semibold text-emerald-600">{seccion.subtitulo}</span>
+                                </h2>
+                                <p className="text-xl text-slate-600 mb-16 text-pretty leading-relaxed max-w-3xl mx-auto">
+                                    {seccion.descripcion}
+                                </p>
                             </div>
-                            <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
-                                Rayos X<span className="block font-semibold text-emerald-600">profesionales</span>
-                            </h2>
-                            <p className="text-xl text-slate-600 mb-16 text-pretty leading-relaxed max-w-3xl mx-auto">
-                                Equipos de radiografía digital de última generación que garantizan estudios precisos y seguros en la
-                                comodidad de tu hogar.
-                            </p>
-                        </div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {xrayTools.map((tool) => (
-                                <Card key={tool.id} className="group shadow-lg bg-white hover:shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl overflow-hidden border border-slate-200">
-                                    <div className="relative overflow-hidden">
-                                        <img
-                                            src={tool.image || "/placeholder.svg"}
-                                            alt={tool.name}
-                                            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent"></div>
-                                    </div>
-                                    <CardContent className="p-8 text-center">
-                                        <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-105 transition-all duration-300 shadow-lg">
-                                            <Stethoscope className="h-8 w-8 text-white" />
-                                        </div>
-                                        <h3 className="text-2xl font-semibold text-slate-900 mb-4">{tool.name}</h3>
-                                        <p className="text-slate-600 leading-relaxed text-pretty mb-6 text-left">{tool.description}</p>
-                                        <div className="space-y-2 text-left">
-                                            {tool.specs.map((spec, index) => (
-                                                <div key={index} className="text-sm text-slate-600 flex items-center">
-                                                    <div className="w-2 h-2 bg-emerald-600 rounded-full mr-3" />
-                                                    {spec}
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {seccion.equipos.map((equipo) => {
+                                    const IconComponent = Icons[equipo.icon];
+                                    return (
+                                        <Card key={equipo.id} className="group shadow-lg bg-white hover:shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl overflow-hidden border border-slate-200">
+                                            <div className="relative overflow-hidden">
+                                                <img
+                                                    src={equipo.image || "/storage/default_card.svg"}
+                                                    alt={equipo.servicio}
+                                                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent"></div>
+                                            </div>
+                                            <CardContent className="p-8 text-center">
+                                                <div className={`w-16 h-16 bg-${equipo.color}-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-105 transition-all duration-300 shadow-lg`}>
+                                                    {IconComponent ? (
+                                                        <IconComponent className="h-6 w-6 text-white" />
+                                                        ) : (
+                                                        <div className="h-6 w-6 bg-gray-100 rounded-full" />
+                                                        )}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* EKG Tools Section */}
-                <section id="ekg" className="py-32 bg-white">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-20">
-                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
-                                Monitoreo Cardíaco
+                                                <h3 className="text-2xl font-semibold text-slate-900 mb-4">{equipo.servicio}</h3>
+                                                <p className="text-slate-600 leading-relaxed text-pretty mb-6 text-left">{equipo.descripcion}</p>
+                                                <div className="space-y-2 text-left">
+                                                    {equipo.caracteristicas.map((caracteristica, index) => (
+                                                        <div key={index} className="text-sm text-slate-600 flex items-center">
+                                                            <div className={`w-2 h-2 bg-${equipo.color}-600 rounded-full mr-3`} />
+                                                            {caracteristica}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    );
+                                })}
                             </div>
-                            <h2 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
-                                Electrocardiogramas
-                                <span className="block font-semibold text-emerald-600">avanzados</span>
-                            </h2>
-                            <p className="text-xl text-slate-600 mb-16 text-pretty leading-relaxed max-w-3xl mx-auto">
-                                Tecnología de monitoreo cardíaco de precisión médica para estudios completos y análisis detallados del
-                                corazón.
-                            </p>
                         </div>
+                    </section>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {ekgTools.map((tool) => (
-                                <Card key={tool.id} className="group shadow-lg bg-white hover:shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl overflow-hidden border border-slate-200">
-                                    <div className="relative overflow-hidden">
-                                        <img
-                                            src={tool.image || "/placeholder.svg"}
-                                            alt={tool.name}
-                                            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent"></div>
-                                    </div>
-                                    <CardContent className="p-8 text-center">
-                                        <div className="w-16 h-16 bg-emerald-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-105 transition-all duration-300 shadow-lg">
-                                            <Heart className="h-8 w-8 text-white" />
-                                        </div>
-                                        <h3 className="text-2xl font-semibold text-slate-900 mb-4">{tool.name}</h3>
-                                        <p className="text-slate-600 leading-relaxed text-pretty mb-6 text-left">{tool.description}</p>
-                                        <div className="space-y-2 text-left">
-                                            {tool.specs.map((spec, index) => (
-                                                <div key={index} className="text-sm text-slate-600 flex items-center">
-                                                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3" />
-                                                    {spec}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    </div>
-                </section>
+                ))}
 
                 {/* Digital Memories Section */}
                 <section id="memories" className="py-32 bg-slate-50">

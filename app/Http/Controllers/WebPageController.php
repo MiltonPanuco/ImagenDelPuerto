@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleccion;
+use App\Models\GaleriaEquipamiento;
 use App\Models\GaleriaRecuerdo;
 use App\Models\Servicio;
 use App\Models\Mision;
@@ -52,15 +53,33 @@ class WebPageController extends Controller
             ->select('title', 'src as image', 'descripcion as description')
             ->limit(5)
             ->get();
-        $galeria->each(function ($item) {
+        foreach ($galeria as $item) {
             $item->image = Storage::url($item->image);
-        });
-        $carrusel->each(function ($item) {
+        }
+        foreach ($carrusel as $item) {
             $item->image = Storage::url($item->image);
-        });
+        }
+
+        $equipamiento = GaleriaEquipamiento::with(['equipos' => function ($q) {
+                $q->where('activo', true)
+                    ->select('id', 'id_galeria_equipamiento', 'icon', 'servicio', 'descripcion', 'caracteristicas', 'image', 'color');
+            }])
+            ->where('activo', true)
+            ->select('id', 'categoria', 'titulo', 'subtitulo', 'descripcion')
+            ->get();
+
+        foreach ($equipamiento as $item) {
+            foreach ($item->equipos as $card) {
+                if (!empty($card->image)) {
+                    $card->image = Storage::url($card->image);
+                }
+            }
+        }
+
         return Inertia::render('gallery', [
             'digitalMemories' => $galeria,
             'sliderGallery' => $carrusel,
+            'secciones' => $equipamiento
         ]);
     }
 
