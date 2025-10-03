@@ -6,6 +6,7 @@ use App\Http\Controllers\Cms\ServicioController;
 use App\Http\Controllers\Cms\MisionController;
 use App\Http\Controllers\Cms\VisionController;
 use App\Http\Controllers\Cms\OfrecemosController;
+use App\Http\Controllers\Cms\EstadisticasController;
 use App\Http\Controllers\Cms\DataController;
 
 use App\Http\Controllers\WebPageController;
@@ -52,7 +53,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('admin/ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
         Route::patch('admin/ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
 
+         /** Estadisticas */
+        Route::resource('admin/estadisticas', EstadisticasController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.estadisticas');
+        Route::patch('admin/estadisticas/{estadistica}/activo', [EstadisticasController::class, 'toggleActivo'])->name('cms.estadisticas.activo');
+
         /** GALLERY */
+
         Route::resource('galeria/recuerdos', GaleriaRecuerdosController::class)->only(['index', 'create', 'store', 'update', 'destroy'])->names('cms.galeria.recuerdos');
         Route::patch('galeria/recuerdos/{id}/{field}', [GaleriaRecuerdosController::class, 'updateField'])->name('cms.galeria.recuerdos.field');
     });

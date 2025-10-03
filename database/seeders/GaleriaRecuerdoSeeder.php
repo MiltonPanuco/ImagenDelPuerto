@@ -14,7 +14,7 @@ class GaleriaRecuerdoSeeder extends Seeder
         GaleriaRecuerdo::insert([
             [
                 'id' => 1,
-                'src' => "gallery/carrusel-1.jpg",
+                'src' => "storage/gallery/carrusel-1.jpg",
                 'title' => "Recuerdos Digitales",
                 'date' => null,
                 'descripcion' => "Guardamos y atesoramos cada momento siempre",

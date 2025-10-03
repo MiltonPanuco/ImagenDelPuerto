@@ -8,6 +8,8 @@ use App\Models\Servicio;
 use App\Models\Mision;
 use App\Models\Vision;
 use App\Models\Ofrecemos;
+use App\Models\Estadisticas;
+
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -29,11 +31,13 @@ class WebPageController extends Controller
         $mision = Mision::where('activo', true)->limit(1)->get();
         $vision = Vision::where('activo', true)->limit(1)->get();
         $ofrecemos = Ofrecemos::where('activo', true)->limit(4)->get();
+        $estadisticas = Estadisticas::where('activo', true)->limit(2)->get();
 
         return Inertia::render('about', [
             'mision' => $mision,
             'vision' => $vision,
             'ofrecemos' => $ofrecemos,
+            'estadisticas' => $estadisticas,
         ]);
     }
 

@@ -1,99 +1,57 @@
+import { Link } from '@inertiajs/react';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import AppLogo from './app-logo';
 
+import { dashboard } from '@/routes';
 import { index as cmsServicios } from '@/routes/cms/servicios';
-import { index as cmsEleccion} from '@/routes/cms/eleccion';
-import { index as cmsMision} from '@/routes/cms/mision';
+import { index as cmsEleccion } from '@/routes/cms/eleccion';
+import { index as cmsMision } from '@/routes/cms/mision';
 import { index as cmsVision } from '@/routes/cms/vision';
-import { index as cmsOfrecemos} from '@/routes/cms/ofrecemos';
+import { index as cmsOfrecemos } from '@/routes/cms/ofrecemos';
+import { index as cmsEstadisticas } from '@/routes/cms/estadisticas';
 import { index as cmsGaleriaRecuerdos } from '@/routes/cms/galeria/recuerdos';
 
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { Shrink, LayoutGrid, BookUser, Target, Eye, Image, Hand } from 'lucide-react';
-import AppLogo from './app-logo';
+import { Briefcase, ClipboardCheck, Target, Eye, Package, BarChart, Image, LayoutGrid } from 'lucide-react';
+
+// Items del sidebar
 
 const homeItems: NavItem[] = [
-    {
-        title: 'Servicios',
-        icon: Shrink,
-        href: cmsServicios(),
-    },
-    {
-        title: 'Elecciones',
-        icon: BookUser,
-        href: cmsEleccion(),
-    }
+    { title: 'Servicios', icon: Briefcase, href: cmsServicios() },
+    { title: 'Elecciones', icon: ClipboardCheck, href: cmsEleccion() },
 ];
 
 const aboutItems: NavItem[] = [
-    {
-        title: 'Mision',
-        icon: Target,
-        href: cmsMision(),
-    },
-    {
-        title: 'Vision',
-        icon: Eye,
-        href: cmsVision(),
-    },
-    {
-        title: 'Ofrecemos',
-        icon: Hand,
-        href: cmsOfrecemos(),
-    }
+    { title: 'Misión', icon: Target, href: cmsMision() },
+    { title: 'Visión', icon: Eye, href: cmsVision() },
+    { title: 'Ofrecemos', icon: Package, href: cmsOfrecemos() },
+    { title: 'Estadísticas', icon: BarChart, href: cmsEstadisticas() },
 ];
 
-const GalleryItems: NavItem[] = [
-    {
-        title: 'Carrusel / Recuerdos',
-        icon: Image,
-        href: cmsGaleriaRecuerdos(),
-    },
+const galleryItems: NavItem[] = [
+    { title: 'Carrusel / Recuerdos', icon: Image, href: cmsGaleriaRecuerdos() },
 ];
 
 const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Inicio',
-        type: 'label',
-        children: homeItems,
-    },
-    {
-        title: 'About Us',
-        type: 'label',
-        children: aboutItems,
-    },
-    {
-        title: 'Gallery',
-        type: 'label',
-        children: GalleryItems,
-    },
+    { title: 'Dashboard', icon: LayoutGrid, href: dashboard() },
+    { title: 'Inicio', type: 'label', children: homeItems },
+    { title: 'About Us', type: 'label', children: aboutItems },
+    { title: 'Galería', type: 'label', children: galleryItems },
 ];
 
-const footerNavItems: NavItem[] = [
-    // {
-    //     title: 'Repository',
-    //     href: 'https://github.com/laravel/react-starter-kit',
-    //     icon: Folder,
-    // },
-    // {
-    //     title: 'Documentation',
-    //     href: 'https://laravel.com/docs/starter-kits#react',
-    //     icon: BookOpen,
-    // },
-];
+// Footer vacío 
+const footerNavItems: NavItem[] = [];
+
+//  Sidebar
 
 export function AppSidebar() {
     return (
         <Sidebar collapsible="icon" variant="inset">
+            
+            {/* Header con logo */}
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
@@ -106,10 +64,12 @@ export function AppSidebar() {
                 </SidebarMenu>
             </SidebarHeader>
 
+            {/* Contenido principal */}
             <SidebarContent>
                 <NavMain items={mainNavItems} />
             </SidebarContent>
 
+            {/* Footer con usuario y otros items */}
             <SidebarFooter>
                 <NavFooter items={footerNavItems} className="mt-auto" />
                 <NavUser />
