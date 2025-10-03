@@ -1,13 +1,31 @@
+"use client"
+
+import type React from "react"
+
 import "@styles/global.css"
 
-import NavbarLayout from '../layouts/navbar-layout';
-import CarouselLayout from '../layouts/carousel-layout';
-import FooterLayout from '../layouts/footer-layout';
+import NavbarLayout from "../layouts/navbar-layout"
+import CarouselLayout from "../layouts/carousel-layout"
+import FooterLayout from "../layouts/footer-layout"
 
 import { useState } from "react"
-import { Droplets, Bed, ArrowUp, Church as Crutch, Wind, Armchair as Wheelchair, Stethoscope, Activity, ChevronLeft, ChevronRight, Star, Clock, Shield, Zap } from "lucide-react"
+import {
+    Droplets,
+    Bed,
+    ArrowUp,
+    Church as Crutch,
+    Wind,
+    Armchair as Wheelchair,
+    Stethoscope,
+    Activity,
+    ChevronLeft,
+    ChevronRight,
+    Star,
+    Clock,
+    Shield,
+    Zap,
+} from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-
 
 const sliderService = [
     {
@@ -27,31 +45,71 @@ const sliderService = [
     },
 ]
 
-
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [touchStart, setTouchStart] = useState(0)
+    const [touchEnd, setTouchEnd] = useState(0)
+    const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null)
 
     const nextImage = () => {
+        setSlideDirection("left")
         setCurrentIndex((prev) => (prev + 1) % images.length)
+        setTimeout(() => setSlideDirection(null), 500)
     }
 
     const prevImage = () => {
+        setSlideDirection("right")
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
+        setTimeout(() => setSlideDirection(null), 500)
+    }
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX)
+    }
+
+    const handleTouchEnd = () => {
+        if (!touchStart || !touchEnd) return
+
+        const distance = touchStart - touchEnd
+        const isLeftSwipe = distance > 50
+        const isRightSwipe = distance < -50
+
+        if (isLeftSwipe) {
+            nextImage()
+        }
+        if (isRightSwipe) {
+            prevImage()
+        }
+
+        setTouchStart(0)
+        setTouchEnd(0)
     }
 
     return (
-
-        <div className="relative w-full h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 group-hover:shadow-2xl transition-all duration-500">
+        <div
+            className="relative w-full h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 group-hover:shadow-2xl transition-all duration-500"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             <img
+                key={currentIndex}
                 src={images[currentIndex] || "/placeholder.svg"}
                 alt={`${title} - Imagen ${currentIndex + 1}`}
-                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${slideDirection === "left"
+                        ? "animate-slide-in-left"
+                        : slideDirection === "right"
+                            ? "animate-slide-in-right"
+                            : ""
+                    }`}
             />
 
-            {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Navigation buttons */}
             {images.length > 1 && (
                 <>
                     <button
@@ -69,7 +127,6 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
                 </>
             )}
 
-            {/* Navigation dots */}
             {images.length > 1 && (
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
                     {images.map((_, index) => (
@@ -88,27 +145,69 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
 
 function ImageCarouselEquipment({ images, title }: { images: string[]; title: string }) {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [touchStart, setTouchStart] = useState(0)
+    const [touchEnd, setTouchEnd] = useState(0)
+    const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null)
 
     const nextImage = () => {
+        setSlideDirection("left")
         setCurrentIndex((prev) => (prev + 1) % images.length)
+        setTimeout(() => setSlideDirection(null), 500)
     }
 
     const prevImage = () => {
+        setSlideDirection("right")
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
+        setTimeout(() => setSlideDirection(null), 500)
+    }
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX)
+    }
+
+    const handleTouchEnd = () => {
+        if (!touchStart || !touchEnd) return
+
+        const distance = touchStart - touchEnd
+        const isLeftSwipe = distance > 50
+        const isRightSwipe = distance < -50
+
+        if (isLeftSwipe) {
+            nextImage()
+        }
+        if (isRightSwipe) {
+            prevImage()
+        }
+
+        setTouchStart(0)
+        setTouchEnd(0)
     }
 
     return (
-        <div className="relative w-full h-72 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 group-hover:shadow-2xl transition-all duration-500">
+        <div
+            className="relative w-full h-72 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 group-hover:shadow-2xl transition-all duration-500"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             <img
+                key={currentIndex}
                 src={images[currentIndex] || "/placeholder.svg"}
                 alt={`${title} - Imagen ${currentIndex + 1}`}
-                className="w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-110"
+                className={`w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-110 ${slideDirection === "left"
+                        ? "animate-slide-in-left"
+                        : slideDirection === "right"
+                            ? "animate-slide-in-right"
+                            : ""
+                    }`}
             />
 
-            {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Navigation buttons */}
             {images.length > 1 && (
                 <>
                     <button
@@ -126,7 +225,6 @@ function ImageCarouselEquipment({ images, title }: { images: string[]; title: st
                 </>
             )}
 
-            {/* Navigation dots */}
             {images.length > 1 && (
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
                     {images.map((_, index) => (
@@ -312,7 +410,7 @@ export default function ServicesSection() {
                 "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
                 "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
                 "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                ],
+            ],
             description:
                 "Concentradores de oxígeno de alta eficiencia para terapia respiratoria continua. Equipos silenciosos con alarmas.",
             features: [
@@ -365,34 +463,26 @@ export default function ServicesSection() {
     }
 
     return (
-
         <NavbarLayout>
             <CarouselLayout slides={sliderService} />
 
             <div className="min-h-screen bg-slate-50">
-                {/* Hero Services Section */}
                 <section className="min-h-screen bg-white flex items-center justify-center">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                             Nuestros Servicios
                         </div>
                         <h1 className="text-5xl md:text-6xl font-medium text-slate-900 mb-6 text-balance">
-                            Equipos médicos y
-                            <span className="block font-semibold text-emerald-600">
-                                estudios especializados
-                            </span>
+                            Equipos médicos y<span className="block font-semibold text-emerald-600">estudios especializados</span>
                         </h1>
                         <p className="text-xl text-slate-600 text-pretty leading-relaxed max-w-4xl mx-auto">
-                            Ofrecemos una amplia gama de servicios médicos domiciliarios, renta y venta de
-                            equipo especializado. Cada servicio está respaldado por profesionales
-                            certificados y tecnología de vanguardia para garantizar la mejor atención
-                            en la comodidad de tu hogar.
+                            Ofrecemos una amplia gama de servicios médicos domiciliarios, renta y venta de equipo especializado. Cada
+                            servicio está respaldado por profesionales certificados y tecnología de vanguardia para garantizar la
+                            mejor atención en la comodidad de tu hogar.
                         </p>
                     </div>
                 </section>
 
-
-                {/* Diagnostic Services */}
                 <section className="py-32 bg-blue-50" id="services">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
@@ -404,8 +494,8 @@ export default function ServicesSection() {
                                 <span className="block font-semibold text-emerald-600">en tu hogar</span>
                             </h2>
                             <p className="text-xl text-slate-600 mb-16 text-pretty leading-relaxed max-w-3xl mx-auto">
-                                Realizamos estudios médicos especializados con la misma calidad y precisión que encontrarías en cualquier
-                                hospital, pero en la comodidad de tu casa.
+                                Realizamos estudios médicos especializados con la misma calidad y precisión que encontrarías en
+                                cualquier hospital, pero en la comodidad de tu casa.
                             </p>
                         </div>
 
@@ -415,7 +505,6 @@ export default function ServicesSection() {
                                     key={index}
                                     className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-700 rounded-3xl hover:scale-[1.02]"
                                 >
-                                    {/* Floating icon */}
                                     <div className="absolute top-6 left-6 z-10">
                                         <div
                                             className={`w-16 h-16 ${service.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}
@@ -425,14 +514,11 @@ export default function ServicesSection() {
                                     </div>
 
                                     <CardContent className="p-0">
-                                        {/* Image section with overlay */}
                                         <div className="relative p-6 pb-4">
                                             <ImageCarousel images={service.images} title={service.title} />
                                         </div>
 
-                                        {/* Content section */}
                                         <div className="px-6 pb-6">
-                                            {/* Rating and delivery time */}
                                             <div className="flex items-center justify-between mb-4">
                                                 <div className="flex items-center space-x-1">
                                                     <Star className="h-4 w-4 text-yellow-400 fill-current" />
@@ -448,7 +534,6 @@ export default function ServicesSection() {
                                             <p className="text-lg font-medium text-emerald-600 mb-4">{service.subtitle}</p>
                                             <p className="text-slate-600 leading-relaxed text-pretty mb-6">{service.description}</p>
 
-                                            {/* Features with enhanced styling */}
                                             <div className="space-y-3">
                                                 <h4 className="text-lg font-medium text-slate-900 mb-4 flex items-center">
                                                     <Shield className="h-5 w-5 text-emerald-500 mr-2" />
@@ -467,7 +552,6 @@ export default function ServicesSection() {
                                                 </div>
                                             </div>
 
-                                            {/* Action button */}
                                             <button
                                                 onClick={() => sendWhatsAppMessage(service.title, true)}
                                                 className={`w-full mt-6 ${service.color} text-white py-3 px-6 rounded-2xl font-medium hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 cursor-pointer`}
@@ -483,7 +567,6 @@ export default function ServicesSection() {
                     </div>
                 </section>
 
-                {/* Medical Equipment Rental */}
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20" id="products">
@@ -507,14 +590,11 @@ export default function ServicesSection() {
                                     className="group relative overflow-hidden bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-3xl hover:scale-105"
                                 >
                                     <CardContent className="p-0">
-                                        {/* Image section */}
                                         <div className="relative p-4 pb-2">
                                             <ImageCarouselEquipment images={equipment.images} title={equipment.title} />
                                         </div>
 
-                                        {/* Content section */}
                                         <div className="px-4 pb-4">
-                                            {/* Rating */}
                                             <div className="flex items-center justify-between mb-3">
                                                 <div className="flex items-center space-x-1">
                                                     <Star className="h-3 w-3 text-yellow-400 fill-current" />
@@ -526,7 +606,6 @@ export default function ServicesSection() {
                                             <p className="text-sm font-medium text-emerald-600 mb-3">{equipment.subtitle}</p>
                                             <p className="text-slate-600 leading-relaxed text-pretty mb-4 text-xs">{equipment.description}</p>
 
-                                            {/* Features */}
                                             <div className="space-y-2 mb-4">
                                                 <h4 className="text-xs font-medium text-slate-900 mb-2">Características principales:</h4>
                                                 <div className="space-y-1">
@@ -539,7 +618,6 @@ export default function ServicesSection() {
                                                 </div>
                                             </div>
 
-                                            {/* Action buttons */}
                                             <div className="flex space-x-2">
                                                 <button
                                                     onClick={() => sendWhatsAppMessage(equipment.title)}
@@ -555,12 +633,9 @@ export default function ServicesSection() {
                         </div>
                     </div>
                 </section>
-
             </div>
 
             <FooterLayout />
         </NavbarLayout>
-
-
     )
 }
