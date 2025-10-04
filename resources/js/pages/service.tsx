@@ -101,10 +101,10 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
                 src={images[currentIndex] || "/placeholder.svg"}
                 alt={`${title} - Imagen ${currentIndex + 1}`}
                 className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${slideDirection === "left"
-                        ? "animate-slide-in-left"
-                        : slideDirection === "right"
-                            ? "animate-slide-in-right"
-                            : ""
+                    ? "animate-slide-in-left"
+                    : slideDirection === "right"
+                        ? "animate-slide-in-right"
+                        : ""
                     }`}
             />
 
@@ -199,10 +199,10 @@ function ImageCarouselEquipment({ images, title }: { images: string[]; title: st
                 src={images[currentIndex] || "/placeholder.svg"}
                 alt={`${title} - Imagen ${currentIndex + 1}`}
                 className={`w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-110 ${slideDirection === "left"
-                        ? "animate-slide-in-left"
-                        : slideDirection === "right"
-                            ? "animate-slide-in-right"
-                            : ""
+                    ? "animate-slide-in-left"
+                    : slideDirection === "right"
+                        ? "animate-slide-in-right"
+                        : ""
                     }`}
             />
 
@@ -283,8 +283,6 @@ export default function ServicesSection() {
                 "Evaluación completa de la actividad eléctrica del corazón con electrocardiógrafos digitales de 12 derivaciones.",
             features: [
                 "ECG de 12 derivaciones",
-                "Monitoreo Holter 24 horas",
-                "Pruebas de esfuerzo básicas",
                 "Interpretación cardiológica",
                 "Reportes digitales inmediatos",
             ],
@@ -350,32 +348,6 @@ export default function ServicesSection() {
             availability: "Disponible",
         },
         {
-            icon: ArrowUp,
-            title: "Eleva Piernas",
-            subtitle: "Mejora la Circulación y Comodidad",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Dispositivos ergonómicos para elevación de extremidades inferiores, ideales para problemas circulatorios.",
-            features: [
-                "Múltiples ángulos de elevación",
-                "Acolchado ergonómico",
-                "Estructura resistente y ligera",
-                "Fácil transporte y almacenamiento",
-                "Recomendado por fisioterapeutas",
-            ],
-            color: "bg-indigo-600",
-            bgColor: "bg-indigo-50",
-            hoverColor: "hover:bg-indigo-100",
-            badgeColor: "bg-indigo-600",
-            rating: 4.6,
-            availability: "Disponible",
-        },
-        {
             icon: Crutch,
             title: "Muletas",
             subtitle: "Apoyo Seguro para la Movilidad",
@@ -429,30 +401,77 @@ export default function ServicesSection() {
         },
         {
             icon: Wheelchair,
-            title: "Sillas de Ruedas",
-            subtitle: "Movilidad e Independencia",
+            title: "Silla de Ruedas Estándar",
+            subtitle: "Máx. 100 kg",
             images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
                 "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
                 "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
             ],
             description:
-                "Sillas de ruedas manuales y eléctricas para diferentes necesidades de movilidad. Desde modelos básicos hasta especializadas.",
+                "Silla de ruedas manual ligera y resistente, diseñada para uso diario con capacidad máxima de 100 kg.",
             features: [
-                "Modelos manuales y eléctricos",
-                "Asientos y respaldos ajustables",
+                "Diseño compacto y plegable",
+                "Asiento acolchado estándar",
                 "Reposapiés removibles",
                 "Frenos de seguridad",
-                "Accesorios adicionales disponibles",
+                "Marco de acero reforzado",
             ],
-            color: "bg-orange-600",
-            bgColor: "bg-orange-50",
-            hoverColor: "hover:bg-orange-100",
-            badgeColor: "bg-orange-600",
-            rating: 4.7,
+            color: "bg-indigo-600",
+            bgColor: "bg-indigo-50",
+            hoverColor: "hover:bg-indigo-100",
+            badgeColor: "bg-indigo-600",
+            rating: 4.6,
             availability: "Disponible",
         },
+        {
+            icon: Wheelchair,
+            title: "Silla de Ruedas Bariátrica",
+            subtitle: "Máx. 180 kg",
+            images: [
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+            ],
+            description:
+                "Silla de ruedas diseñada para usuarios bariátricos, con capacidad de carga de hasta 180 kg y estructura reforzada.",
+            features: [
+                "Asiento extra ancho y cómodo",
+                "Ruedas reforzadas de gran resistencia",
+                "Estructura de acero de alta durabilidad",
+                "Reposabrazos acolchados",
+                "Frenos de seguridad dobles",
+            ],
+            color: "bg-sky-600",
+            bgColor: "bg-sky-50",
+            hoverColor: "hover:bg-sky-100",
+            badgeColor: "bg-sky-600",
+            rating: 4.8,
+            availability: "Disponible",
+        },
+        {
+            icon: Wheelchair,
+            title: "Silla de Ruedas con Elevapiernas",
+            subtitle: "Confort y Recuperación",
+            images: [
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
+            ],
+            description:
+                "Silla de ruedas equipada con sistema de elevapiernas para mayor comodidad en pacientes con necesidades de recuperación.",
+            features: [
+                "Reposapiernas ajustables y elevados",
+                "Asiento acolchado ergonómico",
+                "Reposabrazos removibles",
+                "Estructura de acero plegable",
+                "Frenos de seguridad",
+            ],
+            color: "bg-emerald-600",
+            bgColor: "bg-emerald-50",
+            hoverColor: "hover:bg-emerald-100",
+            badgeColor: "bg-emerald-600",
+            rating: 4.9,
+            availability: "Disponible",
+        },
+
     ]
 
     const sendWhatsAppMessage = (productName: string, isService = false) => {

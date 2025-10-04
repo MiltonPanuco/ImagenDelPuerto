@@ -23,13 +23,13 @@ const sliderHome = [
     },
     {
         image: "storage/home/carrusel2.jpg",
-        title: "Cuidado al Alcance",
-        description: "Resuelve tus dudas y accede a nuestros servicios de salud sin complicaciones, rápido y seguro.",
+        title: "Imagen del Puerto",
+        description: "Tu salud y comodidad, nuestra prioridad",
     },
     {
         image: "storage/home/carrusel3.jpg",
-        title: "Bienestar para ti",
-        description: "Explora consejos, recomendaciones y acompañamiento médico que se adaptan a tu estilo de vida.",
+        title: "Imagen del Puerto",
+        description: "Tu salud y comodidad, nuestra prioridad",
     },
 ]
 
