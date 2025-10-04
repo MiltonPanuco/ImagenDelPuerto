@@ -98,8 +98,13 @@ class GaleriaEquipamientoController extends Controller
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            GaleriaEquipamiento::create($data);
-            return redirect()->route('cms.galeria.equipamiento.index')->with('success', 'Sección creada correctamente');
+            /**
+             * Una vez creado, se redirecciona al formulario de edición
+             * para evitar al usuario dar clic nuevamente en editar
+             * y así agregar los equipos al equipamiento
+             */
+            $id_equipamiento = GaleriaEquipamiento::insertGetId($data);
+            return redirect()->route('cms.galeria.equipamiento.edit', $id_equipamiento)->with('success', 'Sección creada correctamente');
         } catch (Exception $e) {
             return back()->withErrors(['message' => 'Error al crear la sección. '. $e->getMessage()])->withInput();
         }

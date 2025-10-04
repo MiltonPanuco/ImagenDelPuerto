@@ -67,11 +67,14 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
+        const html = isEdit
+            ? `La sección <b>${data.titulo}</b> ha sido actualizada correctamente.`
+            : `La seccion <b>${data.titulo}</b> ha sido creada correctamente.<div class="text-emerald-600 mt-3 uppercase font-bold">¡Ya puedes agregar equipos a esta sección!</div>`;
         const successCallback = () => {
             Swal.fire({
                 icon: 'success',
                 title: isEdit ? 'Sección actualizada' : 'Sección creada',
-                text: isEdit ? 'La sección ha sido actualizada correctamente.' : 'La sección ha sido creada correctamente.',
+                html,
                 timer: 2000,
                 showConfirmButton: false,
                 allowEscapeKey: false,

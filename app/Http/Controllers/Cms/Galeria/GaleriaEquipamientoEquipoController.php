@@ -104,7 +104,7 @@ class GaleriaEquipamientoEquipoController extends Controller
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('gallery', $filename, 'public');
             } else {
-                return response()->json(['message' => 'No se ha proporcionado ningún archivo.'], 400);
+                return back()->withErrors(['error' => 'Imagen inválida, por favor selecciona una imagen válida.'])->withInput();
             }
             $data['image'] = $path;
             $data['activo'] = $data['activo'] ?? false;
