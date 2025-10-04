@@ -17,7 +17,9 @@ class GaleriaEquipamientoEquipo extends Model
         'categoria',
         'descripcion',
         'caracteristicas',
-        'activo'
+        'activo',
+        'image',
+        'orden',
     ];
 
     protected $casts = [

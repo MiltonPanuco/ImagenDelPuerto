@@ -17,11 +17,12 @@ return new class extends Migration
 
             $table->id();
             $table->foreignId('id_galeria_equipamiento')->constrained('galeria_equipamiento');
+            $table->unsignedSmallInteger('orden')->default(0);
             $table->string('servicio');
             $table->string('icon')->nullable();
             $table->string('color');
             $table->text('descripcion');
-            $table->text('caracteristicas');
+            $table->text('caracteristicas')->nullable();
             $table->string('image')->nullable();
             $table->boolean('activo')->default(false);
             $table->timestamps();

@@ -19,6 +19,7 @@ class GaleriaEquipamientoSeeder extends Seeder
         $data = [
             [
                 'id' => 1,
+                'orden' => 1,
                 'categoria' => 'Equipos de diagnóstico',
                 'titulo' => 'Rayos X',
                 'subtitulo' => 'profesionales',
@@ -29,6 +30,7 @@ class GaleriaEquipamientoSeeder extends Seeder
                 'equipos' => [
                     [
                         'id' => 1,
+                        'orden' => 1,
                         'id_galeria_equipamiento' => 1,
                         'icon' => 'Stethoscope',
                         'color' => 'blue',
@@ -40,12 +42,13 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Peso: 15kg',
                             'Batería: 8 horas'
                         ]),
-                        'src' => null,
+                        'image' => null,
                         'created_at' => now(),
                         'updated_at' => now()
                     ],
                     [
                         'id' => 2,
+                        'orden' => 2,
                         'id_galeria_equipamiento' => 1,
                         'icon' => 'Stethoscope',
                         'color' => 'blue',
@@ -57,12 +60,13 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Resolución: 150μm',
                             'Conexión: WiFi'
                         ]),
-                        'src' => null,
+                        'image' => null,
                         'created_at' => now(),
                         'updated_at' => now()
                     ],
                     [
                         'id' => 3,
+                        'orden' => 3,
                         'id_galeria_equipamiento' => 1,
                         'icon' => 'Stethoscope',
                         'color' => 'blue',
@@ -74,7 +78,7 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Tamaños: 18x24, 24x30cm',
                             'Peso: 2kg'
                         ]),
-                        'src' => null,
+                        'image' => null,
                         'created_at' => now(),
                         'updated_at' => now()
                     ],
@@ -82,6 +86,7 @@ class GaleriaEquipamientoSeeder extends Seeder
             ],
             [
                 'id' => 2,
+                'orden' => 2,
                 'categoria' => 'Monitoreo cardiaco',
                 'titulo' => 'Electrocardiogramas',
                 'subtitulo' => 'avanzados',
@@ -92,6 +97,7 @@ class GaleriaEquipamientoSeeder extends Seeder
                 'equipos' => [
                     [
                         'id' => 4,
+                        'orden' => 1,
                         'id_galeria_equipamiento' => 2,
                         'icon' => 'Heart',
                         'color' => 'emerald',
@@ -103,12 +109,13 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Pantalla táctil 10"',
                             'Impresora térmica'
                         ]),
-                        'src' => null,
+                        'image' => null,
                         'created_at' => now(),
                         'updated_at' => now()
                     ],
                     [
                         'id' => 5,
+                        'orden' => 2,
                         'id_galeria_equipamiento' => 2,
                         'icon' => 'Heart',
                         'color' => 'emerald',
@@ -120,12 +127,13 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Adhesivo hipoalergénico',
                             'Pack 100 unidades'
                         ]),
-                        'src' => null,
+                        'image' => null,
                         'created_at' => now(),
                         'updated_at' => now()
                     ],
                     [
                         'id' => 6,
+                        'orden' => 3,
                         'id_galeria_equipamiento' => 2,
                         'icon' => 'Heart',
                         'color' => 'emerald',
@@ -137,7 +145,7 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Memoria 1GB',
                             'Análisis automático'
                         ]),
-                        'src' => null,
+                        'image' => null,
                         'created_at' => now(),
                         'updated_at' => now()
                     ],

@@ -14,7 +14,8 @@ class GaleriaRecuerdo extends Model
         'date',
         'descripcion',
         'carrete',
-        'activo'
+        'activo',
+        'orden'
     ];
 
     protected $casts = [

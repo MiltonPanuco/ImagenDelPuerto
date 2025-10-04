@@ -13,11 +13,10 @@ import { index as cmsVision } from '@/routes/cms/vision';
 import { index as cmsOfrecemos } from '@/routes/cms/ofrecemos';
 import { index as cmsEstadisticas } from '@/routes/cms/estadisticas';
 import { index as cmsGaleriaRecuerdos } from '@/routes/cms/galeria/recuerdos';
+import { index as cmsEquipamiento} from '@/routes/cms/galeria/equipamiento';
 
 import { type NavItem } from '@/types';
 import { Briefcase, ClipboardCheck, Target, Eye, Package, BarChart, Image, LayoutGrid } from 'lucide-react';
-
-// Items del sidebar
 
 const homeItems: NavItem[] = [
     { title: 'Servicios', icon: Briefcase, href: cmsServicios() },
@@ -32,7 +31,16 @@ const aboutItems: NavItem[] = [
 ];
 
 const galleryItems: NavItem[] = [
-    { title: 'Carrusel / Recuerdos', icon: Image, href: cmsGaleriaRecuerdos() },
+    {
+        title: 'Equipamiento',
+        icon: Briefcase,
+        href: cmsEquipamiento(),
+    },
+    {
+        title: 'Recuerdos y carrusel',
+        icon: Image,
+        href: cmsGaleriaRecuerdos(),
+    },
 ];
 
 const mainNavItems: NavItem[] = [
@@ -42,7 +50,7 @@ const mainNavItems: NavItem[] = [
     { title: 'Galería', type: 'label', children: galleryItems },
 ];
 
-// Footer vacío 
+// Footer vacío
 const footerNavItems: NavItem[] = [];
 
 //  Sidebar
@@ -50,7 +58,7 @@ const footerNavItems: NavItem[] = [];
 export function AppSidebar() {
     return (
         <Sidebar collapsible="icon" variant="inset">
-            
+
             {/* Header con logo */}
             <SidebarHeader>
                 <SidebarMenu>

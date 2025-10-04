@@ -96,6 +96,7 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
                                 maxFiles={1}
                                 maxFileSizeMb={5}
                                 showPreview={true}
+                                hideOnLimit={true}
                                 acceptedFileTypes={['image/*']}
                                 onFileAccepted={handleFileAccepted}
                                 onFileRejected={rejected => {

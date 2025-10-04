@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\Cms\EleccionController;
 use App\Http\Controllers\Cms\Galeria\GaleriaRecuerdosController;
+use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoController;
 use App\Http\Controllers\Cms\ServicioController;
 use App\Http\Controllers\Cms\MisionController;
 use App\Http\Controllers\Cms\VisionController;
 use App\Http\Controllers\Cms\OfrecemosController;
 use App\Http\Controllers\Cms\EstadisticasController;
 use App\Http\Controllers\Cms\DataController;
-
+use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoEquipoController;
 use App\Http\Controllers\WebPageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -61,6 +62,21 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('galeria/recuerdos', GaleriaRecuerdosController::class)->only(['index', 'create', 'store', 'update', 'destroy'])->names('cms.galeria.recuerdos');
         Route::patch('galeria/recuerdos/{id}/{field}', [GaleriaRecuerdosController::class, 'updateField'])->name('cms.galeria.recuerdos.field');
+
+        Route::resource('galeria/equipamiento', GaleriaEquipamientoController::class)->only(['index', 'edit', 'create', 'store', 'update', 'destroy'])->names('cms.galeria.equipamiento');
+        Route::patch('galeria/equipamiento/{equipamiento}/activo', [GaleriaEquipamientoController::class, 'toggleActivo'])->name('cms.galeria.equipamiento.activo');
+
+        /**
+         * Es lo mismo que poner -> resource(galeria/equipamiento/{equipamiento}/equipos)
+         *
+         *  Ejemplo de ruta
+         *  DELETE: admin/galeria/equipamiento/{equipamiento}/equipos/{equipo} -> dos variables
+         */
+        Route::resource('galeria/equipamiento.equipos', GaleriaEquipamientoEquipoController::class)
+            ->only(['create', 'store', 'edit', 'update', 'destroy'])
+            ->names('cms.galeria.equipamiento.equipo');
+         Route::patch('galeria/equipamiento/{equipamiento}/equipos/{equipo}/activo', [GaleriaEquipamientoEquipoController::class, 'toggleActivo'])->name('cms.galeria.equipamiento.equipo.activo');
+         Route::post('galeria/equipamiento/{equipamiento}/equipos/{equipo}/replaceImage', [GaleriaEquipamientoEquipoController::class, 'replaceImage'])->name('cms.galeria.equipamiento.equipo.replaceImage');
     });
 });
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->collation = 'utf8mb4_spanish_ci';
 
             $table->id();
+            $table->unsignedSmallInteger('orden')->default(0);
             $table->string('categoria')->nullable();
             $table->string('titulo')->nullable();
             $table->string('subtitulo')->nullable();

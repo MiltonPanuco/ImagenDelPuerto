@@ -26,7 +26,7 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
 
     useEffect(() => {
         setData('caracteristicas', caracteristicas);
-    }, [caracteristicas]);
+    }, [caracteristicas, setData]);
 
     /** Para mostrar etiquetas de las caracteristicas en bd */
     useEffect(() => {
