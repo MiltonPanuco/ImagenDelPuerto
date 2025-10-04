@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Cms;
 use App\Http\Controllers\Controller;
 use App\Models\Eleccion;
 use Exception;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EleccionController extends Controller
 {
@@ -62,15 +60,14 @@ class EleccionController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para actualizar eleccion ID '.$eleccion->id.': ', $data);
         try {
             // Si el color tiene el prefijo 'bg-', extraer solo el color
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }
-            
+
             $eleccion->update($data);
-            
+
             return back()->with('success', 'Elección actualizada correctamente');
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Error al actualizar la elección. '. $e->getMessage()])->withInput();
@@ -116,15 +113,14 @@ class EleccionController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para crear eleccion: ', $data);
         try {
             // Si el color tiene el prefijo 'bg-', extraer solo el color
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }
-            
+
             Eleccion::create($data);
-            
+
             return redirect()->route('cms.eleccion.index')->with('success', 'Elección creada correctamente');
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Error al crear la elección. '. $e->getMessage()])->withInput();
@@ -137,7 +133,7 @@ class EleccionController extends Controller
             $eleccion->delete();
             return response()->json(['message' => 'Elección eliminada correctamente'], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al eliminar la elección. '. $e->getMessage()], 500);
         }
     }
 
@@ -148,7 +144,7 @@ class EleccionController extends Controller
             $eleccion->save();
             return response()->json(['activo' => $eleccion->activo], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al cambiar el estado de la elección. '. $e->getMessage()], 500);
         }
     }
 }

@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Cms;
 use App\Http\Controllers\Controller;
 use App\Models\Vision;
 use Exception;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 class VisionController extends Controller
 {
     public function index()
@@ -50,7 +48,6 @@ class VisionController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para actualizar Vision ID '.$vision->id.': ', $data);
         try {
             // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
             if (strpos($data['color'], 'bg-') === 0) {
@@ -95,7 +92,6 @@ class VisionController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para crear Visión: ', $data);
         try {
             $data['color'] = explode('-', $data['color'])[1]; // Extraer solo el color sin el prefijo 'bg-'
             Vision::create($data);
@@ -111,7 +107,7 @@ class VisionController extends Controller
             $vision->delete();
             return response()->json(['message' => 'Visión eliminada correctamente'], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al eliminar la visión. '. $e->getMessage()], 500);
         }
     }
 
@@ -122,7 +118,7 @@ class VisionController extends Controller
             $vision->save();
             return response()->json(['activo' => $vision->activo], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al cambiar el estado de la visión. '. $e->getMessage()], 500);
         }
     }
 }

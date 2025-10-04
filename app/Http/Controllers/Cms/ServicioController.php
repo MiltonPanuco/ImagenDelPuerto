@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Cms;
 use App\Http\Controllers\Controller;
 use App\Models\Servicio;
 use Exception;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 class ServicioController extends Controller
 {
     public function index()
@@ -54,7 +52,6 @@ class ServicioController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para actualizar servicio ID '.$servicio->id.': ', $data);
         try {
             // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
             if (strpos($data['color'], 'bg-') === 0) {
@@ -103,7 +100,6 @@ class ServicioController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para crear servicio: ', $data);
         try {
             $data['color'] = explode('-', $data['color'])[1]; // Extraer solo el color sin el prefijo 'bg-'
             Servicio::create($data);
@@ -119,7 +115,7 @@ class ServicioController extends Controller
             $servicio->delete();
             return response()->json(['message' => 'Servicio eliminado correctamente'], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al eliminar el servicio. '. $e->getMessage()], 500);
         }
     }
 
@@ -130,7 +126,7 @@ class ServicioController extends Controller
             $servicio->save();
             return response()->json(['activo' => $servicio->activo], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al cambiar el estado del servicio. '. $e->getMessage()], 500);
         }
     }
 }

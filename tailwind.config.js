@@ -44,6 +44,7 @@ module.exports = {
     'bg-sky-500',
     'bg-fuchsia-500',
     'bg-lavender-500',
+    'bg-slate-500',
 
     'bg-red-100',
     'bg-orange-100',
@@ -67,6 +68,7 @@ module.exports = {
     'bg-sky-100',
     'bg-fuchsia-100',
     'bg-lavender-100',
+    'bg-slate-100',
     // etc según los que usas
 
     // Hover border de colores
@@ -92,6 +94,7 @@ module.exports = {
     'hover:border-sky-500',
     'hover:border-fuchsia-500',
     'hover:border-lavender-500',
+    'hover:border-slate-500',
 
     // ring-{color}-500 para los anillos de enfoque
     'ring-red-500',
@@ -116,6 +119,7 @@ module.exports = {
     'ring-sky-500',
     'ring-fuchsia-500',
     'ring-lavender-500',
+    'ring-slate-500',
 
 
     // text-{color}-500 para los textos coloreados
@@ -141,6 +145,7 @@ module.exports = {
     'text-sky-500',
     'text-fuchsia-500',
     'text-lavender-500',
+    'text-slate-500',
 
     {
       // Patrón regex para bg, border, text dinámico con variantes hover

@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Cms;
 use App\Http\Controllers\Controller;
 use App\Models\Ofrecemos;
 use Exception;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OfrecemosController extends Controller
 {
@@ -51,7 +49,6 @@ class OfrecemosController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para actualizar Ofrecemos ID '.$ofrecemos->id.': ', $data);
         try {
             // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
             if (strpos($data['color'], 'bg-') === 0) {
@@ -96,7 +93,6 @@ class OfrecemosController extends Controller
         // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
-        Log::info('Datos recibidos para crear Mision: ', $data);
         try {
             $data['color'] = explode('-', $data['color'])[1]; // Extraer solo el color sin el prefijo 'bg-'
             Ofrecemos::create($data);
@@ -112,7 +108,7 @@ class OfrecemosController extends Controller
             $ofrecemos->delete();
             return response()->json(['message' => 'Ofrecemos eliminados correctamente'], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al eliminar el registro de Ofrecemos. '. $e->getMessage()], 500);
         }
     }
 
@@ -123,7 +119,7 @@ class OfrecemosController extends Controller
             $ofrecemos->save();
             return response()->json(['activo' => $ofrecemos->activo], 200);
         } catch (Exception $e) {
-            throw new HttpException(500, $e->getMessage());
+            return response()->json(['message' => 'Error al cambiar el estado del Ofrecemos. '. $e->getMessage()], 500);
         }
     }
 }
