@@ -68,18 +68,12 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
             >
                 <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12 h-16 w-full max-w-8xl mx-auto">
                     <a href="/" className="flex items-center space-x-3 group hover:scale-[1.02] transition-all duration-300">
-                        <div
-                            className={`relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-2xl shadow-lg transition-all duration-500 p-1.5 group-hover:shadow-2xl group-hover:shadow-blue-700/30 group-hover:-rotate-3 ${isScrolled ? "shadow-blue-700/20" : "shadow-blue-700/30"
+                        <img
+                            src="logo_idp.png"
+                            alt="Imagen del Puerto Logo"
+                            className={`w-11 h-11 sm:w-12 sm:h-12 object-contain transition-all duration-500 group-hover:scale-105 ${isScrolled ? "drop-shadow-md" : "drop-shadow-lg"
                                 }`}
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/25 via-white/10 to-transparent rounded-2xl"></div>
-                            <div className="absolute inset-0 bg-gradient-to-tl from-blue-900/20 to-transparent rounded-2xl"></div>
-                            <img
-                                src="/idp-white.png"
-                                alt="Imagen del Puerto Logo"
-                                className="w-full h-full object-contain relative z-10 drop-shadow-sm"
-                            />
-                        </div>
+                        />
                         <div className="flex flex-col">
                             <span className="text-base sm:text-lg lg:text-xl font-semibold text-foreground tracking-tight leading-none bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text group-hover:from-blue-600 group-hover:to-blue-800 transition-all duration-300">
                                 Imagen del Puerto
