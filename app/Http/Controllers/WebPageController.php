@@ -66,10 +66,12 @@ class WebPageController extends Controller
 
         $equipamiento = GaleriaEquipamiento::with(['equipos' => function ($q) {
                 $q->where('activo', true)
-                    ->select('id', 'id_galeria_equipamiento', 'icon', 'servicio', 'descripcion', 'caracteristicas', 'image', 'color');
+                    ->select('id', 'id_galeria_equipamiento', 'icon', 'servicio', 'descripcion', 'caracteristicas', 'image', 'color')
+                    ->orderBy('orden', 'asc');
             }])
             ->where('activo', true)
             ->select('id', 'categoria', 'titulo', 'subtitulo', 'descripcion')
+            ->orderBy('orden', 'asc')
             ->get();
 
         foreach ($equipamiento as $item) {
