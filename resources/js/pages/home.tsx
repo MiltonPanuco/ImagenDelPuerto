@@ -18,18 +18,18 @@ const getRandomTestimonials = () => {
 const sliderHome = [
     {
         image: "storage/home/carrusel1.jpg",
-        title: "Imagen del Puerto",
-        description: "Tu salud y comodidad, nuestra prioridad",
+        title: "",
+        description: "",
     },
     {
         image: "storage/home/carrusel2.jpg",
-        title: "Imagen del Puerto",
-        description: "Tu salud y comodidad, nuestra prioridad",
+        title: "Cuidado al Alcance",
+        description: "Resuelve tus dudas y accede a nuestros servicios de salud sin complicaciones, rápido y seguro",
     },
     {
         image: "storage/home/carrusel3.jpg",
-        title: "Imagen del Puerto",
-        description: "Tu salud y comodidad, nuestra prioridad",
+        title: "Bienestar para ti",
+        description: "Explora consejos, recomendaciones y acompañamiento médico que se adaptan a tu estilo de vida",
     },
 ]
 

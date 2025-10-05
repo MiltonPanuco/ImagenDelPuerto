@@ -463,7 +463,7 @@ export default function ServicesSection() {
                 "Reposabrazos removibles",
                 "Estructura de acero plegable",
                 "Frenos de seguridad",
-            ],
+            ], 
             color: "bg-emerald-600",
             bgColor: "bg-emerald-50",
             hoverColor: "hover:bg-emerald-100",

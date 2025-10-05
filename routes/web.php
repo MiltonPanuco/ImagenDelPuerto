@@ -8,8 +8,10 @@ use App\Http\Controllers\Cms\MisionController;
 use App\Http\Controllers\Cms\VisionController;
 use App\Http\Controllers\Cms\OfrecemosController;
 use App\Http\Controllers\Cms\EstadisticasController;
+use App\Http\Controllers\Cms\CitaController;
 use App\Http\Controllers\Cms\DataController;
 use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoEquipoController;
+use App\Http\Controllers\Cms\AtencionController;
 use App\Http\Controllers\WebPageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -51,12 +53,13 @@ Route::middleware('auth')->group(function () {
         Route::patch('vision/{vision}/activo', [VisionController::class, 'toggleActivo'])->name('cms.vision.activo');
 
         /** Ofrecemos */
-        Route::resource('admin/ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
-        Route::patch('admin/ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
+        Route::resource('ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
+        Route::patch('ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
 
          /** Estadisticas */
-        Route::resource('admin/estadisticas', EstadisticasController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.estadisticas');
-        Route::patch('admin/estadisticas/{estadistica}/activo', [EstadisticasController::class, 'toggleActivo'])->name('cms.estadisticas.activo');
+        Route::resource('estadisticas', EstadisticasController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.estadisticas');
+        Route::patch('estadisticas/{estadistica}/activo', [EstadisticasController::class, 'toggleActivo'])->name('cms.estadisticas.activo');
+
 
         /** GALLERY */
 
@@ -75,8 +78,24 @@ Route::middleware('auth')->group(function () {
         Route::resource('galeria/equipamiento.equipos', GaleriaEquipamientoEquipoController::class)
             ->only(['create', 'store', 'edit', 'update', 'destroy'])
             ->names('cms.galeria.equipamiento.equipo');
-         Route::patch('galeria/equipamiento/{equipamiento}/equipos/{equipo}/activo', [GaleriaEquipamientoEquipoController::class, 'toggleActivo'])->name('cms.galeria.equipamiento.equipo.activo');
-         Route::post('galeria/equipamiento/{equipamiento}/equipos/{equipo}/replaceImage', [GaleriaEquipamientoEquipoController::class, 'replaceImage'])->name('cms.galeria.equipamiento.equipo.replaceImage');
+        Route::patch('galeria/equipamiento/{equipamiento}/equipos/{equipo}/activo', [GaleriaEquipamientoEquipoController::class, 'toggleActivo'])->name('cms.galeria.equipamiento.equipo.activo');
+        Route::post('galeria/equipamiento/{equipamiento}/equipos/{equipo}/replaceImage', [GaleriaEquipamientoEquipoController::class, 'replaceImage'])->name('cms.galeria.equipamiento.equipo.replaceImage');
+    
+
+        /** CONTACT */
+
+        /** Atención */
+        Route::resource('atencion', AtencionController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+            ->names('cms.atencion');
+        Route::patch('atencion/{atencion}/activo', [AtencionController::class, 'toggleActivo'])
+            ->name('cms.atencion.activo');
+
+         /** Citas */
+        Route::resource('citas', CitaController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.citas');
+        Route::patch('citas/{cita}/activo', [CitaController::class, 'toggleActivo'])->name('cms.citas.activo');
+
+
     });
 });
 

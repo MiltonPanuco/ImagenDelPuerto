@@ -4,7 +4,6 @@ import NavbarLayout from "@/layouts/navbar-layout"
 import CarouselLayout from "@/layouts/carousel-layout"
 import FooterLayout from "@/layouts/footer-layout"
 
-import { Heart, Target, Eye, Stethoscope, Truck, Shield, Users, Award } from "lucide-react"
 import * as Icons from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
