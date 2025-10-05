@@ -9,19 +9,14 @@ module.exports = {
     './resources/**/*.ts',
     './resources/**/*.tsx',
     './resources/**/*.vue',
-    // Agrega aquí otros paths donde uses clases tailwind
   ],
   theme: {
     extend: {
-      colors: {
-        // Ejemplo si quieres extender
-        // lavender: '#C084FC',
-        // amber: '#FACC15',
-      },
+      colors: {},
     },
   },
   safelist: [
-    // Clases específicas
+    // bg-{color}-500
     'bg-red-500',
     'bg-orange-500',
     'bg-yellow-500',
@@ -43,9 +38,9 @@ module.exports = {
     'bg-emerald-500',
     'bg-sky-500',
     'bg-fuchsia-500',
-    'bg-lavender-500',
     'bg-slate-500',
 
+    // bg-{color}-100
     'bg-red-100',
     'bg-orange-100',
     'bg-yellow-100',
@@ -67,11 +62,105 @@ module.exports = {
     'bg-emerald-100',
     'bg-sky-100',
     'bg-fuchsia-100',
-    'bg-lavender-100',
     'bg-slate-100',
-    // etc según los que usas
 
-    // Hover border de colores
+    // bg-{color}-50
+    'bg-red-50',
+    'bg-orange-50',
+    'bg-yellow-50',
+    'bg-lime-50',
+    'bg-green-50',
+    'bg-teal-50',
+    'bg-cyan-50',
+    'bg-blue-50',
+    'bg-indigo-50',
+    'bg-violet-50',
+    'bg-purple-50',
+    'bg-pink-50',
+    'bg-rose-50',
+    'bg-gray-50',
+    'bg-zinc-50',
+    'bg-neutral-50',
+    'bg-stone-50',
+    'bg-amber-50',
+    'bg-emerald-50',
+    'bg-sky-50',
+    'bg-fuchsia-50',
+    'bg-slate-50',
+
+    // bg-{color}-600
+    'bg-red-600',
+    'bg-orange-600',
+    'bg-yellow-600',
+    'bg-lime-600',
+    'bg-green-600',
+    'bg-teal-600',
+    'bg-cyan-600',
+    'bg-blue-600',
+    'bg-indigo-600',
+    'bg-violet-600',
+    'bg-purple-600',
+    'bg-pink-600',
+    'bg-rose-600',
+    'bg-gray-600',
+    'bg-zinc-600',
+    'bg-neutral-600',
+    'bg-stone-600',
+    'bg-amber-600',
+    'bg-emerald-600',
+    'bg-sky-600',
+    'bg-fuchsia-600',
+    'bg-slate-600',
+
+    // hover:bg-{color}-50
+    'hover:bg-red-50',
+    'hover:bg-orange-50',
+    'hover:bg-yellow-50',
+    'hover:bg-lime-50',
+    'hover:bg-green-50',
+    'hover:bg-teal-50',
+    'hover:bg-cyan-50',
+    'hover:bg-blue-50',
+    'hover:bg-indigo-50',
+    'hover:bg-violet-50',
+    'hover:bg-purple-50',
+    'hover:bg-pink-50',
+    'hover:bg-rose-50',
+    'hover:bg-gray-50',
+    'hover:bg-zinc-50',
+    'hover:bg-neutral-50',
+    'hover:bg-stone-50',
+    'hover:bg-amber-50',
+    'hover:bg-emerald-50',
+    'hover:bg-sky-50',
+    'hover:bg-fuchsia-50',
+    'hover:bg-slate-50',
+
+    // hover:bg-{color}-100
+    'hover:bg-red-100',
+    'hover:bg-orange-100',
+    'hover:bg-yellow-100',
+    'hover:bg-lime-100',
+    'hover:bg-green-100',
+    'hover:bg-teal-100',
+    'hover:bg-cyan-100',
+    'hover:bg-blue-100',
+    'hover:bg-indigo-100',
+    'hover:bg-violet-100',
+    'hover:bg-purple-100',
+    'hover:bg-pink-100',
+    'hover:bg-rose-100',
+    'hover:bg-gray-100',
+    'hover:bg-zinc-100',
+    'hover:bg-neutral-100',
+    'hover:bg-stone-100',
+    'hover:bg-amber-100',
+    'hover:bg-emerald-100',
+    'hover:bg-sky-100',
+    'hover:bg-fuchsia-100',
+    'hover:bg-slate-100',
+
+    // hover:border-{color}-500
     'hover:border-red-500',
     'hover:border-orange-500',
     'hover:border-yellow-500',
@@ -93,10 +182,33 @@ module.exports = {
     'hover:border-emerald-500',
     'hover:border-sky-500',
     'hover:border-fuchsia-500',
-    'hover:border-lavender-500',
     'hover:border-slate-500',
 
-    // ring-{color}-500 para los anillos de enfoque
+    // hover:border-{color}-100
+    'hover:border-red-100',
+    'hover:border-orange-100',
+    'hover:border-yellow-100',
+    'hover:border-lime-100',
+    'hover:border-green-100',
+    'hover:border-teal-100',
+    'hover:border-cyan-100',
+    'hover:border-blue-100',
+    'hover:border-indigo-100',
+    'hover:border-violet-100',
+    'hover:border-purple-100',
+    'hover:border-pink-100',
+    'hover:border-rose-100',
+    'hover:border-gray-100',
+    'hover:border-zinc-100',
+    'hover:border-neutral-100',
+    'hover:border-stone-100',
+    'hover:border-amber-100',
+    'hover:border-emerald-100',
+    'hover:border-sky-100',
+    'hover:border-fuchsia-100',
+    'hover:border-slate-100',
+
+    // ring-{color}-500
     'ring-red-500',
     'ring-orange-500',
     'ring-yellow-500',
@@ -118,11 +230,9 @@ module.exports = {
     'ring-emerald-500',
     'ring-sky-500',
     'ring-fuchsia-500',
-    'ring-lavender-500',
     'ring-slate-500',
 
-
-    // text-{color}-500 para los textos coloreados
+    // text-{color}-500
     'text-red-500',
     'text-orange-500',
     'text-yellow-500',
@@ -144,15 +254,12 @@ module.exports = {
     'text-emerald-500',
     'text-sky-500',
     'text-fuchsia-500',
-    'text-lavender-500',
     'text-slate-500',
 
     {
-      // Patrón regex para bg, border, text dinámico con variantes hover
-      pattern: /^(bg|text|border)-(red|blue|rose|sky|green|yellow|purple|pink|indigo|teal|cyan|orange|violet|amber|emerald)-(100|500)$/,
+      pattern: /^(bg|text|border|ring)-(red|blue|rose|sky|green|yellow|purple|pink|indigo|teal|cyan|orange|violet|amber|emerald|lime|fuchsia|slate|gray|zinc|neutral|stone)-(50|100|500|600)$/,
       variants: ['hover'],
     },
   ],
-  plugins: [
-  ],
+  plugins: [],
 };
