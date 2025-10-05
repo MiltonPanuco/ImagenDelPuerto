@@ -45,13 +45,11 @@ export default function FooterLayout() {
                     {/* Brand section */}
                     <div className="space-y-5 lg:pr-8">
                         <div className="flex items-center space-x-3 group">
-                            <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-700 to-blue-800 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                                <img
-                                    src="/idp-white.png"
-                                    alt="Imagen del Puerto Logo"
-                                    className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
-                                />
-                            </div>
+                            <img
+                                src="/logo_idp.png"
+                                alt="Imagen del Puerto Logo"
+                                className="w-12 h-12 sm:w-14 sm:h-14 object-contain transition-all duration-300 group-hover:scale-105"
+                            />
                             <div>
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">Imagen del Puerto</h3>
                                 <p className="text-[10px] sm:text-xs text-blue-700 font-semibold tracking-wider">SERVICIOS MÉDICOS</p>
@@ -104,8 +102,8 @@ export default function FooterLayout() {
                                         key={index}
                                         {...contactProps}
                                         className={`group flex items-center gap-3 transition-all duration-200 ${contact.href
-                                                ? "text-muted-foreground hover:text-blue-700 cursor-pointer"
-                                                : "text-muted-foreground"
+                                            ? "text-muted-foreground hover:text-blue-700 cursor-pointer"
+                                            : "text-muted-foreground"
                                             }`}
                                     >
                                         <div

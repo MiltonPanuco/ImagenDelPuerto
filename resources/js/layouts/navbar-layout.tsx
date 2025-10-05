@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Home, User, Phone, Menu, Images, Briefcase } from "lucide-react"
+import { Home, User, Phone, Menu, Images, Briefcase, Facebook, Instagram, MessageCircle } from "lucide-react"
 
 interface NavItem {
     name: string
@@ -120,14 +120,11 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                             <div className="flex flex-col h-full">
                                 <div className="relative flex items-center justify-between p-6 border-b border-border/50">
                                     <a href="/" className="relative flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
-                                        <div className="relative flex items-center justify-center w-11 h-11 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-2xl shadow-lg transition-all duration-500 p-1.5 group-hover:shadow-xl group-hover:-rotate-3">
-                                            <div className="absolute inset-0 bg-gradient-to-br from-white/25 via-white/10 to-transparent rounded-2xl"></div>
-                                            <img
-                                                src="/idp-white.png"
-                                                alt="Imagen del Puerto Logo"
-                                                className="w-full h-full object-contain relative z-10 drop-shadow-sm"
-                                            />
-                                        </div>
+                                        <img
+                                            src="logo_idp.png"
+                                            alt="Imagen del Puerto Logo"
+                                            className="w-11 h-11 object-contain transition-all duration-500 group-hover:scale-105 drop-shadow-lg"
+                                        />
                                         <div className="flex flex-col">
                                             <span className="font-semibold text-foreground text-lg leading-none bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text">Imagen del Puerto</span>
                                             <span className="text-[10px] text-muted-foreground/80 font-medium tracking-[0.15em] uppercase mt-1">
@@ -164,7 +161,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                 </div>
 
                                 <div className="relative p-6 bg-muted/30 border-t border-border/50">
-                                    <div className="relative">
+                                    <div className="relative space-y-4">
                                         <div className="flex items-center justify-center gap-2 mb-4">
                                             <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full animate-pulse shadow-lg shadow-blue-500/50"></div>
                                             <p className="text-sm font-semibold text-foreground bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text">Servicios Médicos Profesionales</p>
@@ -183,6 +180,36 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                                 <div className="w-1.5 h-1.5 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full"></div>
                                                 Renta
                                             </span>
+                                        </div>
+                                        
+                                        <div className="flex items-center justify-center gap-3 pt-2">
+                                            <a 
+                                                href="https://wa.me/5213223602224" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="group flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                                                aria-label="WhatsApp"
+                                            >
+                                                <MessageCircle className="w-5 h-5 text-white transition-transform duration-300 group-hover:rotate-12" />
+                                            </a>
+                                            <a 
+                                                href="https://www.facebook.com/p/Imagen-del-Puerto-61560994465369/" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="group flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                                                aria-label="Facebook"
+                                            >
+                                                <Facebook className="w-5 h-5 text-white transition-transform duration-300 group-hover:rotate-12" />
+                                            </a>
+                                            <a 
+                                                href="https://www.instagram.com/imagen_del_puerto/" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="group flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                                                aria-label="Instagram"
+                                            >
+                                                <Instagram className="w-5 h-5 text-white transition-transform duration-300 group-hover:rotate-12" />
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
