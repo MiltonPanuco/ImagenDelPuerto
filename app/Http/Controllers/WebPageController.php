@@ -9,7 +9,9 @@ use App\Models\Servicio;
 use App\Models\Mision;
 use App\Models\Vision;
 use App\Models\Ofrecemos;
+use App\Models\Atencion;
 use App\Models\Estadisticas;
+use App\Models\Cita;
 
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -91,6 +93,13 @@ class WebPageController extends Controller
 
     public function contact()
     {
-        return Inertia::render('contact');
+        
+        $atencion = Atencion::where('activo', true)->limit(6)->get();
+        $citas = Cita::where('activo', true)->limit(2)->get();
+
+        return Inertia::render('contact', [
+            'atencion' => $atencion,
+            'citas' => $citas
+        ]);
     }
 }

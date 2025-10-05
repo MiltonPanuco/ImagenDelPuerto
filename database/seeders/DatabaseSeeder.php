@@ -32,6 +32,10 @@ class DatabaseSeeder extends Seeder
             VisionSeeder::class,
             GaleriaRecuerdoSeeder::class,
             OfrecemosSeeder::class,
+            AtencionSeeder::class,
+            EstadisticasSeeder::class,
+            GaleriaEquipamientoSeeder::class,
+            CitaSeeder::class,
         ]);
 
     }
