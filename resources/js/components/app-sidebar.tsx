@@ -13,10 +13,13 @@ import { index as cmsVision } from '@/routes/cms/vision';
 import { index as cmsOfrecemos } from '@/routes/cms/ofrecemos';
 import { index as cmsEstadisticas } from '@/routes/cms/estadisticas';
 import { index as cmsGaleriaRecuerdos } from '@/routes/cms/galeria/recuerdos';
-import { index as cmsEquipamiento} from '@/routes/cms/galeria/equipamiento';
+import { index as cmsEquipamiento } from '@/routes/cms/galeria/equipamiento';
+import { index as cmsAtencion } from '@/routes/cms/atencion';
+import { index as cmsCitas } from '@/routes/cms/citas';
+
 
 import { type NavItem } from '@/types';
-import { Briefcase, ClipboardCheck, Target, Eye, Package, BarChart, Image, LayoutGrid } from 'lucide-react';
+import { Briefcase, ClipboardCheck, Target, Eye, Package, BarChart, Image, LayoutGrid, Users, FileText } from 'lucide-react';
 
 const homeItems: NavItem[] = [
     { title: 'Servicios', icon: Briefcase, href: cmsServicios() },
@@ -43,11 +46,25 @@ const galleryItems: NavItem[] = [
     },
 ];
 
+const contactItems: NavItem[] = [
+    {
+        title: 'Atención',
+        icon: Users,
+        href: cmsAtencion(),
+    },
+    {
+        title: 'Citas',
+        icon: FileText,
+        href: cmsCitas(),
+    },
+]
+
 const mainNavItems: NavItem[] = [
     { title: 'Dashboard', icon: LayoutGrid, href: dashboard() },
     { title: 'Inicio', type: 'label', children: homeItems },
     { title: 'About Us', type: 'label', children: aboutItems },
     { title: 'Galería', type: 'label', children: galleryItems },
+    { title: 'Contacto', type: 'label', children: contactItems },
 ];
 
 // Footer vacío
