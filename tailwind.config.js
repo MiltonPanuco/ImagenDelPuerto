@@ -111,6 +111,8 @@ module.exports = {
     'bg-sky-600',
     'bg-fuchsia-600',
     'bg-slate-600',
+    'bg-white',
+    'bg-black',
 
     // hover:bg-{color}-50
     'hover:bg-red-50',
@@ -255,6 +257,8 @@ module.exports = {
     'text-sky-500',
     'text-fuchsia-500',
     'text-slate-500',
+    'text-white',
+    'text-black',
 
     {
       pattern: /^(bg|text|border|ring)-(red|blue|rose|sky|green|yellow|purple|pink|indigo|teal|cyan|orange|violet|amber|emerald|lime|fuchsia|slate|gray|zinc|neutral|stone)-(50|100|500|600)$/,
