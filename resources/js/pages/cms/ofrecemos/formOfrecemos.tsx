@@ -4,7 +4,6 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { iconOptions, colorOptions } from '@/pages/cms/catalogos';
 import * as LucideIcons from 'lucide-react';
-import TagsInput from '@/components/ui/TagsInput';
 import Swal from 'sweetalert2';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Ofrecemos' }];
@@ -18,7 +17,7 @@ interface Ofrecemos {
     activo: boolean;
 }
 
-export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) {
+export default function FormOfrecemos({ ofrecemos }: { ofrecemos: Ofrecemos }) {
     const isEdit = !!ofrecemos?.id;
 
     const { data, setData, post, put, processing, errors } = useForm<Ofrecemos>({
@@ -30,7 +29,7 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
     });
 
     const [showError, setShowError] = useState(true);
-    /** Mostrar error si existe */
+    
     useEffect(() => {
         if (errors.error) {
             setShowError(true);
@@ -50,7 +49,7 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
                 allowEscapeKey: false,
                 allowOutsideClick: false,
                 timerProgressBar: true,
-            })
+            });
         };
 
         if (isEdit) {
@@ -95,26 +94,25 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
                             </button>
                         </div>
                     )}
+                    
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre del Ofrecemos</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Título</label>
                         <input
                             type="text"
                             className="w-full border rounded px-3 py-2"
-                            value={data.ofrecemos}
-                            onChange={(e) => setData('ofrecemos', e.target.value)}
+                            value={data.title}
+                            onChange={(e) => setData('title', e.target.value)}
                         />
-                        {errors.ofrecemos && <div className="text-red-500 text-sm">{errors.ofrecemos}</div>}
+                        {errors.title && <div className="text-red-500 text-sm">{errors.title}</div>}
                     </div>
 
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700">Ícono</label>
 
-                        {/* Scrollable vertical icon grid */}
                         <div className="grid grid-cols-6 gap-3 max-h-48 overflow-y-auto pr-2 border rounded p-2">
                             {iconOptions.map((icon) => {
                                 const IconComponent = LucideIcons[icon as keyof typeof LucideIcons];
                                 const isSelected = data.icon === icon;
-                                const color = data.color && data.color.includes('-') ? data.color.split('-')[1] : data.color || 'default';
 
                                 return (
                                     <button
@@ -125,35 +123,29 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
                                             cursor-pointer group transition duration-150 ease-in-out
                                             border rounded p-2 flex items-center justify-center
                                             hover:scale-105 hover:shadow-md
-                                            ${isSelected ? `ring-2 ring-${color}-500 bg-blue-50` : 'border-gray-300'}
+                                            ${isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : 'border-gray-300'}
                                         `}
                                         title={icon}
                                     >
                                         <IconComponent
-                                            className={`
-                                                w-6 h-6 transition duration-200
-                                                ${isSelected ? `text-${color}-500` : 'text-gray-700 group-hover:text-gray-900'}
-                                            `}
+                                            className={`w-6 h-6 transition duration-200 ${
+                                                isSelected ? 'text-blue-500' : 'text-gray-700 group-hover:text-gray-900'
+                                            }`}
                                         />
                                     </button>
                                 );
                             })}
                         </div>
 
-
-                        {/* Previsualización */}
                         {data.icon && (
                             <div className="mt-4 flex items-center space-x-2">
                                 <span className="text-sm text-gray-600">Seleccionado:</span>
                                 {(() => {
                                     const SelectedIcon = LucideIcons[data.icon as keyof typeof LucideIcons];
-                                    const color = data.color && data.color.includes('-') ? data.color.split('-')[1] : data.color || 'default';
                                     return (
                                         <div className="flex items-center space-x-2">
-                                            <SelectedIcon
-                                                className={`w-8 h-8 text-${color}-500 transition`}
-                                            />
-                                            <span className={`text-sm font-medium text-${color}-500`}>{data.icon}</span>
+                                            <SelectedIcon className="w-8 h-8 text-blue-500 transition" />
+                                            <span className="text-sm font-medium text-gray-700">{data.icon}</span>
                                         </div>
                                     );
                                 })()}
@@ -165,7 +157,6 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700">Color</label>
 
-                        {/* Scrollable horizontal grid */}
                         <div className="flex overflow-x-auto space-x-3 pb-2">
                             {colorOptions.map((colorClass) => {
                                 const isSelected = data.color === colorClass;
@@ -184,7 +175,6 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
                             })}
                         </div>
 
-                        {/* Previsualización del color */}
                         {data.color && (
                             <div className="mt-4 flex items-center space-x-2">
                                 <div className={`w-6 h-6 rounded ${data.color} border border-gray-300`} />
@@ -198,6 +188,7 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
                         <label className="block mb-2 font-medium text-sm text-gray-700">Descripción</label>
                         <textarea
                             className="w-full border rounded px-3 py-2"
+                            rows={4}
                             value={data.descripcion}
                             onChange={(e) => setData('descripcion', e.target.value)}
                         />
@@ -210,17 +201,19 @@ export default function FormOfrecemos({ ofrecemos }: { ofrecemos : Ofrecemos }) 
                             type="checkbox"
                             checked={data.activo}
                             onChange={(e) => setData('activo', e.target.checked)}
+                            className="w-4 h-4"
                         />
-                        <label htmlFor="activo">Activo</label>
+                        <label htmlFor="activo" className="text-sm font-medium text-gray-700">Activo</label>
                     </div>
 
                     <div className="flex justify-end">
                         <button
                             type="submit"
                             disabled={processing}
-                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Ofrecemos' : 'Crear Ofrecemos'}
+                            <LucideIcons.Save className="w-4 h-4" /> 
+                            {processing ? 'Guardando...' : isEdit ? 'Actualizar Ofrecemos' : 'Crear Ofrecemos'}
                         </button>
                     </div>
                 </form>

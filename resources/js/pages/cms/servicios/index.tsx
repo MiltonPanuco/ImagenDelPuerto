@@ -3,7 +3,6 @@ import { Head } from '@inertiajs/react';
 import * as Icons from 'lucide-react'
 import { Link } from '@inertiajs/react';
 import DataTable from '@/components/ui/datatable';
-
 import AppLayout from '@/layouts/app-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -12,11 +11,27 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface Servicios {
-    servicios: Array[];
+interface Servicio {
+    id: number;
+    nombre: string;
+    activo: boolean;
+    descripcion: string;
 }
 
-export default function Servicios({ servicios }: Servicios) {
+interface PaginatedServicios {
+    data: Servicio[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    [key: string]: any;
+}
+
+interface ServiciosProps {
+    servicios: PaginatedServicios;
+}
+
+export default function Servicios({ servicios }: ServiciosProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

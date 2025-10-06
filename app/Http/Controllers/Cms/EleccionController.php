@@ -11,7 +11,7 @@ class EleccionController extends Controller
 {
     public function index()
     {
-        $eleccion = Eleccion::select('id', 'title', 'descripcion', 'activo', 'icon', 'color')
+        $eleccion = Eleccion::select('id', 'title as nombre', 'descripcion', 'activo', 'icon', 'color')
             ->paginate(10);
 
         return Inertia::render('cms/eleccion/index', [

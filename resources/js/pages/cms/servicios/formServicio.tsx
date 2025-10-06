@@ -21,20 +21,9 @@ interface Servicio {
 }
 
 export default function FormServicio({ servicio }: { servicio: Servicio }) {
-    const [caracteristicas, setCaracteristicas] = useState<string[]>([]);
     const isEdit = !!servicio?.id;
 
-    useEffect(() => {
-        setData('caracteristicas', caracteristicas);
-    }, [caracteristicas, setData]);
-
-    /** Para mostrar etiquetas de las caracteristicas en bd */
-    useEffect(() => {
-        if (isEdit && servicio.caracteristicas) {
-            setCaracteristicas(servicio.caracteristicas);
-        }
-    }, [isEdit, servicio.caracteristicas]);
-
+    // Inicializar el formulario PRIMERO
     const { data, setData, post, put, processing, errors } = useForm<Servicio>({
         servicio: servicio.servicio || '',
         icon: servicio.icon || '',
@@ -45,8 +34,18 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
         activo: servicio.activo || false,
     });
 
+    // Estados locales DESPUÉS
+    const [caracteristicas, setCaracteristicas] = useState<string[]>(
+        servicio.caracteristicas || []
+    );
     const [showError, setShowError] = useState(true);
-    /** Mostrar error si existe */
+
+    // Sincronizar características con el formulario
+    useEffect(() => {
+        setData('caracteristicas', caracteristicas);
+    }, [caracteristicas]);
+
+    // Mostrar error si existe
     useEffect(() => {
         if (errors.error) {
             setShowError(true);
@@ -55,6 +54,9 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+
+        // Verificar datos antes de enviar
+        console.log('Datos a enviar:', data);
 
         const successCallback = () => {
             Swal.fire({
@@ -66,16 +68,26 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                 allowEscapeKey: false,
                 allowOutsideClick: false,
                 timerProgressBar: true,
-            })
+            }).then(() => {
+                if (!isEdit) {
+                    window.location.href = route('cms.servicios.index');
+                }
+            });
+        };
+
+        const errorCallback = (errors: any) => {
+            console.log('Errores de validación:', errors);
         };
 
         if (isEdit) {
             put(route('cms.servicios.update', servicio.id), {
                 onSuccess: successCallback,
+                onError: errorCallback,
             });
         } else {
             post(route('cms.servicios.store'), {
                 onSuccess: successCallback,
+                onError: errorCallback,
             });
         }
     };
@@ -191,9 +203,8 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                                         key={colorClass}
                                         type="button"
                                         onClick={() => setData('color', colorClass)}
-                                        className={`w-10 h-10 cursor-pointer rounded-full border-2 transition duration-150 shrink-0 ${
-                                            isSelected ? 'border-blue-500 ring ring-blue-300' : 'border-gray-300'
-                                        } ${colorClass}`}
+                                        className={`w-10 h-10 cursor-pointer rounded-full border-2 transition duration-150 shrink-0 ${isSelected ? 'border-blue-500 ring ring-blue-300' : 'border-gray-300'
+                                            } ${colorClass}`}
                                         title={colorClass}
                                     />
                                 );
@@ -208,6 +219,17 @@ export default function FormServicio({ servicio }: { servicio: Servicio }) {
                             </div>
                         )}
                         {errors.color && <div className="text-red-500 text-sm">{errors.color}</div>}
+                    </div>
+
+                    <div>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Categoría</label>
+                        <input
+                            type="text"
+                            className="w-full border rounded px-3 py-2"
+                            value={data.categoria}
+                            onChange={(e) => setData('categoria', e.target.value)}
+                        />
+                        {errors.categoria && <div className="text-red-500 text-sm">{errors.categoria}</div>}
                     </div>
 
                     <div>

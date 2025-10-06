@@ -1,19 +1,21 @@
 <?php
+/* Representación de una tabla = modelo */
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vision extends Model
+class Social extends Model
 {
-    protected $table = 'vision';
+    protected $table = 'sociales';
 
     protected $fillable = [
-        'icon',
         'color',
+        'icon',
         'title',
-        'descripcion',
-        'activo'
+        'description',
+        'url',
+        'activo',
     ];
 
     protected $casts = [

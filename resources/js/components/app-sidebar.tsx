@@ -9,26 +9,27 @@ import { dashboard } from '@/routes';
 import { index as cmsServicios } from '@/routes/cms/servicios';
 import { index as cmsEleccion } from '@/routes/cms/eleccion';
 import { index as cmsMision } from '@/routes/cms/mision';
-import { index as cmsVision } from '@/routes/cms/vision';
 import { index as cmsOfrecemos } from '@/routes/cms/ofrecemos';
+import { index as cmsHomeCarrusel } from '@/routes/cms/homecarrusel';
 import { index as cmsEstadisticas } from '@/routes/cms/estadisticas';
 import { index as cmsGaleriaRecuerdos } from '@/routes/cms/galeria/recuerdos';
 import { index as cmsEquipamiento } from '@/routes/cms/galeria/equipamiento';
 import { index as cmsAtencion } from '@/routes/cms/atencion';
 import { index as cmsCitas } from '@/routes/cms/citas';
+import { index as cmsSociales } from '@/routes/cms/sociales';
 
 
 import { type NavItem } from '@/types';
-import { Briefcase, ClipboardCheck, Target, Eye, Package, BarChart, Image, LayoutGrid, Users, FileText } from 'lucide-react';
+import { Briefcase, ClipboardCheck, Target, Eye, Package, BarChart, Image, LayoutGrid, Users, FileText, Share2 } from 'lucide-react';
 
 const homeItems: NavItem[] = [
+    { title: 'Carrusel', icon: Briefcase, href: cmsHomeCarrusel() },
     { title: 'Servicios', icon: Briefcase, href: cmsServicios() },
     { title: 'Elecciones', icon: ClipboardCheck, href: cmsEleccion() },
 ];
 
 const aboutItems: NavItem[] = [
-    { title: 'Misión', icon: Target, href: cmsMision() },
-    { title: 'Visión', icon: Eye, href: cmsVision() },
+    { title: 'Misión / Visión', icon: Target, href: cmsMision() },
     { title: 'Ofrecemos', icon: Package, href: cmsOfrecemos() },
     { title: 'Estadísticas', icon: BarChart, href: cmsEstadisticas() },
 ];
@@ -56,6 +57,11 @@ const contactItems: NavItem[] = [
         title: 'Citas',
         icon: FileText,
         href: cmsCitas(),
+    },
+    {
+        title: 'Social',
+        icon: Share2,
+        href: cmsSociales(),
     },
 ]
 

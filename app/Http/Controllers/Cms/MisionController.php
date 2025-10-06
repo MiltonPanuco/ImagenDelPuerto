@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Mision;
 use Exception;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
+
 class MisionController extends Controller
 {
     public function index()
@@ -34,7 +36,7 @@ class MisionController extends Controller
             'descripcion'   => 'required|string',
             'icon'          => 'required|string|max:100',
             'color'         => 'required|string|max:50',
-            'activo'        => 'boolean',
+            'activo'        => 'nullable|boolean', // Cambiado a nullable
         ], [
             'title.required'  => 'El nombre del título es obligatorio.',
             'title.max'       => 'El nombre del título no debe exceder los 255 caracteres.',
@@ -51,15 +53,15 @@ class MisionController extends Controller
         try {
             // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
             if (strpos($data['color'], 'bg-') === 0) {
-                $data['color'] = explode('-', $data['color'])[1];
+                $colorParts = explode('-', $data['color']);
+                $data['color'] = $colorParts[1] ?? $data['color']; // Manejo seguro
             }
+            
             $mision->update($data);
-            /**
-             * Regresar al formulario por si quiere seguir editando el mismo Misionn
-             * sweetalert le confirma que sí se actualizó
-             */
-            return back()->with('success', 'Misión actualizadas correctamente');
+            
+            return back()->with('success', 'Misión actualizada correctamente');
         } catch (Exception $e) {
+            Log::error('Error al actualizar Misión: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Error al actualizar la Misión. '. $e->getMessage()])->withInput();
         }
     }
@@ -67,18 +69,31 @@ class MisionController extends Controller
     /** Formulario para crear */
     public function create()
     {
-        return Inertia::render('cms/mision/formMision', ['mision' => new Mision()]);
+        // Crear objeto con valores por defecto explícitos
+        $mision = [
+            'id' => null,
+            'title' => '',
+            'icon' => '',
+            'color' => '',
+            'descripcion' => '',
+            'activo' => false
+        ];
+        
+        return Inertia::render('cms/mision/formMision', ['mision' => $mision]);
     }
 
     /** Registrar Mision */
     public function store()
     {
+        // Debug: registrar datos recibidos
+        Log::info('Datos recibidos en store:', request()->all());
+
         $data = request()->validate([
             'title'       => 'required|string|max:255',
-            'descripcion'    => 'required|string',
-            'icon'           => 'required|string|max:100',
-            'color'          => 'required|string|max:50',
-            'activo'         => 'boolean',
+            'descripcion' => 'required|string',
+            'icon'        => 'required|string|max:100',
+            'color'       => 'required|string|max:50',
+            'activo'      => 'nullable|boolean', // Cambiado a nullable
         ], [
             'title.required'  => 'El nombre del título es obligatorio.',
             'title.max'       => 'El nombre del título no debe exceder los 255 caracteres.',
@@ -93,10 +108,26 @@ class MisionController extends Controller
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            $data['color'] = explode('-', $data['color'])[1]; // Extraer solo el color sin el prefijo 'bg-'
+            // Debug: ver color antes de procesar
+            Log::info('Color recibido:', ['color' => $data['color']]);
+
+            // Extraer solo el color sin el prefijo 'bg-' y sufijo '-500'
+            if (strpos($data['color'], 'bg-') === 0) {
+                $colorParts = explode('-', $data['color']);
+                // Si viene 'bg-blue-500', tomar 'blue'
+                $data['color'] = $colorParts[1] ?? $data['color'];
+            }
+
+            Log::info('Color procesado:', ['color' => $data['color']]);
+            Log::info('Datos finales a insertar:', $data);
+
             Mision::create($data);
+            
             return redirect()->route('cms.mision.index')->with('success', 'Misión creada correctamente');
         } catch (Exception $e) {
+            Log::error('Error al crear Misión: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
             return back()->withErrors(['error' => 'Error al crear la Misión. '. $e->getMessage()])->withInput();
         }
     }
@@ -107,6 +138,7 @@ class MisionController extends Controller
             $mision->delete();
             return response()->json(['message' => 'Misión eliminada correctamente'], 200);
         } catch (Exception $e) {
+            Log::error('Error al eliminar Misión: ' . $e->getMessage());
             return response()->json(['message' => 'Error al eliminar la misión. '. $e->getMessage()], 500);
         }
     }
@@ -118,6 +150,7 @@ class MisionController extends Controller
             $mision->save();
             return response()->json(['activo' => $mision->activo], 200);
         } catch (Exception $e) {
+            Log::error('Error al cambiar estado Misión: ' . $e->getMessage());
             return response()->json(['message' => 'Error al cambiar el estado de la misión. '. $e->getMessage()], 500);
         }
     }

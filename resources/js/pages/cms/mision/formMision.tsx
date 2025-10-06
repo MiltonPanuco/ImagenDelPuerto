@@ -18,15 +18,15 @@ interface Mision {
     activo: boolean;
 }
 
-export default function FormMision({ mision }: { mision : Mision }) {
+export default function FormMision({ mision }: { mision: Mision }) {
     const isEdit = !!mision?.id;
 
     const { data, setData, post, put, processing, errors } = useForm<Mision>({
-        title: mision.title || '',
-        icon: mision.icon || '',
-        color: mision.color || '',
-        descripcion: mision.descripcion || '',
-        activo: mision.activo || false,
+        title: mision?.title || '',
+        icon: mision?.icon || '',
+        color: mision?.color || '',
+        descripcion: mision?.descripcion || '',
+        activo: mision?.activo ?? false,
     });
 
     const [showError, setShowError] = useState(true);
@@ -40,11 +40,14 @@ export default function FormMision({ mision }: { mision : Mision }) {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
+        // Debug: Ver datos antes de enviar
+        console.log('Datos a enviar:', data);
+
         const successCallback = () => {
             Swal.fire({
                 icon: 'success',
-                title: isEdit ? 'Mision actualizado' : 'Mision creado',
-                text: isEdit ? 'El Mision ha sido actualizado correctamente.' : 'El Mision ha sido creado correctamente.',
+                title: isEdit ? 'Dato actualizado' : 'Dato creado',
+                text: isEdit ? 'El Dato ha sido actualizado correctamente.' : 'El Dato ha sido creado correctamente.',
                 timer: 2000,
                 showConfirmButton: false,
                 allowEscapeKey: false,
@@ -53,25 +56,31 @@ export default function FormMision({ mision }: { mision : Mision }) {
             })
         };
 
+        const errorCallback = (errors: any) => {
+            console.error('Errores de validación:', errors);
+        };
+
         if (isEdit) {
             put(route('cms.mision.update', mision.id), {
                 onSuccess: successCallback,
+                onError: errorCallback,
             });
         } else {
             post(route('cms.mision.store'), {
                 onSuccess: successCallback,
+                onError: errorCallback,
             });
         }
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={isEdit ? 'Editar Misión' : 'Crear Misión'} />
+            <Head title={isEdit ? 'Editar Dato' : 'Crear Dato'} />
 
             <div className="mb-6 md:p-15 p-10">
                 <div className="flex items-center justify-between mb-6">
                     <h1 className="text-2xl font-semibold">
-                        {isEdit ? 'Editar Misión' : 'Crear Nueva Misión'}
+                        {isEdit ? 'Editar Dato' : 'Crear Nueva Dato'}
                     </h1>
                     <Link href={route('cms.mision.index')}>
                         <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-300 text-white rounded">
@@ -96,14 +105,14 @@ export default function FormMision({ mision }: { mision : Mision }) {
                         </div>
                     )}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre de la Misión</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre de la Misión/Visión</label>
                         <input
                             type="text"
                             className="w-full border rounded px-3 py-2"
-                            value={data.mision}
-                            onChange={(e) => setData('mision', e.target.value)}
+                            value={data.title}
+                            onChange={(e) => setData('title', e.target.value)}
                         />
-                        {errors.mision && <div className="text-red-500 text-sm">{errors.mision}</div>}
+                        {errors.title && <div className="text-red-500 text-sm">{errors.title}</div>}
                     </div>
 
                     <div>
@@ -175,9 +184,8 @@ export default function FormMision({ mision }: { mision : Mision }) {
                                         key={colorClass}
                                         type="button"
                                         onClick={() => setData('color', colorClass)}
-                                        className={`w-10 h-10 cursor-pointer rounded-full border-2 transition duration-150 shrink-0 ${
-                                            isSelected ? 'border-blue-500 ring ring-blue-300' : 'border-gray-300'
-                                        } ${colorClass}`}
+                                        className={`w-10 h-10 cursor-pointer rounded-full border-2 transition duration-150 shrink-0 ${isSelected ? 'border-blue-500 ring ring-blue-300' : 'border-gray-300'
+                                            } ${colorClass}`}
                                         title={colorClass}
                                     />
                                 );
@@ -220,7 +228,7 @@ export default function FormMision({ mision }: { mision : Mision }) {
                             disabled={processing}
                             className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
                         >
-                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Misión' : 'Crear Misión'}
+                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Dato' : 'Crear Dato'}
                         </button>
                     </div>
                 </form>

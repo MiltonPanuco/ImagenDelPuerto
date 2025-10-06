@@ -2,6 +2,7 @@ import { Head, useForm, Link } from '@inertiajs/react';
 import { type FormEvent, useState, useEffect } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { iconOptions, colorOptions } from '@/pages/cms/catalogos';
 import * as LucideIcons from 'lucide-react';
 import Swal from 'sweetalert2';
 
@@ -9,9 +10,9 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Citas' }];
 
 interface Cita {
     id?: number;
-    nombre: string;
-    fecha: string;
-    hora: string;
+    title: string;
+    icon?: string;
+    color: string;
     descripcion: string;
     activo: boolean;
 }
@@ -20,9 +21,9 @@ export default function FormCita({ cita }: { cita: Cita }) {
     const isEdit = !!cita?.id;
 
     const { data, setData, post, put, processing, errors } = useForm<Cita>({
-        nombre: cita.nombre || '',
-        fecha: cita.fecha || '',
-        hora: cita.hora || '',
+        title: cita.title || '',
+        icon: cita.icon || '',
+        color: cita.color || '',
         descripcion: cita.descripcion || '',
         activo: cita.activo || false,
     });
@@ -99,49 +100,129 @@ export default function FormCita({ cita }: { cita: Cita }) {
 
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700">
-                            Nombre del Paciente
+                            Título de la Cita
                         </label>
                         <input
                             type="text"
                             className="w-full border rounded px-3 py-2"
-                            value={data.nombre}
-                            onChange={(e) => setData('nombre', e.target.value)}
+                            value={data.title}
+                            onChange={(e) => setData('title', e.target.value)}
                         />
-                        {errors.nombre && (
-                            <div className="text-red-500 text-sm">{errors.nombre}</div>
+                        {errors.title && (
+                            <div className="text-red-500 text-sm">{errors.title}</div>
                         )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block mb-2 font-medium text-sm text-gray-700">
-                                Fecha
-                            </label>
-                            <input
-                                type="date"
-                                className="w-full border rounded px-3 py-2"
-                                value={data.fecha}
-                                onChange={(e) => setData('fecha', e.target.value)}
-                            />
-                            {errors.fecha && (
-                                <div className="text-red-500 text-sm">{errors.fecha}</div>
-                            )}
+                    <div>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">
+                            Ícono
+                        </label>
+                        <div className="grid grid-cols-6 gap-3 max-h-48 overflow-y-auto pr-2 border rounded p-2">
+                            {iconOptions.map((icon) => {
+                                const IconComponent =
+                                    LucideIcons[icon as keyof typeof LucideIcons];
+                                const isSelected = data.icon === icon;
+                                const color =
+                                    data.color && data.color.includes('-')
+                                        ? data.color.split('-')[1]
+                                        : data.color || 'default';
+
+                                return (
+                                    <button
+                                        key={icon}
+                                        type="button"
+                                        onClick={() => setData('icon', icon)}
+                                        className={`
+                                            cursor-pointer group transition duration-150 ease-in-out
+                                            border rounded p-2 flex items-center justify-center
+                                            hover:scale-105 hover:shadow-md
+                                            ${isSelected
+                                                ? `ring-2 ring-${color}-500 bg-blue-50`
+                                                : 'border-gray-300'
+                                            }
+                                        `}
+                                        title={icon}
+                                    >
+                                        <IconComponent
+                                            className={`
+                                                w-6 h-6 transition duration-200
+                                                ${isSelected
+                                                    ? `text-${color}-500`
+                                                    : 'text-gray-700 group-hover:text-gray-900'
+                                                }
+                                            `}
+                                        />
+                                    </button>
+                                );
+                            })}
                         </div>
 
-                        <div>
-                            <label className="block mb-2 font-medium text-sm text-gray-700">
-                                Hora
-                            </label>
-                            <input
-                                type="time"
-                                className="w-full border rounded px-3 py-2"
-                                value={data.hora}
-                                onChange={(e) => setData('hora', e.target.value)}
-                            />
-                            {errors.hora && (
-                                <div className="text-red-500 text-sm">{errors.hora}</div>
-                            )}
+                        {data.icon && (
+                            <div className="mt-4 flex items-center space-x-2">
+                                <span className="text-sm text-gray-600">Seleccionado:</span>
+                                {(() => {
+                                    const SelectedIcon =
+                                        LucideIcons[data.icon as keyof typeof LucideIcons];
+                                    const color =
+                                        data.color && data.color.includes('-')
+                                            ? data.color.split('-')[1]
+                                            : data.color || 'default';
+                                    return (
+                                        <div className="flex items-center space-x-2">
+                                            <SelectedIcon
+                                                className={`w-8 h-8 text-${color}-500 transition`}
+                                            />
+                                            <span
+                                                className={`text-sm font-medium text-${color}-500`}
+                                            >
+                                                {data.icon}
+                                            </span>
+                                        </div>
+                                    );
+                                })()}
+                            </div>
+                        )}
+                        {errors.icon && (
+                            <div className="text-red-500 text-sm">{errors.icon}</div>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">
+                            Color
+                        </label>
+                        <div className="flex overflow-x-auto space-x-3 pb-2">
+                            {colorOptions.map((colorClass) => {
+                                const isSelected = data.color === colorClass;
+
+                                return (
+                                    <button
+                                        key={colorClass}
+                                        type="button"
+                                        onClick={() => setData('color', colorClass)}
+                                        className={`w-10 h-10 cursor-pointer rounded-full border-2 transition duration-150 shrink-0 ${isSelected
+                                                ? 'border-blue-500 ring ring-blue-300'
+                                                : 'border-gray-300'
+                                            } ${colorClass}`}
+                                        title={colorClass}
+                                    />
+                                );
+                            })}
                         </div>
+
+                        {data.color && (
+                            <div className="mt-4 flex items-center space-x-2">
+                                <div
+                                    className={`w-6 h-6 rounded ${data.color} border border-gray-300`}
+                                />
+                                <span className="text-sm font-medium text-gray-700">
+                                    {data.color}
+                                </span>
+                            </div>
+                        )}
+                        {errors.color && (
+                            <div className="text-red-500 text-sm">{errors.color}</div>
+                        )}
                     </div>
 
                     <div>
@@ -154,7 +235,9 @@ export default function FormCita({ cita }: { cita: Cita }) {
                             onChange={(e) => setData('descripcion', e.target.value)}
                         />
                         {errors.descripcion && (
-                            <div className="text-red-500 text-sm">{errors.descripcion}</div>
+                            <div className="text-red-500 text-sm">
+                                {errors.descripcion}
+                            </div>
                         )}
                     </div>
 

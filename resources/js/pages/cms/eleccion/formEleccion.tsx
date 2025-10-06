@@ -143,6 +143,7 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
                                 );
                             })}
                         </div>
+                        {errors.icon && <div className="text-red-500 text-sm">{errors.icon}</div>}
                     </div>
 
                     {/* Color */}
@@ -165,6 +166,7 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
                                 );
                             })}
                         </div>
+                        {errors.color && <div className="text-red-500 text-sm">{errors.color}</div>}
                     </div>
 
                     {/* Descripción */}
@@ -174,7 +176,21 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
                             className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100"
                             value={data.descripcion}
                             onChange={(e) => setData('descripcion', e.target.value)}
+                            rows={4}
                         />
+                        {errors.descripcion && <div className="text-red-500 text-sm">{errors.descripcion}</div>}
+                    </div>
+
+                    {/* Características */}
+                    <div>
+                        <TagsInput
+                            label="Características"
+                            value={caracteristicas}
+                            onChange={setCaracteristicas}
+                            placeholder="Escribe una característica y presiona Enter"
+                            textButton="Agregar"
+                        />
+                        {errors.caracteristicas && <div className="text-red-500 text-sm mt-1">{errors.caracteristicas}</div>}
                     </div>
 
                     {/* Activo */}
@@ -194,7 +210,7 @@ export default function FormEleccion({ eleccion }: { eleccion: Eleccion }) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Elección' : 'Crear Elección'}
                         </button>

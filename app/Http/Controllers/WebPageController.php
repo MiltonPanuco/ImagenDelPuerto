@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Eleccion;
 use App\Models\GaleriaEquipamiento;
 use App\Models\GaleriaRecuerdo;
+use App\Models\HomeCarrusel;
 use App\Models\Servicio;
 use App\Models\Mision;
-use App\Models\Vision;
 use App\Models\Ofrecemos;
 use App\Models\Atencion;
 use App\Models\Estadisticas;
 use App\Models\Cita;
+use App\Models\Social;
 
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -22,23 +23,23 @@ class WebPageController extends Controller
     {
         $servicios = Servicio::where('activo', true)->limit(3)->get();
         $elecciones = Eleccion::where('activo', true)->limit(3)->get();
+        $homecarrusel = HomeCarrusel::where('activo', true)->limit(3)->get();
 
         return Inertia::render('home', [
             'servicios' => $servicios,
             'elecciones' => $elecciones,
+            'homecarrusel' => $homecarrusel,
         ]);
     }
 
     public function about()
     {
-        $mision = Mision::where('activo', true)->limit(1)->get();
-        $vision = Vision::where('activo', true)->limit(1)->get();
+        $mision = Mision::where('activo', true)->limit(2)->get();
         $ofrecemos = Ofrecemos::where('activo', true)->limit(4)->get();
         $estadisticas = Estadisticas::where('activo', true)->limit(2)->get();
 
         return Inertia::render('about', [
             'mision' => $mision,
-            'vision' => $vision,
             'ofrecemos' => $ofrecemos,
             'estadisticas' => $estadisticas,
         ]);
@@ -96,10 +97,12 @@ class WebPageController extends Controller
         
         $atencion = Atencion::where('activo', true)->limit(6)->get();
         $citas = Cita::where('activo', true)->limit(2)->get();
+        $sociales = Social::where('activo', true)->limit(2)->get();
 
         return Inertia::render('contact', [
             'atencion' => $atencion,
-            'citas' => $citas
+            'citas' => $citas,
+            'sociales' => $sociales
         ]);
     }
 }

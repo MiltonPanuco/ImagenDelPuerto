@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gestionar Estadísticas' }];
 
-interface Estadisticas {
+interface Estadistica {
     id?: number;
     title: string;
     color: string;
@@ -16,19 +16,22 @@ interface Estadisticas {
     activo: boolean;
 }
 
-export default function FormEstadisticas({ estadisticas }: { estadisticas: Estadisticas }) {
-    const isEdit = !!estadisticas?.id;
+export default function FormEstadisticas({ estadistica }: { estadistica: Estadistica }) {
+    const isEdit = !!estadistica?.id;
 
-    const { data, setData, post, put, processing, errors } = useForm<Estadisticas>({
-        title: estadisticas.title || '',
-        color: estadisticas.color || '',
-        descripcion: estadisticas.descripcion || '',
-        activo: estadisticas.activo || false,
+    const { data, setData, post, put, processing, errors } = useForm<Estadistica>({
+        title: estadistica.title || '',
+        color: estadistica.color 
+            ? (estadistica.color.startsWith('bg-') 
+                ? estadistica.color 
+                : `bg-${estadistica.color}-500`)
+            : '',
+        descripcion: estadistica.descripcion || '',
+        activo: estadistica.activo ?? false,
     });
 
     const [showError, setShowError] = useState(true);
-
-    /** Mostrar error si existe */
+    
     useEffect(() => {
         if (errors.error) {
             setShowError(true);
@@ -42,9 +45,7 @@ export default function FormEstadisticas({ estadisticas }: { estadisticas: Estad
             Swal.fire({
                 icon: 'success',
                 title: isEdit ? 'Estadística actualizada' : 'Estadística creada',
-                text: isEdit
-                    ? 'La Estadística ha sido actualizada correctamente.'
-                    : 'La Estadística ha sido creada correctamente.',
+                text: isEdit ? 'La estadística ha sido actualizada correctamente.' : 'La estadística ha sido creada correctamente.',
                 timer: 2000,
                 showConfirmButton: false,
                 allowEscapeKey: false,
@@ -54,7 +55,7 @@ export default function FormEstadisticas({ estadisticas }: { estadisticas: Estad
         };
 
         if (isEdit) {
-            put(route('cms.estadisticas.update', estadisticas.id), {
+            put(route('cms.estadisticas.update', estadistica.id), {
                 onSuccess: successCallback,
             });
         } else {
@@ -83,10 +84,7 @@ export default function FormEstadisticas({ estadisticas }: { estadisticas: Estad
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {errors.error && showError && (
-                        <div
-                            className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
-                            role="alert"
-                        >
+                        <div className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
                             {errors.error}
                             <button
                                 type="button"
@@ -99,52 +97,32 @@ export default function FormEstadisticas({ estadisticas }: { estadisticas: Estad
                         </div>
                     )}
 
-                    {/* Nombre de la Estadística */}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">
-                            Nombre de la Estadística
-                        </label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Título (Número)</label>
                         <input
                             type="text"
                             className="w-full border rounded px-3 py-2"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
+                            placeholder="Ej: 10, 100+, 500"
                         />
-                        {errors.title && (
-                            <div className="text-red-500 text-sm">{errors.title}</div>
-                        )}
+                        {errors.title && <div className="text-red-500 text-sm">{errors.title}</div>}
                     </div>
 
-                    {/* Descripción */}
-                    <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">
-                            Descripción
-                        </label>
-                        <textarea
-                            className="w-full border rounded px-3 py-2"
-                            value={data.descripcion}
-                            onChange={(e) => setData('descripcion', e.target.value)}
-                        />
-                        {errors.descripcion && (
-                            <div className="text-red-500 text-sm">{errors.descripcion}</div>
-                        )}
-                    </div>
-
-                    {/* Color */}
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700">Color</label>
+
                         <div className="flex overflow-x-auto space-x-3 pb-2">
                             {colorOptions.map((colorClass) => {
                                 const isSelected = data.color === colorClass;
+
                                 return (
                                     <button
                                         key={colorClass}
                                         type="button"
                                         onClick={() => setData('color', colorClass)}
                                         className={`w-10 h-10 cursor-pointer rounded-full border-2 transition duration-150 shrink-0 ${
-                                            isSelected
-                                                ? 'border-blue-500 ring ring-blue-300'
-                                                : 'border-gray-300'
+                                            isSelected ? 'border-blue-500 ring ring-blue-300' : 'border-gray-300'
                                         } ${colorClass}`}
                                         title={colorClass}
                                     />
@@ -154,20 +132,25 @@ export default function FormEstadisticas({ estadisticas }: { estadisticas: Estad
 
                         {data.color && (
                             <div className="mt-4 flex items-center space-x-2">
-                                <div
-                                    className={`w-6 h-6 rounded ${data.color} border border-gray-300`}
-                                />
-                                <span className="text-sm font-medium text-gray-700">
-                                    {data.color}
-                                </span>
+                                <div className={`w-6 h-6 rounded ${data.color} border border-gray-300`} />
+                                <span className="text-sm font-medium text-gray-700">{data.color}</span>
                             </div>
                         )}
-                        {errors.color && (
-                            <div className="text-red-500 text-sm">{errors.color}</div>
-                        )}
+                        {errors.color && <div className="text-red-500 text-sm">{errors.color}</div>}
                     </div>
 
-                    {/* Activo */}
+                    <div>
+                        <label className="block mb-2 font-medium text-sm text-gray-700">Descripción</label>
+                        <textarea
+                            className="w-full border rounded px-3 py-2"
+                            rows={3}
+                            value={data.descripcion}
+                            onChange={(e) => setData('descripcion', e.target.value)}
+                            placeholder="Ej: Años de experiencia, Pacientes atendidos"
+                        />
+                        {errors.descripcion && <div className="text-red-500 text-sm">{errors.descripcion}</div>}
+                    </div>
+
                     <div className="flex items-center space-x-2">
                         <input
                             id="activo"
@@ -178,19 +161,14 @@ export default function FormEstadisticas({ estadisticas }: { estadisticas: Estad
                         <label htmlFor="activo">Activo</label>
                     </div>
 
-                    {/* Botón */}
                     <div className="flex justify-end">
                         <button
                             type="submit"
                             disabled={processing}
                             className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
                         >
-                            <LucideIcons.Save />{' '}
-                            {processing
-                                ? 'Guardando...'
-                                : isEdit
-                                ? 'Actualizar Estadística'
-                                : 'Crear Estadística'}
+                            <LucideIcons.Save /> 
+                            {processing ? 'Guardando...' : isEdit ? 'Actualizar Estadística' : 'Crear Estadística'}
                         </button>
                     </div>
                 </form>
