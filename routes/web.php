@@ -5,14 +5,15 @@ use App\Http\Controllers\Cms\Galeria\GaleriaRecuerdosController;
 use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoController;
 use App\Http\Controllers\Cms\ServicioController;
 use App\Http\Controllers\Cms\MisionController;
-use App\Http\Controllers\Cms\VisionController;
 use App\Http\Controllers\Cms\OfrecemosController;
 use App\Http\Controllers\Cms\EstadisticasController;
 use App\Http\Controllers\Cms\CitaController;
 use App\Http\Controllers\Cms\DataController;
+use App\Http\Controllers\Cms\HomeCarruselController;
 use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoEquipoController;
 use App\Http\Controllers\Cms\AtencionController;
 use App\Http\Controllers\WebPageController;
+use App\Http\Controllers\Cms\SocialController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,12 +27,20 @@ Route::get('/contact', [WebPageController::class, 'contact'])->name('contact');
 /** CMS */
 Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'admin'], function () {
-         Route::get('dashboard', function () {
+        Route::get('dashboard', function () {
             return Inertia::render('dashboard');
         })->name('dashboard');
 
 
         /** HOME  */
+
+
+        /** Home Carrusel */
+        Route::resource('homecarrusel', HomeCarruselController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+            ->names('cms.homecarrusel');
+        Route::patch('homecarrusel/{homecarrusel}/activo', [HomeCarruselController::class, 'toggleActivo'])
+            ->name('cms.homecarrusel.activo');
 
         /** Servicios */
         Route::resource('servicios', ServicioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios');
@@ -48,15 +57,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('mision', MisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.mision');
         Route::patch('mision/{mision}/activo', [MisionController::class, 'toggleActivo'])->name('cms.mision.activo');
 
-        /** Vision */
-        Route::resource('vision', VisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.vision');
-        Route::patch('vision/{vision}/activo', [VisionController::class, 'toggleActivo'])->name('cms.vision.activo');
-
         /** Ofrecemos */
-        Route::resource('ofrecemos', OfrecemosController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.ofrecemos');
+        Route::resource('ofrecemos', OfrecemosController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+            ->parameters(['ofrecemos' => 'ofrecemos']) 
+            ->names('cms.ofrecemos');
         Route::patch('ofrecemos/{ofrecemos}/activo', [OfrecemosController::class, 'toggleActivo'])->name('cms.ofrecemos.activo');
-
-         /** Estadisticas */
+        
+        /** Estadisticas */
         Route::resource('estadisticas', EstadisticasController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.estadisticas');
         Route::patch('estadisticas/{estadistica}/activo', [EstadisticasController::class, 'toggleActivo'])->name('cms.estadisticas.activo');
 
@@ -91,13 +99,15 @@ Route::middleware('auth')->group(function () {
         Route::patch('atencion/{atencion}/activo', [AtencionController::class, 'toggleActivo'])
             ->name('cms.atencion.activo');
 
-         /** Citas */
+        /** Citas */
         Route::resource('citas', CitaController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.citas');
         Route::patch('citas/{cita}/activo', [CitaController::class, 'toggleActivo'])->name('cms.citas.activo');
 
+         /** Sociales */
+        Route::resource('sociales', SocialController::class) ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']) ->parameters(['sociales' => 'social'])  ->names('cms.sociales');
+        Route::patch('sociales/{social}/activo', [SocialController::class, 'toggleActivo']) ->name('cms.sociales.activo'); });
 
     });
-});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/settings.php';
