@@ -15,28 +15,21 @@ const getRandomTestimonials = () => {
     return shuffled.slice(0, 5)
 }
 
-const sliderHome = [
-    {
-        image: "storage/home/carrusel1.jpg",
-        title: "",
-        description: "",
-    },
-    {
-        image: "storage/home/carrusel2.jpg",
-        title: "Cuidado al Alcance",
-        description: "Resuelve tus dudas y accede a nuestros servicios de salud sin complicaciones, rápido y seguro",
-    },
-    {
-        image: "storage/home/carrusel3.jpg",
-        title: "Bienestar para ti",
-        description: "Explora consejos, recomendaciones y acompañamiento médico que se adaptan a tu estilo de vida",
-    },
-]
+interface CarruselItem {
+    id: number
+    image: string
+    title1?: string
+    title2?: string
+    activo: boolean
+}
 
 interface Servicio {
     icon: keyof typeof Icons
-    title: string
-    description: string
+    servicio: string
+    categoria: string
+    color: string
+    descripcion: string
+    caracteristicas: string[]
 }
 
 interface Eleccion {
@@ -48,16 +41,17 @@ interface Eleccion {
 }
 
 interface HomeProps {
+    carruselHome: CarruselItem[]
     servicios: Servicio[]
     elecciones: Eleccion[]
 }
 
-export default function Home({ servicios, elecciones = [] }: HomeProps) {
+export default function Home({ carruselHome = [], servicios = [], elecciones = [] }: HomeProps) {
     const randomTestimonials = getRandomTestimonials()
 
     return (
         <NavbarLayout>
-            <CarouselLayout slides={sliderHome} />
+            <CarouselLayout slides={carruselHome} />
 
             <div className="min-h-screen bg-slate-50">
                 <section className="py-32 bg-white">
@@ -73,35 +67,41 @@ export default function Home({ servicios, elecciones = [] }: HomeProps) {
                         </div>
 
                         <div className="grid lg:grid-cols-3 gap-8">
-                            {servicios.map((servicio, index) => {
-                                const IconComponent = Icons[servicio.icon]
+                            {servicios && servicios.length > 0 ? (
+                                servicios.map((servicio, index) => {
+                                    const IconComponent = Icons[servicio.icon]
 
-                                return (
-                                    <Card
-                                        key={index}
-                                        className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-500`}
-                                    >
-                                        <CardContent className="p-12 text-center">
-                                            <div
-                                                className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
-                                            >
-                                                {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-500`} /> : null}
-                                            </div>
-                                            <h3 className="text-2xl font-semibold text-slate-900 mb-4">{servicio.servicio}</h3>
-                                            <h4 className={`text-lg font-medium text-${servicio.color}-500 mb-6`}>{servicio.categoria}</h4>
-                                            <p className="text-slate-600 leading-relaxed mb-8 text-pretty">{servicio.descripcion}</p>
-                                            <div className="space-y-3 text-left">
-                                                {servicio.caracteristicas.map((caracteristica, idx) => (
-                                                    <div key={idx} className="flex items-center gap-3 text-sm text-slate-600">
-                                                        <div className={`w-2 h-2 bg-${servicio.color}-500 rounded-full shadow-sm`}></div>
-                                                        {caracteristica}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                )
-                            })}
+                                    return (
+                                        <Card
+                                            key={index}
+                                            className={`group shadow-lg bg-white hover:shadow-2xl hover:scale-105 transition-all duration-500 rounded-3xl overflow-hidden border border-slate-200 hover:border-${servicio.color}-500`}
+                                        >
+                                            <CardContent className="p-12 text-center">
+                                                <div
+                                                    className={`w-24 h-24 bg-${servicio.color}-100 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}
+                                                >
+                                                    {IconComponent ? <IconComponent className={`h-12 w-12 text-${servicio.color}-500`} /> : null}
+                                                </div>
+                                                <h3 className="text-2xl font-semibold text-slate-900 mb-4">{servicio.servicio}</h3>
+                                                <h4 className={`text-lg font-medium text-${servicio.color}-500 mb-6`}>{servicio.categoria}</h4>
+                                                <p className="text-slate-600 leading-relaxed mb-8 text-pretty">{servicio.descripcion}</p>
+                                                <div className="space-y-3 text-left">
+                                                    {servicio.caracteristicas && servicio.caracteristicas.map((caracteristica, idx) => (
+                                                        <div key={idx} className="flex items-center gap-3 text-sm text-slate-600">
+                                                            <div className={`w-2 h-2 bg-${servicio.color}-500 rounded-full shadow-sm`}></div>
+                                                            {caracteristica}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    )
+                                })
+                            ) : (
+                                <div className="col-span-3 text-center text-slate-500 py-12">
+                                    <p>No hay servicios disponibles en este momento.</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>

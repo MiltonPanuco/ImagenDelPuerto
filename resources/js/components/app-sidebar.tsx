@@ -40,23 +40,24 @@ const homeItems: NavItem[] = [
 ];
 
 const aboutItems: NavItem[] = [
-    { title: 'Carrusel About', icon: Images, href: route('cms.carrusel.index', 'about') },
+    { title: 'Carrusel Sobre Nosotros', icon: Images, href: route('cms.carrusel.index', 'about') },
     { title: 'Misión / Visión', icon: Target, href: cmsMision() },
     { title: 'Ofrecemos', icon: Package, href: cmsOfrecemos() },
     { title: 'Estadísticas', icon: BarChart, href: cmsEstadisticas() },
 ];
 
 const galleryItems: NavItem[] = [
+    { title: 'Carrusel Galeria', icon: Images, href: route('cms.carrusel.index', 'gallery') },
     { title: 'Equipamiento', icon: Briefcase, href: cmsEquipamiento() },
-    { title: 'Recuerdos y carrusel', icon: Image, href: cmsGaleriaRecuerdos() },
+    { title: 'Recuerdos', icon: Image, href: cmsGaleriaRecuerdos() },
 ];
 
 const serviceItems: NavItem[] = [
-    { title: 'Carrusel Service', icon: Images, href: route('cms.carrusel.index', 'service') },
+    { title: 'Carrusel Servicio', icon: Images, href: route('cms.carrusel.index', 'service') },
 ];
 
 const contactItems: NavItem[] = [
-    { title: 'Carrusel Contact', icon: Images, href: route('cms.carrusel.index', 'contact') },
+    { title: 'Carrusel Contacto', icon: Images, href: route('cms.carrusel.index', 'contact') },
     { title: 'Atención', icon: Users, href: cmsAtencion() },
     { title: 'Citas', icon: FileText, href: cmsCitas() },
     { title: 'Social', icon: Share2, href: cmsSociales() },

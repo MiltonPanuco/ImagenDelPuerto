@@ -7,23 +7,14 @@ import FooterLayout from "@/layouts/footer-layout"
 import * as Icons from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
-const sliderAbout = [
-    {
-        image: "storage/about/carrusel1.jpg",
-        title: "Quiénes Somos",
-        description: "Somos un equipo comprometido con brindar servicios de salud confiables y de la más alta calidad.",
-    },
-    {
-        image: "storage/about/carrusel2.jpg",
-        title: "Nuestra Misión",
-        description: "Cuidar de tu bienestar ofreciendo atención profesional, tecnología avanzada y un trato humano.",
-    },
-    {
-        image: "storage/about/carrusel3.jpg",
-        title: "Nuestros Valores",
-        description: "Trabajamos con honestidad, respeto y dedicación para garantizar tu confianza y seguridad.",
-    },
-]
+interface CarruselItem {
+    id: number
+    image: string
+    title1?: string
+    title2?: string
+    description?: string
+    activo: boolean
+}
 
 interface Mision {
     title: string
@@ -53,17 +44,18 @@ interface Estadisticas {
 }
 
 interface AboutProps {
+    carruselAbout: CarruselItem[]
     mision: Mision[]
     vision: Vision[]
     ofrecemos: Ofrecemos[]
     estadisticas: Estadisticas[]
 }
 
-export default function AboutSection({ mision, vision, ofrecemos, estadisticas }: AboutProps) {
+export default function AboutSection({ carruselAbout = [], mision, vision, ofrecemos, estadisticas }: AboutProps) {
     return (
 
         <NavbarLayout>
-            <CarouselLayout slides={sliderAbout} />
+            <CarouselLayout slides={carruselAbout} />
 
             <div className="min-h-screen bg-slate-50">
                 {/* Hero About Section */}
@@ -125,7 +117,7 @@ export default function AboutSection({ mision, vision, ofrecemos, estadisticas }
                                         <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:bottom-6 md:left-6 md:right-6">
                                             <div className="bg-white rounded-lg p-2.5 sm:p-3 shadow-md">
                                                 <div className="text-center">
-                                                    <h3 className="text-xs sm:text-sm md:text-base font-medium text-slate-900">Dr. Nombre Apellido</h3>
+                                                    <h3 className="text-xs sm:text-sm md:text-base font-medium text-slate-900">Dr. Fidel</h3>
                                                     <p className="text-slate-500 text-[10px] sm:text-xs">Lorem Ipsum • XX+ años</p>
                                                     <div className="mt-1.5 sm:mt-2 pt-1.5 sm:pt-2 border-t border-slate-100">
                                                         <p className="text-slate-600 text-[10px] sm:text-xs italic">
@@ -150,7 +142,7 @@ export default function AboutSection({ mision, vision, ofrecemos, estadisticas }
                                 Nuestros Valores
                             </div>
                             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 mb-4 sm:mb-6 text-balance px-2">
-                                Nuestra <span className="font-semibold text-emerald-600">Misión</span>
+                                Nuestra <span className="font-semibold text-emerald-600">Misión</span> y <span className="font-semibold text-emerald-600">Visión</span>
                             </h2>
                         </div>
 

@@ -3,34 +3,41 @@
 import "@styles/global.css"
 
 import NavbarLayout from "@/layouts/navbar-layout"
-import CarouselLayout from "@/layouts/carousel-layout"
 import FooterLayout from "@/layouts/footer-layout"
+import CarouselLayout from "@/layouts/carousel-layout"
 
 import { useState } from "react"
-import { Heart, Stethoscope, ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import * as Icons from "lucide-react";
+import * as Icons from "lucide-react"
 
+interface CarruselItem {
+    id: number
+    image: string
+    title1?: string
+    title2?: string
+    activo: boolean
+}
 
 interface Equipo {
-    id: number,
-    id_galeria_equipamiento: number,
-    icon: keyof typeof Icons,
-    servicio: string,
-    descripcion: string,
-    caracteristicas: string[],
-    image: string,
+    id: number
+    id_galeria_equipamiento: number
+    icon: keyof typeof Icons
+    servicio: string
+    descripcion: string
+    caracteristicas: string[]
+    image: string
     color: string
 }
 
 interface Equipamiento {
-    id: number,
-    categoria: string,
-    titulo: string,
-    subtitulo: string,
-    descripcion: string,
+    id: number
+    categoria: string
+    titulo: string
+    subtitulo: string
+    descripcion: string
     equipos: Equipo[]
 }
 
@@ -41,19 +48,13 @@ interface DigitalMemory {
     date: string
 }
 
-interface Slide {
-    image: string
-    title: string
-    description: string
-}
-
 interface GalleryProps {
+    carruselGallery?: CarruselItem[]
     digitalMemories: DigitalMemory[]
-    sliderGallery: Slide[]
     secciones: Equipamiento[]
 }
 
-export default function MedicalGallery({ digitalMemories, sliderGallery, secciones }: GalleryProps) {
+export default function MedicalGallery({ carruselGallery = [], digitalMemories, secciones }: GalleryProps) {
     const [showAllMemories, setShowAllMemories] = useState(false)
     const [selectedImageIndex, setSelectedImageIndex] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -93,7 +94,7 @@ export default function MedicalGallery({ digitalMemories, sliderGallery, seccion
 
     return (
         <NavbarLayout>
-            <CarouselLayout slides={sliderGallery} />
+            <CarouselLayout slides={carruselGallery} />
 
             <div className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
@@ -116,14 +117,18 @@ export default function MedicalGallery({ digitalMemories, sliderGallery, seccion
                 </section>
 
                 {secciones.map((seccion, idx) => (
-                    <section key={idx} className={`py-16 sm:py-20 md:py-24 lg:py-32 ${idx % 2 === 0 ? "bg-blue-50" : "bg-white"}`}>
+                    <section
+                        key={idx}
+                        className={`py-16 sm:py-20 md:py-24 lg:py-32 ${idx % 2 === 0 ? "bg-blue-50" : "bg-white"}`}
+                    >
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="text-center mb-20">
                                 <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                                     {seccion.categoria}
                                 </div>
                                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-slate-900 mb-4 sm:mb-6 text-balance px-4">
-                                    {seccion.titulo}<span className="block font-semibold text-emerald-600">{seccion.subtitulo}</span>
+                                    {seccion.titulo}
+                                    <span className="block font-semibold text-emerald-600">{seccion.subtitulo}</span>
                                 </h2>
                                 <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 sm:mb-12 md:mb-16 text-pretty leading-relaxed max-w-3xl mx-auto px-4">
                                     {seccion.descripcion}
@@ -132,9 +137,12 @@ export default function MedicalGallery({ digitalMemories, sliderGallery, seccion
 
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {seccion.equipos.map((equipo) => {
-                                    const IconComponent = Icons[equipo.icon];
+                                    const IconComponent = Icons[equipo.icon]
                                     return (
-                                        <Card key={equipo.id} className="group shadow-lg bg-white hover:shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl overflow-hidden border border-slate-200">
+                                        <Card
+                                            key={equipo.id}
+                                            className="group shadow-lg bg-white hover:shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl overflow-hidden border border-slate-200"
+                                        >
                                             <div className="relative overflow-hidden">
                                                 <img
                                                     src={equipo.image || "/storage/default_card.svg"}
@@ -144,26 +152,34 @@ export default function MedicalGallery({ digitalMemories, sliderGallery, seccion
                                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent"></div>
                                             </div>
                                             <CardContent className="p-8 text-center">
-                                                <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-${equipo.color}-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 mx-auto group-hover:scale-105 transition-all duration-300 shadow-lg`}>
+                                                <div
+                                                    className={`w-14 h-14 sm:w-16 sm:h-16 bg-${equipo.color}-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 mx-auto group-hover:scale-105 transition-all duration-300 shadow-lg`}
+                                                >
                                                     {IconComponent ? (
                                                         <IconComponent className="h-7 w-7 sm:h-8 sm:w-8 text-white" />
-                                                        ) : (
+                                                    ) : (
                                                         <div className="h-7 w-7 sm:h-8 sm:w-8 bg-gray-100 rounded-full" />
-                                                        )}
+                                                    )}
                                                 </div>
-                                                <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 mb-3 sm:mb-4">{equipo.servicio}</h3>
-                                                <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-pretty mb-4 sm:mb-6 text-left">{equipo.descripcion}</p>
+                                                <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 mb-3 sm:mb-4">
+                                                    {equipo.servicio}
+                                                </h3>
+                                                <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-pretty mb-4 sm:mb-6 text-left">
+                                                    {equipo.descripcion}
+                                                </p>
                                                 <div className="space-y-2 text-left">
-                                                    {equipo.caracteristicas && equipo.caracteristicas.length > 0 && equipo.caracteristicas.map((caracteristica, index) => (
-                                                        <div key={index} className="text-xs sm:text-sm text-slate-600 flex items-center">
-                                                            <div className={`w-2 h-2 bg-${equipo.color}-600 rounded-full mr-3 flex-shrink-0`} />
-                                                            {caracteristica}
-                                                        </div>
-                                                    ))}
+                                                    {equipo.caracteristicas &&
+                                                        equipo.caracteristicas.length > 0 &&
+                                                        equipo.caracteristicas.map((caracteristica, index) => (
+                                                            <div key={index} className="text-xs sm:text-sm text-slate-600 flex items-center">
+                                                                <div className={`w-2 h-2 bg-${equipo.color}-600 rounded-full mr-3 flex-shrink-0`} />
+                                                                {caracteristica}
+                                                            </div>
+                                                        ))}
                                                 </div>
                                             </CardContent>
                                         </Card>
-                                    );
+                                    )
                                 })}
                             </div>
                         </div>

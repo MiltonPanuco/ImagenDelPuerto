@@ -89,8 +89,8 @@ class CarruselSectionController extends Controller
         CarruselSection::create([
             'section' => $section,
             'image' => $imagePath,
-            'title1' => $request->title1,
-            'title2' => $request->title2,
+            'title1' => $request->title1 ?: null,
+            'title2' => $request->title2 ?: null,
             'order' => $order,
             'activo' => $request->activo === '1' || $request->activo === 1 || $request->activo === true
         ]);
@@ -149,8 +149,8 @@ class CarruselSectionController extends Controller
         }
 
         // Actualizar otros campos
-        $item->title1 = $request->title1;
-        $item->title2 = $request->title2;
+        $item->title1 = $request->title1 ?: null;
+        $item->title2 = $request->title2 ?: null;
         $item->order = $request->order ?? $item->order;
         $item->activo = $request->activo === '1' || $request->activo === 1 || $request->activo === true;
         $item->save();
@@ -218,4 +218,29 @@ class CarruselSectionController extends Controller
             'message' => 'Items reordenados exitosamente'
         ]);
     }
+
+    /**
+     * Obtener items activos de una sección para el frontend
+     */
+    public function getForFrontend($section)
+    {
+        $items = CarruselSection::section($section)
+            ->active()
+            ->ordered()
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'image' => $item->image,
+                    'title1' => $item->title1,
+                    'title2' => $item->title2,
+                    'description' => $item->description,
+                    'order' => $item->order,
+                    'activo' => $item->activo,
+                ];
+            });
+
+        return $items;
+    }
+
 }

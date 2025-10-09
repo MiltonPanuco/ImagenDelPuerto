@@ -10,8 +10,8 @@ import FileUpload from '@/components/ui/file-upload';
 interface GaleriaRecuerdoFormProps {
     open: boolean;
     onClose: () => void;
-    onSubmit: (data: { id: number; title: string; date: string; descripcion: string; activo: boolean; carrete: boolean; image: File | null }) => void;
-    initialData?: { id: number; title?: string; descripcion?: string, date?: string, activo?: boolean, carrete?: boolean, id?: number };
+    onSubmit: (data: { id: number; title: string; date: string; descripcion: string; activo: boolean; image: File | null }) => void;
+    initialData?: { id: number; title?: string; descripcion?: string, date?: string, activo?: boolean, id?: number };
 }
 
 const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
@@ -26,11 +26,10 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
     const [date, setDate] = useState(initialData.date || '');
     const [image, setImagen] = useState<File | null>(null);
     const [activo, setActivo] = useState(initialData.activo || false);
-    const [carrete, setCarrete] = useState(initialData.carrete || false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit({ id: initialData.id, title, descripcion, date, activo, carrete, image });
+        onSubmit({ id: initialData.id, title, descripcion, date, activo, image });
     };
 
     const handleFileAccepted = (archivos) => {
@@ -45,7 +44,6 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
             setDate(initialData.date ?? '');
             setImagen(null);
             setActivo(initialData.activo ?? false);
-            setCarrete(initialData.carrete ?? false);
         }
     }, [open, initialData]);
 
@@ -68,30 +66,22 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
                         className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
                     />
 
-                    {carrete == false && (
-                        <>
-                            <label htmlFor="date" className="font-bold text-gray-700 dark:text-neutral-200">Fecha</label>
-                            <Input
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                placeholder="Fecha"
-                                className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
-                            />
-                        </>
-                    )}
+                    <label htmlFor="date" className="font-bold text-gray-700 dark:text-neutral-200">Fecha</label>
+                    <Input
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        placeholder="Fecha"
+                        className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
+                    />
 
-                    {carrete == true && (
-                        <>
-                            <label htmlFor="descripcion" className="font-bold text-gray-700 dark:text-neutral-200">Descripción</label>
-                            <textarea
-                                className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                                value={descripcion}
-                                placeholder='Descripción'
-                                onChange={(e) => setDescripcion(e.target.value)}
-                                rows={3}
-                            />
-                        </>
-                    )}
+                    <label htmlFor="descripcion" className="font-bold text-gray-700 dark:text-neutral-200">Descripción</label>
+                    <textarea
+                        className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                        value={descripcion}
+                        placeholder='Descripción'
+                        onChange={(e) => setDescripcion(e.target.value)}
+                        rows={3}
+                    />
 
                     {!isEdit && (
                         <>
@@ -110,27 +100,13 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
                         </>
                     )}
 
-                    <div className="grid grid-cols-2">
-                        <div className="text-center">
-                            <div>
-                                <label htmlFor="activo" className="font-bold text-gray-700 dark:text-neutral-200">Activo</label>
-                            </div>
-                            <Switch
-                                id="activo"
-                                checked={activo}
-                                onCheckedChange={setActivo}
-                            />
-                        </div>
-                        <div className="text-center">
-                            <div>
-                                <label htmlFor="carrete" className="font-bold text-gray-700 dark:text-neutral-200">Carrete</label>
-                            </div>
-                            <Switch
-                                id="carrete"
-                                checked={carrete}
-                                onCheckedChange={setCarrete}
-                            />
-                        </div>
+                    <div className="flex flex-col items-center">
+                        <label htmlFor="activo" className="font-bold text-gray-700 dark:text-neutral-200">Activo</label>
+                        <Switch
+                            id="activo"
+                            checked={activo}
+                            onCheckedChange={setActivo}
+                        />
                     </div>
 
                     <Separator className="mb-3 dark:bg-neutral-700" />
@@ -151,7 +127,7 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
                             className="cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                             onClick={handleSubmit}
                         >
-                            <Save className="mr-2 h-4 w-4"  /> {isEdit ? 'Actualizar' : 'Guardar'}
+                            <Save className="mr-2 h-4 w-4" /> {isEdit ? 'Actualizar' : 'Guardar'}
                         </Button>
                     </DialogFooter>
                 </DialogContent>

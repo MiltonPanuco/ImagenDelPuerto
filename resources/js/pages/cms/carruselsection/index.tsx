@@ -1,15 +1,16 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import * as LucideIcons from 'lucide-react';
-import Swal from 'sweetalert2';
 import { Switch } from '@/components/ui/switch';
+import Swal from 'sweetalert2';
+
 interface CarruselItem {
     id: number;
     section: string;
     image: string;
-    title1: string;
+    title1?: string;
     title2?: string;
     description?: string;
     order: number;
@@ -36,7 +37,17 @@ export default function Index({
 
     const [sortedItems, setSortedItems] = useState(items);
 
+    useEffect(() => {
+        setSortedItems(items);
+    }, [items]);
+
     const handleToggleActive = (id: number) => {
+        setSortedItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id ? { ...item, activo: !item.activo } : item
+            )
+        );
+
         router.patch(
             route('cms.carrusel.activo', { section, id }),
             {},
@@ -50,14 +61,18 @@ export default function Index({
                         showConfirmButton: false,
                     });
                 },
+                onError: () => {
+                    setSortedItems(items);
+                }
             }
         );
     };
 
     const handleDelete = (id: number, title: string) => {
+        const displayTitle = title || 'este item';
         Swal.fire({
             title: '¿Estás seguro?',
-            text: `Se eliminará el item "${title}"`,
+            text: `Se eliminará el item "${displayTitle}"`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -133,7 +148,7 @@ export default function Index({
                                     {item.image ? (
                                         <img
                                             src={`/storage/${item.image}`}
-                                            alt={item.title1}
+                                            alt={item.title1 || 'Imagen del carrusel'}
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
@@ -142,19 +157,18 @@ export default function Index({
                                         </div>
                                     )}
 
-                                    {/* Badge de orden */}
                                     <div className="absolute top-2 left-2 bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded">
                                         #{item.order}
                                     </div>
-
-
                                 </div>
 
                                 {/* Contenido */}
                                 <div className="p-4">
-                                    <h3 className="font-semibold text-gray-900 dark:text-neutral-100 mb-1 line-clamp-1">
-                                        {item.title1}
-                                    </h3>
+                                    {item.title1 && (
+                                        <h3 className="font-semibold text-gray-900 dark:text-neutral-100 mb-1 line-clamp-1">
+                                            {item.title1}
+                                        </h3>
+                                    )}
                                     {item.title2 && (
                                         <p className="text-sm text-gray-600 dark:text-neutral-400 mb-2 line-clamp-1">
                                             {item.title2}
@@ -165,13 +179,17 @@ export default function Index({
                                             {item.description}
                                         </p>
                                     )}
+                                    {!item.title1 && !item.title2 && !item.description && (
+                                        <p className="text-sm text-gray-400 dark:text-neutral-500 italic">
+                                            Sin título
+                                        </p>
+                                    )}
                                 </div>
 
                                 {/* Acciones */}
                                 <div className="px-4 py-3 bg-gray-50 dark:bg-neutral-800 border-t border-gray-200 dark:border-neutral-600 flex items-center justify-between gap-2">
                                     {/* Botones izquierda */}
                                     <div className="flex gap-2">
-
                                         <Link href={route('cms.carrusel.edit', { section, id: item.id })}>
                                             <button
                                                 className="p-2 rounded hover:bg-gray-100 dark:hover:bg-neutral-600 transition cursor-pointer"
@@ -182,21 +200,18 @@ export default function Index({
                                         </Link>
 
                                         <button
-                                            onClick={() => handleDelete(item.id, item.title1)}
+                                            onClick={() => handleDelete(item.id, item.title1 || '')}
                                             className="p-2 rounded hover:bg-gray-100 dark:hover:bg-neutral-600 transition cursor-pointer"
                                             title="Eliminar"
                                         >
                                             <LucideIcons.Trash2 className="w-5 h-5 text-red-600 dark:text-red-400" />
                                         </button>
-
                                     </div>
 
                                     <Switch
                                         checked={item.activo}
                                         onCheckedChange={() => handleToggleActive(item.id)}
                                     />
-
-
                                 </div>
                             </div>
                         ))}

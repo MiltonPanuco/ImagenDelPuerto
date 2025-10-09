@@ -8,11 +8,12 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+
 class GaleriaRecuerdosController extends Controller
 {
     public function index()
     {
-        $galeria = GaleriaRecuerdo::select('id', 'title', 'src', 'date', 'activo', 'carrete', 'descripcion')
+        $galeria = GaleriaRecuerdo::select('id', 'title', 'src', 'date', 'activo', 'descripcion')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -30,7 +31,6 @@ class GaleriaRecuerdosController extends Controller
         $request->validate([
             'title'       => 'required|string|max:255',
             'activo'     => 'boolean',
-            'carrete'    => 'boolean',
         ], [
             'title.required'  => 'El título de la imagen es obligatorio.',
             'title.max'       => 'El título no debe exceder los 255 caracteres.',
@@ -42,7 +42,6 @@ class GaleriaRecuerdosController extends Controller
             $recuerdo->descripcion = trim($data['descripcion']) ?? null;
             $recuerdo->date = trim($data['date']) ?? null;
             $recuerdo->activo = (int) $data['activo'];
-            $recuerdo->carrete = (int) $data['carrete'];
             $recuerdo->save();
 
             $recuerdo->src = Storage::url($recuerdo->src);
@@ -59,7 +58,6 @@ class GaleriaRecuerdosController extends Controller
         $request->validate([
             'title'       => 'required|string|max:255',
             'activo'     => 'boolean',
-            'carrete'    => 'boolean',
             'image'        => 'required|file|mimes:jpg,jpeg,png|max:5120', // Máximo 5MB
         ], [
             'title.required'  => 'El título de la imagen es obligatorio.',
@@ -85,7 +83,6 @@ class GaleriaRecuerdosController extends Controller
                 'date'        => $data['date'] ?? null,
                 'src'         => $path,
                 'activo'      => (int) $data['activo'],
-                'carrete'     => (int) $data['carrete'],
             ]);
 
             $galeriaRecuerdo->src = Storage::url($path);
@@ -114,7 +111,7 @@ class GaleriaRecuerdosController extends Controller
 
     public function updateField($id, $field)
     {
-        $allowedFields = ['activo', 'carrete'];
+        $allowedFields = ['activo'];
         if (!in_array($field, $allowedFields)) {
             return response()->json(['message' => 'Campo no permitido'], 400);
         }

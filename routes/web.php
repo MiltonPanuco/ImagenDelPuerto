@@ -50,8 +50,11 @@ Route::middleware('auth')->group(function () {
             Route::delete('{section}/{id}', [CarruselSectionController::class, 'destroy'])->name('destroy');
             // Toggle activo/inactivo
             Route::patch('{section}/{id}/activo', [CarruselSectionController::class, 'toggleActivo'])->name('activo');
-            // Reordenar items (opcional)
+            // Reordenar items
             Route::post('{section}/reorder', [CarruselSectionController::class, 'reorder'])->name('reorder');
+            // Ruta para obtener carruseles en el frontend 
+            Route::get('/carrusel/{section}', [CarruselSectionController::class, 'getForFrontend'])
+                ->name('frontend.carrusel');
         });
 
 

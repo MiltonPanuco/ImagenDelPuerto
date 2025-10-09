@@ -16,28 +16,25 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'id' => 1,
                 'src' => "storage/gallery/carrusel-1.jpg",
                 'title' => "Recuerdos Digitales",
-                'date' => null,
+                'date' => "2024",
                 'descripcion' => "Guardamos y atesoramos cada momento siempre",
                 'activo' => true,
-                'carrete' => true,
             ],
             [
                 'id' => 2,
                 'src' => "gallery/carrusel-2.jpg",
                 'title' => "Nuestro Equipo",
-                'date' => null,
+                'date' => "2024",
                 'descripcion' => "Contamos con tecnología de última generación para garantizar la mejor calidad en cada captura.",
                 'activo' => true,
-                'carrete' => true,
             ],
             [
                 'id' => 3,
                 'src' => "gallery/carrusel-3.jpg",
                 'title' => "Tu salud y comodidad",
-                'date' => null,
+                'date' => "2024",
                 'descripcion' => "Nuestra prioridad",
                 'activo' => true,
-                'carrete' => true,
             ],
             [
                 'id' => 4,
@@ -46,7 +43,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Noviembre 2024",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 5,
@@ -55,7 +51,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Diciembre 2024",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 6,
@@ -64,7 +59,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Enero 2025",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 7,
@@ -73,7 +67,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Marzo 2025",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 8,
@@ -82,7 +75,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Abril 2025",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 9,
@@ -91,7 +83,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Mayo 2025",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 10,
@@ -100,7 +91,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Enero 2025",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 11,
@@ -109,7 +99,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Enero 2025",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
             [
                 'id' => 12,
@@ -118,7 +107,6 @@ class GaleriaRecuerdoSeeder extends Seeder
                 'date' => "Julio 2024",
                 'descripcion' => null,
                 'activo' => true,
-                'carrete' => false,
             ],
         ]);
     }

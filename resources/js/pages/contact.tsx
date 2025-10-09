@@ -5,28 +5,19 @@ import CarouselLayout from "@/layouts/carousel-layout"
 import FooterLayout from "@/layouts/footer-layout"
 
 import * as Icons from "lucide-react"
-import * as FaIcons from 'react-icons/fa'
-import * as SiIcons from 'react-icons/si'
+import * as FaIcons from "react-icons/fa"
+import * as SiIcons from "react-icons/si"
 import { Phone, Mail } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
-const sliderContact = [
-    {
-        image: "storage/contact/carrusel-1.jpeg",
-        title: "Escríbenos",
-        description: "Envíanos un mensaje y recibe la atención que necesitas de forma rápida y personalizada.",
-    },
-    {
-        image: "storage/contact/carrusel-2.jpg",
-        title: "Llámanos",
-        description: "Comunícate con nuestro equipo para resolver tus dudas o agendar una cita fácilmente.",
-    },
-    {
-        image: "storage/contact/carrusel-3.jpg",
-        title: "Conócenos",
-        description: "Descubre más sobre nuestros servicios y la manera en que podemos ayudarte.",
-    },
-]
+interface CarruselItem {
+    id: number
+    image: string
+    title1?: string
+    title2?: string
+    description?: string
+    activo: boolean
+}
 
 interface Atencion {
     id: number
@@ -55,84 +46,30 @@ interface Social {
 }
 
 interface ContactProps {
+    carruselContact: CarruselItem[]
     atencion: Atencion[]
     citas: Citas[]
     sociales: Social[]
 }
 
-export default function ContactSection({ atencion, citas, sociales }: ContactProps) {
-    const getColorClasses = (color: string) => {
-        const colorMap: Record<string, { gradient: string; hover: string; text: string; bg: string }> = {
-            pink: {
-                gradient: 'from-pink-50 to-purple-50',
-                hover: 'hover:border-pink-300',
-                text: 'text-pink-600',
-                bg: 'bg-gradient-to-br from-pink-500 to-purple-500'
-            },
-            blue: {
-                gradient: 'from-blue-50 to-indigo-50',
-                hover: 'hover:border-blue-300',
-                text: 'text-blue-600',
-                bg: 'bg-blue-600'
-            },
-            red: {
-                gradient: 'from-red-50 to-orange-50',
-                hover: 'hover:border-red-300',
-                text: 'text-red-600',
-                bg: 'bg-red-600'
-            },
-            green: {
-                gradient: 'from-green-50 to-emerald-50',
-                hover: 'hover:border-green-300',
-                text: 'text-green-600',
-                bg: 'bg-green-600'
-            },
-            purple: {
-                gradient: 'from-purple-50 to-violet-50',
-                hover: 'hover:border-purple-300',
-                text: 'text-purple-600',
-                bg: 'bg-purple-600'
-            },
-            yellow: {
-                gradient: 'from-yellow-50 to-amber-50',
-                hover: 'hover:border-yellow-300',
-                text: 'text-yellow-600',
-                bg: 'bg-yellow-600'
-            },
-            black: {
-                gradient: 'from-gray-50 to-slate-50',
-                hover: 'hover:border-gray-300',
-                text: 'text-gray-900',
-                bg: 'bg-gray-900'
-            },
-            gray: {
-                gradient: 'from-gray-50 to-slate-50',
-                hover: 'hover:border-gray-300',
-                text: 'text-gray-600',
-                bg: 'bg-gray-600'
-            }
-        };
-
-        return colorMap[color] || colorMap.blue;
-    };
-
+export default function ContactSection({ carruselContact = [], atencion, citas, sociales }: ContactProps) {
     const renderSocialIcon = (iconName: string, className: string) => {
-        let IconComponent = FaIcons[iconName as keyof typeof FaIcons];
+        let IconComponent = FaIcons[iconName as keyof typeof FaIcons]
 
         if (!IconComponent) {
-            IconComponent = SiIcons[iconName as keyof typeof SiIcons];
+            IconComponent = SiIcons[iconName as keyof typeof SiIcons]
         }
 
-        if (IconComponent && typeof IconComponent === 'function') {
-            return <IconComponent className={className} />;
+        if (IconComponent && typeof IconComponent === "function") {
+            return <IconComponent className={className} />
         }
 
-        return <FaIcons.FaGlobe className={className} />;
-    };
+        return <FaIcons.FaGlobe className={className} />
+    }
 
     return (
         <NavbarLayout>
-            <CarouselLayout slides={sliderContact} />
+            <CarouselLayout slides={carruselContact} />
 
             <div className="min-h-screen bg-slate-50">
                 <section className="py-32 bg-white">
@@ -244,45 +181,41 @@ export default function ContactSection({ atencion, citas, sociales }: ContactPro
                         {sociales && sociales.length > 0 && (
                             <div className="max-w-4xl mx-auto">
                                 <div className="text-center mb-12">
-                                    <h3 className="text-2xl sm:text-3xl font-semibold text-slate-900 mb-3">
-                                        Síguenos en redes sociales
-                                    </h3>
-                                    <p className="text-slate-600">
-                                        Mantente al día con nuestras novedades y consejos de salud
-                                    </p>
+                                    <h3 className="text-2xl sm:text-3xl font-semibold text-slate-900 mb-3">Síguenos en redes sociales</h3>
+                                    <p className="text-slate-600">Mantente al día con nuestras novedades y consejos de salud</p>
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    {sociales.map((social) => {
-                                        const colors = getColorClasses(social.color);
-
-                                        return (
-                                            <a
-                                                key={social.id}
-                                                href={social.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={`group flex items-center gap-4 sm:gap-6 p-6 sm:p-8 bg-gradient-to-br ${colors.gradient} rounded-2xl hover:shadow-xl transition-all duration-300 border-2 border-transparent ${colors.hover}`}
+                                    {sociales.map((social) => (
+                                        <a
+                                            key={social.id}
+                                            href={social.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={`group flex items-center gap-4 sm:gap-6 p-6 sm:p-8 bg-gradient-to-br from-${social.color}-50 to-${social.color}-100 rounded-2xl hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-${social.color}-300`}
+                                        >
+                                            <div
+                                                className={`w-14 h-14 sm:w-16 sm:h-16 bg-${social.color}-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}
                                             >
-                                                <div className={`w-14 h-14 sm:w-16 sm:h-16 ${colors.bg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
-                                                    {renderSocialIcon(social.icon, 'h-7 w-7 sm:h-8 sm:w-8 text-white')}
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className={`text-sm font-medium ${colors.text} mb-1`}>
-                                                        {social.title}
-                                                    </p>
-                                                    <p className={`text-lg sm:text-xl font-semibold text-slate-900 group-hover:${colors.text} transition-colors truncate`}>
-                                                        {social.description}
-                                                    </p>
-                                                </div>
-                                                <div className={`text-slate-400 group-hover:${colors.text} transition-colors flex-shrink-0`}>
-                                                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </div>
-                                            </a>
-                                        );
-                                    })}
+                                                {renderSocialIcon(social.icon, "h-7 w-7 sm:h-8 sm:w-8 text-white")}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className={`text-sm font-medium text-${social.color}-600 mb-1`}>{social.title}</p>
+                                                <p
+                                                    className={`text-lg sm:text-xl font-semibold text-slate-900 group-hover:text-${social.color}-600 transition-colors truncate`}
+                                                >
+                                                    {social.description}
+                                                </p>
+                                            </div>
+                                            <div
+                                                className={`text-slate-400 group-hover:text-${social.color}-600 transition-colors flex-shrink-0`}
+                                            >
+                                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    ))}
                                 </div>
                             </div>
                         )}
@@ -303,7 +236,7 @@ export default function ContactSection({ atencion, citas, sociales }: ContactPro
 
                         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
                             {(citas || []).map((item) => {
-                                const IconComponent = Icons[item.icon as keyof typeof Icons] || Icons.Calendar;
+                                const IconComponent = Icons[item.icon as keyof typeof Icons] || Icons.Calendar
 
                                 return (
                                     <Card
@@ -316,13 +249,11 @@ export default function ContactSection({ atencion, citas, sociales }: ContactPro
                                             >
                                                 <IconComponent className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
                                             </div>
-                                            <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 mb-4 sm:mb-6">
-                                                {item.title}
-                                            </h3>
+                                            <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 mb-4 sm:mb-6">{item.title}</h3>
                                             <p className="text-slate-600 leading-relaxed text-pretty">{item.descripcion}</p>
                                         </CardContent>
                                     </Card>
-                                );
+                                )
                             })}
                         </div>
                     </div>
@@ -345,7 +276,7 @@ export default function ContactSection({ atencion, citas, sociales }: ContactPro
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
                             {(atencion || []).map((item) => {
-                                const IconComponent = Icons[item.icon as keyof typeof Icons] || Icons.AlertCircle;
+                                const IconComponent = Icons[item.icon as keyof typeof Icons] || Icons.AlertCircle
 
                                 return (
                                     <div
@@ -358,7 +289,7 @@ export default function ContactSection({ atencion, citas, sociales }: ContactPro
                                         <h4 className="font-medium text-slate-900 mb-2">{item.title}</h4>
                                         <p className="text-sm text-slate-600 text-center">{item.descripcion}</p>
                                     </div>
-                                );
+                                )
                             })}
                         </div>
                     </div>

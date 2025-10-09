@@ -13,13 +13,11 @@ class GaleriaRecuerdo extends Model
         'title',
         'date',
         'descripcion',
-        'carrete',
         'activo',
         'orden'
     ];
 
     protected $casts = [
         'activo' => 'boolean',
-        'carrete' => 'boolean',
     ];
 }

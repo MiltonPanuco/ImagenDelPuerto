@@ -9,7 +9,7 @@ interface CarruselItem {
     id?: number;
     section: string;
     image?: string;
-    title1: string;
+    title1?: string;
     title2?: string;
     description?: string;
     order: number;
@@ -203,7 +203,7 @@ export default function Form({
                     {/* Título Principal */}
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
-                            Título Principal <span className="text-red-500">*</span>
+                            Título Principal <span className="text-gray-400">(opcional)</span>
                         </label>
                         <input
                             type="text"
@@ -234,25 +234,6 @@ export default function Form({
                         {errors.title2 && (
                             <div className="text-red-500 dark:text-red-400 text-sm mt-1">
                                 {errors.title2}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Descripción */}
-                    <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
-                            Descripción <span className="text-gray-400">(opcional)</span>
-                        </label>
-                        <textarea
-                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                            value={data.description || ''}
-                            onChange={(e) => setData('description', e.target.value)}
-                            rows={4}
-                            placeholder="Ingrese una descripción adicional"
-                        />
-                        {errors.description && (
-                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">
-                                {errors.description}
                             </div>
                         )}
                     </div>
@@ -289,7 +270,7 @@ export default function Form({
                             className="accent-blue-500 w-4 h-4 cursor-pointer"
                         />
                         <label htmlFor="activo" className="text-gray-700 dark:text-neutral-200 cursor-pointer">
-                            Mostrar en el sitio (Activo)
+                            Activo
                         </label>
                     </div>
 

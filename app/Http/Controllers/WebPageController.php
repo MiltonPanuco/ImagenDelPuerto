@@ -12,6 +12,7 @@ use App\Models\Atencion;
 use App\Models\Estadisticas;
 use App\Models\Cita;
 use App\Models\Social;
+use App\Models\CarruselSection;
 
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -20,10 +21,12 @@ class WebPageController extends Controller
 {
     public function index()
     {
+        $carruselHome = $this->getCarrusel('home');
         $servicios = Servicio::where('activo', true)->limit(3)->get();
         $elecciones = Eleccion::where('activo', true)->limit(3)->get();
 
         return Inertia::render('home', [
+            'carruselHome' => $carruselHome,
             'servicios' => $servicios,
             'elecciones' => $elecciones,
         ]);
@@ -31,11 +34,13 @@ class WebPageController extends Controller
 
     public function about()
     {
+        $carruselAbout = $this->getCarrusel('about');
         $mision = Mision::where('activo', true)->limit(2)->get();
         $ofrecemos = Ofrecemos::where('activo', true)->limit(4)->get();
         $estadisticas = Estadisticas::where('activo', true)->limit(2)->get();
 
         return Inertia::render('about', [
+            'carruselAbout' => $carruselAbout,
             'mision' => $mision,
             'ofrecemos' => $ofrecemos,
             'estadisticas' => $estadisticas,
@@ -44,11 +49,17 @@ class WebPageController extends Controller
 
     public function service()
     {
-        return Inertia::render('service');
+        $carruselService = $this->getCarrusel('service');
+        
+        return Inertia::render('service', [
+            'carruselService' => $carruselService,
+        ]);
     }
 
     public function gallery()
     {
+        $carruselGallery = $this->getCarrusel('gallery');
+        
         $galeria = GaleriaRecuerdo::where('activo', true)->where('carrete', false)
             ->select('id', 'title', 'date', 'src as image')
             ->get();
@@ -57,6 +68,7 @@ class WebPageController extends Controller
             ->select('title', 'src as image', 'descripcion as description')
             ->limit(5)
             ->get();
+        
         foreach ($galeria as $item) {
             $item->image = Storage::url($item->image);
         }
@@ -83,6 +95,7 @@ class WebPageController extends Controller
         }
 
         return Inertia::render('gallery', [
+            'carruselGallery' => $carruselGallery,
             'digitalMemories' => $galeria,
             'sliderGallery' => $carrusel,
             'secciones' => $equipamiento
@@ -91,15 +104,35 @@ class WebPageController extends Controller
 
     public function contact()
     {
-        
+        $carruselContact = $this->getCarrusel('contact');
         $atencion = Atencion::where('activo', true)->limit(6)->get();
         $citas = Cita::where('activo', true)->limit(2)->get();
         $sociales = Social::where('activo', true)->limit(2)->get();
 
         return Inertia::render('contact', [
+            'carruselContact' => $carruselContact,
             'atencion' => $atencion,
             'citas' => $citas,
             'sociales' => $sociales
         ]);
+    }
+
+    /* Método reutilizable para obtener carrusel de cualquier sección*/
+    private function getCarrusel($section) 
+    {
+        return CarruselSection::section($section)
+            ->active()
+            ->ordered()
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'image' => $item->image ? '/storage/' . $item->image : null,  
+                    'title1' => $item->title1,
+                    'title2' => $item->title2,
+                    'description' => $item->description,
+                    'activo' => $item->activo,
+                ];
+            });
     }
 }

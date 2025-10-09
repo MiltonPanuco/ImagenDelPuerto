@@ -7,8 +7,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface Slide {
     image: string
-    title: string
-    description?: string
+    title1?: string
+    title2?: string
 }
 
 interface ModernCarouselProps {
@@ -104,11 +104,11 @@ export default function ModernCarousel({ slides = [] }: ModernCarouselProps) {
                     <div className="absolute inset-0 flex items-center justify-center text-center px-4 py-8 sm:px-6 md:px-8 lg:px-12 xl:px-16">
                         <div className="max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl w-full">
                             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black text-white mb-2 sm:mb-3 md:mb-4 lg:mb-6 tracking-tight leading-tight drop-shadow-2xl font-sans px-2">
-                                {slide.title}
+                                {slide.title1}
                             </h2>
-                            {slide.description && (
+                            {slide.title2 && (
                                 <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-blue-100 font-light leading-relaxed max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto px-2 drop-shadow-lg">
-                                    {slide.description}
+                                    {slide.title2}
                                 </p>
                             )}
                         </div>
