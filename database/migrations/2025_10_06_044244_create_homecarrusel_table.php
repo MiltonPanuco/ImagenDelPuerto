@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('homecarrusel', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('descripcion')->nullable();
+            $table->string('descripcion', 500)->nullable();
             $table->string('image');
             $table->integer('orden')->default(0);
             $table->boolean('activo')->default(true);
