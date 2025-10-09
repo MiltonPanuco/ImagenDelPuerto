@@ -35,7 +35,7 @@ export default function Ofrecemos({ ofrecemos }: Ofrecemos) {
                         </button>
                     </Link>
                 </div>
-                
+
                 <DataTable items={ofrecemos} resourceRoute="cms.ofrecemos" />
             </div>
         </AppLayout>

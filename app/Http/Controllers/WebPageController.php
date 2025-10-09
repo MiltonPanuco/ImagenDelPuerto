@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Eleccion;
 use App\Models\GaleriaEquipamiento;
 use App\Models\GaleriaRecuerdo;
-use App\Models\HomeCarrusel;
 use App\Models\Servicio;
 use App\Models\Mision;
 use App\Models\Ofrecemos;
@@ -23,12 +22,10 @@ class WebPageController extends Controller
     {
         $servicios = Servicio::where('activo', true)->limit(3)->get();
         $elecciones = Eleccion::where('activo', true)->limit(3)->get();
-        $homecarrusel = HomeCarrusel::where('activo', true)->limit(3)->get();
 
         return Inertia::render('home', [
             'servicios' => $servicios,
             'elecciones' => $elecciones,
-            'homecarrusel' => $homecarrusel,
         ]);
     }
 

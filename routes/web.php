@@ -9,9 +9,9 @@ use App\Http\Controllers\Cms\OfrecemosController;
 use App\Http\Controllers\Cms\EstadisticasController;
 use App\Http\Controllers\Cms\CitaController;
 use App\Http\Controllers\Cms\DataController;
-use App\Http\Controllers\Cms\HomeCarruselController;
 use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoEquipoController;
 use App\Http\Controllers\Cms\AtencionController;
+use App\Http\Controllers\Cms\CarruselSectionController;
 use App\Http\Controllers\WebPageController;
 use App\Http\Controllers\Cms\SocialController;
 use Illuminate\Support\Facades\Route;
@@ -32,15 +32,30 @@ Route::middleware('auth')->group(function () {
         })->name('dashboard');
 
 
-        /** HOME  */
+            /** CARRUSEL GENÉRICO */
+            
+            Route::prefix('carrusel')->name('cms.carrusel.')->group(function () {
+            
+            // Listar items de una sección
+            Route::get('{section}', [CarruselSectionController::class, 'index'])->name('index');
+            // Mostrar formulario para crear
+            Route::get('{section}/create', [CarruselSectionController::class, 'create'])->name('create');
+            // Guardar nuevo item
+            Route::post('{section}', [CarruselSectionController::class, 'store'])->name('store');
+            // Mostrar formulario para editar
+            Route::get('{section}/{id}/edit', [CarruselSectionController::class, 'edit'])->name('edit');
+            // Actualizar item
+            Route::post('{section}/{id}', [CarruselSectionController::class, 'update'])->name('update');
+            // Eliminar item
+            Route::delete('{section}/{id}', [CarruselSectionController::class, 'destroy'])->name('destroy');
+            // Toggle activo/inactivo
+            Route::patch('{section}/{id}/activo', [CarruselSectionController::class, 'toggleActivo'])->name('activo');
+            // Reordenar items (opcional)
+            Route::post('{section}/reorder', [CarruselSectionController::class, 'reorder'])->name('reorder');
+        });
 
 
-        /** Home Carrusel */
-        Route::resource('homecarrusel', HomeCarruselController::class)
-            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
-            ->names('cms.homecarrusel');
-        Route::patch('homecarrusel/{homecarrusel}/activo', [HomeCarruselController::class, 'toggleActivo'])
-            ->name('cms.homecarrusel.activo');
+        /** HOME */
 
         /** Servicios */
         Route::resource('servicios', ServicioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios');
@@ -51,7 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('eleccion/{eleccion}/activo', [EleccionController::class, 'toggleActivo'])->name('cms.eleccion.activo');
 
 
-        /** ABOUT  */
+        /** ABOUT */
 
         /** Misión */
         Route::resource('mision', MisionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.mision');
@@ -104,10 +119,14 @@ Route::middleware('auth')->group(function () {
         Route::patch('citas/{cita}/activo', [CitaController::class, 'toggleActivo'])->name('cms.citas.activo');
 
          /** Sociales */
-        Route::resource('sociales', SocialController::class) ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']) ->parameters(['sociales' => 'social'])  ->names('cms.sociales');
-        Route::patch('sociales/{social}/activo', [SocialController::class, 'toggleActivo']) ->name('cms.sociales.activo'); });
-
+        Route::resource('sociales', SocialController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+            ->parameters(['sociales' => 'social'])
+            ->names('cms.sociales');
+        Route::patch('sociales/{social}/activo', [SocialController::class, 'toggleActivo'])
+            ->name('cms.sociales.activo');
     });
+});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/settings.php';

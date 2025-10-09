@@ -332,6 +332,7 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
                                                 onCheckedChange={() => handleSwitchEquipo(equipo)}
                                             />
                                         </div>
+
                                         <div className="flex gap-2 mt-3">
                                             <button
                                                 type="button"
