@@ -91,36 +91,36 @@ export default function DataTable({ items, resourceRoute }: DataTableProps) {
 
   return (
     <div>
-      <div className="bg-white shadow rounded-lg overflow-x-auto">
+      <div className="bg-white dark:bg-neutral-800 shadow dark:shadow-neutral-900 rounded-lg overflow-x-auto">
         <table className="min-w-full table-auto text-left text-sm">
-          <thead className="bg-slate-100 border-b">
+          <thead className="bg-slate-100 dark:bg-neutral-700 border-b dark:border-neutral-600">
             <tr>
-              <th className="px-6 py-3">ID</th>
-              <th className="px-6 py-3">Categoría</th>
-              <th className="px-6 py-3">Titulo</th>
-              <th className="px-6 py-3">Subtitulo</th>
-              <th className="px-6 py-3">Descripción</th>
-              <th className="px-6 py-3">Equipos</th>
-              <th className="px-6 py-3">Activo</th>
-              <th className="px-6 py-3">Acciones</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">ID</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">Categoría</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">Titulo</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">Subtitulo</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">Descripción</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">Equipos</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">Activo</th>
+              <th className="px-6 py-3 text-gray-900 dark:text-neutral-100">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {localItems.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-6 py-4 text-center text-slate-400">
+                <td colSpan={8} className="px-6 py-4 text-center text-slate-400 dark:text-neutral-500">
                   Sin equipamiento registrado
                 </td>
               </tr>
             ) : (
               localItems.map((item) => (
-                <tr key={item.id} className="border-b hover:bg-slate-50">
-                  <td className="px-6 py-4">{item.id}</td>
-                  <td className="px-6 py-4">{item.categoria}</td>
-                  <td className="px-6 py-4">{item.titulo}</td>
-                  <td className="px-6 py-4">{item.subtitulo}</td>
-                  <td className="px-6 py-4 truncate max-w-xs">{item.descripcion}</td>
-                  <td className='px-6 py-4'>{item.equipos_count}</td>
+                <tr key={item.id} className="border-b dark:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-700/50">
+                  <td className="px-6 py-4 text-gray-900 dark:text-neutral-100">{item.id}</td>
+                  <td className="px-6 py-4 text-gray-900 dark:text-neutral-100">{item.categoria}</td>
+                  <td className="px-6 py-4 text-gray-900 dark:text-neutral-100">{item.titulo}</td>
+                  <td className="px-6 py-4 text-gray-900 dark:text-neutral-100">{item.subtitulo}</td>
+                  <td className="px-6 py-4 truncate max-w-xs text-gray-900 dark:text-neutral-100">{item.descripcion}</td>
+                  <td className='px-6 py-4 text-gray-900 dark:text-neutral-100'>{item.equipos_count}</td>
                   <td className="px-6 py-4">
                     <Switch
                         checked={item.activo}
@@ -128,12 +128,12 @@ export default function DataTable({ items, resourceRoute }: DataTableProps) {
                         />
                     </td>
                   <td className="px-6 py-4 space-x-2">
-                    <Link href={route(`${resourceRoute}.edit`, item.id)} className="text-orange-600 hover:underline">
+                    <Link href={route(`${resourceRoute}.edit`, item.id)} className="text-orange-600 dark:text-orange-400 hover:underline">
                       <Edit className="inline w-4 h-4 mr-1 cursor-pointer" />
                     </Link>
                     <button
                       onClick={() => onDelete(item)}
-                      className="text-red-600 hover:underline"
+                      className="text-red-600 dark:text-red-400 hover:underline"
                     >
                       <Trash2 className="inline w-4 h-4 mr-1 cursor-pointer" />
                     </button>
@@ -145,15 +145,16 @@ export default function DataTable({ items, resourceRoute }: DataTableProps) {
         </table>
 
         {/* Paginación */}
-        <div className="p-4 flex flex-wrap gap-2 justify-center border-t bg-slate-50">
+        <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-slate-200 dark:border-neutral-700 bg-slate-50 dark:bg-neutral-800">
           {items.links.map((link, index) => (
             <button
               key={index}
               disabled={!link.url}
               onClick={() => link.url && router.visit(link.url)}
-              className={`px-3 py-1 text-sm rounded ${
-                link.active ? 'bg-blue-600 text-white' : 'bg-white border text-slate-700 hover:bg-slate-100'
-              }`}
+              className={`px-3 py-1 text-sm rounded transition-colors ${link.active
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white dark:bg-neutral-700 border border-slate-300 dark:border-neutral-600 text-slate-700 dark:text-neutral-200 hover:bg-slate-100 dark:hover:bg-neutral-600'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
               dangerouslySetInnerHTML={{ __html: link.label }}
             />
           ))}

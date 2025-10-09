@@ -120,13 +120,13 @@ export default function FormSocial({ social }: { social: Social }) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={isEdit ? 'Editar Red Social' : 'Crear Red Social'} />
 
-            <div className="mb-6 md:p-15 p-10">
+            <div className="md:p-15 p-10 bg-white dark:bg-neutral-800">
                 <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-semibold">
+                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-neutral-100">
                         {isEdit ? 'Editar Red Social' : 'Crear Nueva Red Social'}
                     </h1>
                     <Link href={route('cms.sociales.index')}>
-                        <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-300 text-white rounded">
+                        <button className="inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-500 text-white rounded">
                             <LucideIcons.ArrowBigLeft className="w-4 h-4 mr-2" />
                             Regresar
                         </button>
@@ -136,13 +136,13 @@ export default function FormSocial({ social }: { social: Social }) {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {errors.error && showError && (
                         <div
-                            className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
+                            className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 dark:bg-red-900 dark:text-red-300 rounded-lg"
                             role="alert"
                         >
                             {errors.error}
                             <button
                                 type="button"
-                                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                                className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                                 onClick={() => setShowError(false)}
                                 aria-label="Cerrar alerta"
                             >
@@ -153,23 +153,23 @@ export default function FormSocial({ social }: { social: Social }) {
 
                     {/* Título */}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Título
                         </label>
                         <input
                             type="text"
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
                         />
                         {errors.title && (
-                            <div className="text-red-500 text-sm">{errors.title}</div>
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.title}</div>
                         )}
                     </div>
 
                     {/* Ícono */}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Ícono de Red Social
                         </label>
 
@@ -183,15 +183,15 @@ export default function FormSocial({ social }: { social: Social }) {
                                         type="button"
                                         onClick={() => setData('icon', iconName)}
                                         className={`cursor-pointer group transition duration-150 ease-in-out border rounded-lg p-4 flex flex-col items-center justify-center hover:scale-105 hover:shadow-md ${isSelected
-                                                ? 'ring-2 ring-blue-500 bg-blue-50 border-blue-500'
-                                                : 'border-gray-300 hover:border-gray-400'
+                                                ? 'ring-2 ring-blue-500 dark:ring-blue-400 bg-blue-50 dark:bg-neutral-700 border-blue-500 dark:border-blue-400'
+                                                : 'border-gray-300 dark:border-neutral-600 hover:border-gray-400 dark:hover:border-neutral-500'
                                             }`}
                                         title={iconName}
                                     >
-                                        <div className={`${isSelected ? getColorClass(data.color) : 'bg-gray-600'} p-2 rounded-lg mb-2`}>
+                                        <div className={`${isSelected ? getColorClass(data.color) : 'bg-gray-600 dark:bg-neutral-500'} p-2 rounded-lg mb-2`}>
                                             {renderIcon(iconName, 'w-6 h-6 text-white')}
                                         </div>
-                                        <span className="text-xs text-center text-gray-600">
+                                        <span className="text-xs text-center text-gray-600 dark:text-neutral-300">
                                             {iconName.replace('Fa', '')}
                                         </span>
                                     </button>
@@ -200,24 +200,24 @@ export default function FormSocial({ social }: { social: Social }) {
                         </div>
 
                         {data.icon && (
-                            <div className="mt-4 p-4 bg-gray-50 rounded-lg flex items-center space-x-3">
+                            <div className="mt-4 p-4 bg-gray-50 dark:bg-neutral-700 rounded-lg flex items-center space-x-3">
                                 <div className={`${getColorClass(data.color)} p-3 rounded-lg`}>
                                     {renderIcon(data.icon, 'w-8 h-8 text-white')}
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-600">Ícono seleccionado:</p>
-                                    <p className="text-base font-medium text-gray-900">{data.icon}</p>
+                                    <p className="text-sm text-gray-600 dark:text-neutral-400">Ícono seleccionado:</p>
+                                    <p className="text-base font-medium text-gray-900 dark:text-neutral-100">{data.icon}</p>
                                 </div>
                             </div>
                         )}
                         {errors.icon && (
-                            <div className="text-red-500 text-sm">{errors.icon}</div>
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.icon}</div>
                         )}
                     </div>
 
                     {/* Color */}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Color de la red social
                         </label>
                         <div className="flex flex-wrap gap-3">
@@ -229,7 +229,7 @@ export default function FormSocial({ social }: { social: Social }) {
                                         type="button"
                                         onClick={() => setData('color', color)}
                                         className={`relative w-12 h-12 cursor-pointer rounded-lg transition duration-150 ${isSelected
-                                                ? 'ring-2 ring-offset-2 ring-blue-500 scale-110'
+                                                ? 'ring-2 ring-offset-2 dark:ring-offset-neutral-800 ring-blue-500 dark:ring-blue-400 scale-110'
                                                 : 'hover:scale-105'
                                             } ${getColorClass(color)}`}
                                         title={color}
@@ -245,47 +245,47 @@ export default function FormSocial({ social }: { social: Social }) {
                         {data.color && (
                             <div className="mt-4 flex items-center space-x-2">
                                 <div className={`w-6 h-6 rounded ${getColorClass(data.color)}`} />
-                                <span className="text-sm font-medium text-gray-700 capitalize">
+                                <span className="text-sm font-medium text-gray-700 dark:text-neutral-300 capitalize">
                                     {data.color}
                                 </span>
                             </div>
                         )}
                         {errors.color && (
-                            <div className="text-red-500 text-sm">{errors.color}</div>
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.color}</div>
                         )}
                     </div>
 
                     {/* Descripción */}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Descripción
                         </label>
                         <input
                             type="text"
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             placeholder="@usuario o nombre de página"
                             value={data.description}
                             onChange={(e) => setData('description', e.target.value)}
                         />
                         {errors.description && (
-                            <div className="text-red-500 text-sm">{errors.description}</div>
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.description}</div>
                         )}
                     </div>
 
                     {/* URL */}
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             URL
                         </label>
                         <input
                             type="url"
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             placeholder="https://ejemplo.com/tu-perfil"
                             value={data.url}
                             onChange={(e) => setData('url', e.target.value)}
                         />
                         {errors.url && (
-                            <div className="text-red-500 text-sm">{errors.url}</div>
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.url}</div>
                         )}
                     </div>
 
@@ -294,11 +294,11 @@ export default function FormSocial({ social }: { social: Social }) {
                         <input
                             id="activo"
                             type="checkbox"
-                            className="w-4 h-4"
+                            className="accent-blue-500 w-4 h-4"
                             checked={data.activo}
                             onChange={(e) => setData('activo', e.target.checked)}
                         />
-                        <label htmlFor="activo" className="text-sm font-medium text-gray-700">
+                        <label htmlFor="activo" className="text-sm font-medium text-gray-700 dark:text-neutral-200">
                             Activo
                         </label>
                     </div>
@@ -308,7 +308,7 @@ export default function FormSocial({ social }: { social: Social }) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-medium"
+                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 disabled:bg-gray-400 dark:disabled:bg-neutral-600 text-white px-6 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <LucideIcons.Save className="w-5 h-5" />
                             {processing

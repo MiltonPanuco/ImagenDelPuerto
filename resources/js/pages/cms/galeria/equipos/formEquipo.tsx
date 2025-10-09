@@ -51,7 +51,6 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
         setData('caracteristicas', caracteristicas);
     }, [caracteristicas, setData]);
 
-    /** Para mostrar etiquetas de las caracteristicas en bd */
     useEffect(() => {
         if (isEdit && equipo.caracteristicas) {
             setCaracteristicas(equipo.caracteristicas);
@@ -69,11 +68,9 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
     }
 
     const handleFileAccepted = (archivos) => {
-        /** El primero del arreglo [porque maxfiles = 1] */
         setData('image', archivos[0]);
     };
 
-    /** Es edit y se reemplaza la imagen en bd */
     const replaceFile = async (archivos) => {
         const file = archivos[0];
         if (!file) return;
@@ -89,18 +86,16 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
         } catch (e) {
             SwalError2(e, 'Error al reemplazar la imagen')
         } finally {
-            /** Se reinicia el componente */
             setShowFileUpload(false);
             setTimeout(() => setShowFileUpload(true), 1);
         }
     }
 
     const [showError, setShowError] = useState(true);
-    /** Mostrar error si existe */
+    
     useEffect(() => {
         if (errors.error) setShowError(true);
 
-        /** Forzar al usuario a re subir la imagen si ocurre un error */
         if (errors) {
             setData('image', null);
             setShowFileUpload(false);
@@ -152,25 +147,33 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={isEdit ? 'Editar Equipo' : 'Crear Equipo'} />
 
-            <div className="mb-6 md:p-15 p-10">
+            <div className="mb-6 md:p-15 p-10 bg-white dark:bg-neutral-800">
                 <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-semibold">
+                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-neutral-100">
                         {equipamiento.titulo}
-                        <span className="text-sm font-normal text-gray-500"> / {isEdit ? 'Editar Equipo' : 'Crear Equipo'}</span>
+                        <span className="text-sm font-normal text-gray-500 dark:text-neutral-400">
+                            {' / '}{isEdit ? 'Editar Equipo' : 'Crear Equipo'}
+                        </span>
                     </h1>
-                    <button onClick={handleVolver} className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-300 text-white rounded">
+                    <button 
+                        onClick={handleVolver} 
+                        className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-500 text-white rounded"
+                    >
                         <LucideIcons.ArrowBigLeft className="w-4 h-4 mr-2" />
                         Regresar
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     {errors.error && showError && (
-                        <div className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+                        <div 
+                            className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 dark:bg-red-900 dark:text-red-300 rounded-lg" 
+                            role="alert"
+                        >
                             {errors.error}
                             <button
                                 type="button"
-                                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                                className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                                 onClick={() => setShowError(false)}
                                 aria-label="Cerrar alerta"
                             >
@@ -178,16 +181,22 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                             </button>
                         </div>
                     )}
+                    
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Nombre del Equipo</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                            Nombre del Equipo
+                        </label>
                         <input
                             type="text"
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             value={data.servicio}
                             onChange={(e) => setData('servicio', e.target.value)}
                         />
-                        {errors.servicio && <div className="text-red-500 text-sm">{errors.servicio}</div>}
+                        {errors.servicio && (
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.servicio}</div>
+                        )}
                     </div>
+                    
                     {isEdit && (
                         <div className="my-4 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                             {showFileUpload && (
@@ -203,12 +212,21 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                                 />
                             )}
                             <div className="flex flex-col items-center">
-                                <label className="mb-2 text-sm text-gray-600">Imagen actual</label>
-                                <div className="text-xs text-gray-500 mb-2">Si deseas cambiar la imagen, selecciona un nuevo archivo.</div>
-                                <img src={currentImage || '/storage/default_card.svg'} alt={data.servicio} className="rounded shadow w-50 object-cover" />
+                                <label className="mb-2 text-sm text-gray-600 dark:text-neutral-300">
+                                    Imagen actual
+                                </label>
+                                <div className="text-xs text-gray-500 dark:text-neutral-400 mb-2">
+                                    Si deseas cambiar la imagen, selecciona un nuevo archivo.
+                                </div>
+                                <img 
+                                    src={currentImage || '/storage/default_card.svg'} 
+                                    alt={data.servicio} 
+                                    className="rounded shadow w-50 object-cover" 
+                                />
                             </div>
                         </div>
                     )}
+                    
                     {!isEdit && showFileUpload && (
                         <FileUpload
                             maxFiles={1}
@@ -218,19 +236,21 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                             acceptedFileTypes={['image/*']}
                             onFileAccepted={handleFileAccepted}
                             onFileRejected={rejected => {
-                            console.error('Archivos rechazados:', rejected);
+                                console.error('Archivos rechazados:', rejected);
                             }}
                         />
-                        )}
+                    )}
 
-                    {errors.image && <div className="text-red-500 text-sm">{errors.image}</div>}
+                    {errors.image && (
+                        <div className="text-red-500 dark:text-red-400 text-sm">{errors.image}</div>
+                    )}
 
-                    {/* Ícono y Color */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block mb-2 font-medium text-sm text-gray-700">Ícono</label>
-                            {/* Scrollable vertical icon grid */}
-                            <div className="grid grid-cols-6 gap-3 max-h-48 overflow-y-auto pr-2 border rounded p-2">
+                            <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                                Ícono
+                            </label>
+                            <div className="grid grid-cols-6 gap-3 max-h-48 overflow-y-auto pr-2 border rounded p-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600">
                                 {iconOptions.map((icon) => {
                                     const IconComponent = LucideIcons[icon as keyof typeof LucideIcons];
                                     const isSelected = data.icon === icon;
@@ -245,24 +265,29 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                                                 cursor-pointer group transition duration-150 ease-in-out
                                                 border rounded p-2 flex items-center justify-center
                                                 hover:scale-105 hover:shadow-md
-                                                ${isSelected ? `ring-2 ring-${color}-500 bg-blue-50` : 'border-gray-300'}
+                                                ${isSelected 
+                                                    ? `ring-2 ring-${color}-500 bg-blue-50 dark:bg-neutral-600 border-blue-500 dark:border-blue-400` 
+                                                    : 'border-gray-300 dark:border-neutral-600 hover:border-gray-400 dark:hover:border-neutral-500'
+                                                }
                                             `}
                                             title={icon}
                                         >
                                             <IconComponent
                                                 className={`
                                                     w-6 h-6 transition duration-200
-                                                    ${isSelected ? `text-${color}-500` : 'text-gray-700 group-hover:text-gray-900'}
+                                                    ${isSelected 
+                                                        ? `text-${color}-500` 
+                                                        : 'text-gray-700 dark:text-neutral-300 group-hover:text-gray-900 dark:group-hover:text-neutral-100'
+                                                    }
                                                 `}
                                             />
                                         </button>
                                     );
                                 })}
                             </div>
-                            {/* Previsualización */}
                             {data.icon && (
-                                <div className="mt-4 flex items-center space-x-2">
-                                    <span className="text-sm text-gray-600">Seleccionado:</span>
+                                <div className="mt-4 flex items-center space-x-2 p-3 bg-gray-50 dark:bg-neutral-700 rounded-lg">
+                                    <span className="text-sm text-gray-600 dark:text-neutral-400">Seleccionado:</span>
                                     {(() => {
                                         const SelectedIcon = LucideIcons[data.icon as keyof typeof LucideIcons];
                                         const color = data.color && data.color.includes('-') ? data.color.split('-')[1] : data.color || 'default';
@@ -277,13 +302,16 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                                     })()}
                                 </div>
                             )}
-                            {errors.icon && <div className="text-red-500 text-sm">{errors.icon}</div>}
+                            {errors.icon && (
+                                <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.icon}</div>
+                            )}
                         </div>
 
                         <div>
-                            <label className="block mb-2 font-medium text-sm text-gray-700">Color</label>
-                            {/* Scrollable vertical color grid */}
-                            <div className="grid grid-cols-6 gap-3 max-h-48 overflow-y-auto pr-2 border rounded p-2">
+                            <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                                Color
+                            </label>
+                            <div className="grid grid-cols-6 gap-3 max-h-48 overflow-y-auto pr-2 border rounded p-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600">
                                 {colorOptions.map((colorClass) => {
                                     const isSelected = data.color === colorClass;
 
@@ -293,32 +321,39 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                                             type="button"
                                             onClick={() => setData('color', colorClass)}
                                             className={`w-10 h-10 cursor-pointer rounded-full border-2 transition duration-150 flex items-center justify-center ${
-                                                isSelected ? 'border-blue-500 ring ring-blue-300' : 'border-gray-300'
+                                                isSelected 
+                                                    ? 'border-blue-500 dark:border-blue-400 ring ring-blue-300 dark:ring-blue-500' 
+                                                    : 'border-gray-300 dark:border-neutral-600'
                                             } ${colorClass}`}
                                             title={colorClass}
                                         />
                                     );
                                 })}
                             </div>
-                            {/* Previsualización del color */}
                             {data.color && (
-                                <div className="mt-4 flex items-center space-x-2">
-                                    <div className={`w-6 h-6 rounded ${data.color} border border-gray-300`} />
-                                    <span className="text-sm font-medium text-gray-700">{data.color}</span>
+                                <div className="mt-4 flex items-center space-x-2 p-3 bg-gray-50 dark:bg-neutral-700 rounded-lg">
+                                    <div className={`w-6 h-6 rounded ${data.color} border border-gray-300 dark:border-neutral-600`} />
+                                    <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">{data.color}</span>
                                 </div>
                             )}
-                            {errors.color && <div className="text-red-500 text-sm">{errors.color}</div>}
+                            {errors.color && (
+                                <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.color}</div>
+                            )}
                         </div>
                     </div>
 
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Descripción</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                            Descripción
+                        </label>
                         <textarea
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             value={data.descripcion}
                             onChange={(e) => setData('descripcion', e.target.value)}
                         />
-                        {errors.descripcion && <div className="text-red-500 text-sm">{errors.descripcion}</div>}
+                        {errors.descripcion && (
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.descripcion}</div>
+                        )}
                     </div>
 
                     <div>
@@ -331,11 +366,15 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                             textButton="+"
                             maxTags={30}
                         />
-                        {errors.caracteristicas && <div className="text-red-500 text-sm">{errors.caracteristicas}</div>}
+                        {errors.caracteristicas && (
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.caracteristicas}</div>
+                        )}
                     </div>
 
                     <div className="flex items-center space-x-2">
-                        <label htmlFor="activo" className="font-bold">Activo</label>
+                        <label htmlFor="activo" className="font-bold text-gray-700 dark:text-neutral-200">
+                            Activo
+                        </label>
                         <Switch
                             id="activo"
                             checked={data.activo}
@@ -347,9 +386,10 @@ export default function FormEquipo({ equipamiento, equipo, backUrl }: { equipami
                         <button
                             type="submit"
                             disabled={processing}
-                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 disabled:bg-gray-400 dark:disabled:bg-neutral-600 text-white px-6 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Equipo' : 'Crear Equipo'}
+                            <LucideIcons.Save className="w-5 h-5" />
+                            {processing ? 'Guardando...' : isEdit ? 'Actualizar Equipo' : 'Crear Equipo'}
                         </button>
                     </div>
                 </form>

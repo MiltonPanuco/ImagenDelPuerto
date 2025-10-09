@@ -52,35 +52,39 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
     return (
         <Dialog open={open} onClose={onClose}>
             <form onSubmit={handleSubmit}>
-                <DialogContent showCloseButton={false}>
-                    <DialogTitle>{isEdit ? 'Editar' : 'Agregar'} Recuerdo a Galería</DialogTitle>
-                    <DialogDescription>
+                <DialogContent showCloseButton={false} className="bg-white dark:bg-neutral-800">
+                    <DialogTitle className="text-gray-900 dark:text-neutral-100">
+                        {isEdit ? 'Editar' : 'Agregar'} Recuerdo a Galería
+                    </DialogTitle>
+                    <DialogDescription className="text-gray-600 dark:text-neutral-400">
                         Completa el formulario para {isEdit ? 'editar' : 'agregar'} una nueva imagen a la galería de recuerdos.
                     </DialogDescription>
 
-                    <label htmlFor="title" className="font-bold">Título</label>
+                    <label htmlFor="title" className="font-bold text-gray-700 dark:text-neutral-200">Título</label>
                     <Input
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Título"
+                        className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
                     />
 
                     {carrete == false && (
                         <>
-                            <label htmlFor="date" className="font-bold">Fecha</label>
+                            <label htmlFor="date" className="font-bold text-gray-700 dark:text-neutral-200">Fecha</label>
                             <Input
                                 value={date}
                                 onChange={(e) => setDate(e.target.value)}
                                 placeholder="Fecha"
+                                className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
                             />
                         </>
                     )}
 
                     {carrete == true && (
                         <>
-                            <label htmlFor="descripcion" className="font-bold">Descripción</label>
+                            <label htmlFor="descripcion" className="font-bold text-gray-700 dark:text-neutral-200">Descripción</label>
                             <textarea
-                                className="w-full border rounded px-3 py-2"
+                                className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                                 value={descripcion}
                                 placeholder='Descripción'
                                 onChange={(e) => setDescripcion(e.target.value)}
@@ -91,7 +95,7 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
 
                     {!isEdit && (
                         <>
-                            <label htmlFor="imagen" className="font-bold">Imagen</label>
+                            <label htmlFor="imagen" className="font-bold text-gray-700 dark:text-neutral-200">Imagen</label>
                             <FileUpload
                                 maxFiles={1}
                                 maxFileSizeMb={5}
@@ -108,7 +112,9 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
 
                     <div className="grid grid-cols-2">
                         <div className="text-center">
-                            <div><label htmlFor="activo" className="font-bold">Activo</label></div>
+                            <div>
+                                <label htmlFor="activo" className="font-bold text-gray-700 dark:text-neutral-200">Activo</label>
+                            </div>
                             <Switch
                                 id="activo"
                                 checked={activo}
@@ -116,7 +122,9 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
                             />
                         </div>
                         <div className="text-center">
-                            <div><label htmlFor="carrete" className="font-bold">Carrete</label></div>
+                            <div>
+                                <label htmlFor="carrete" className="font-bold text-gray-700 dark:text-neutral-200">Carrete</label>
+                            </div>
                             <Switch
                                 id="carrete"
                                 checked={carrete}
@@ -125,7 +133,7 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
                         </div>
                     </div>
 
-                    <Separator className="mb-3" />
+                    <Separator className="mb-3 dark:bg-neutral-700" />
                     <DialogFooter>
                         <Button
                             type="button"
@@ -140,7 +148,7 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
                             variant="success"
                             size="lg"
                             disabled={!title || (!image && !isEdit)}
-                            className="cursor-pointer"
+                            className="cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                             onClick={handleSubmit}
                         >
                             <Save className="mr-2 h-4 w-4"  /> {isEdit ? 'Actualizar' : 'Guardar'}

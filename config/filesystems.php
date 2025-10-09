@@ -60,6 +60,13 @@ return [
             'report' => false,
         ],
 
+            'storage2' => [
+            'driver' => 'local',
+            'root' => storage_path('app/storage2'),
+            'url' => env('APP_URL').'/storage2',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
     ],
 
     /*

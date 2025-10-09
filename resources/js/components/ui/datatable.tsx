@@ -139,7 +139,7 @@ export default function DataTable({ items, resourceRoute }: DataTableProps) {
         </table>
 
         {/* Paginación */}
-        <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-slate-200 dark:border-neutral-700 bg-slate-50 dark:bg-neutral-750">
+        <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-slate-200 dark:border-neutral-700 bg-slate-50 dark:bg-neutral-800">
           {items.links.map((link, index) => (
             <button
               key={index}

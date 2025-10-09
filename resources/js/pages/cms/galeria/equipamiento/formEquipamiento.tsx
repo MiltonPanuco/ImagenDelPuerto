@@ -37,7 +37,7 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
     const [equipos, setEquipos] = useState<Equipo[]>(
         (equipamiento.equipos || []).map((e: Equipo) => ({
             ...e,
-            activo: e.activo ?? false // asegura que activo tenga un valor booleano
+            activo: e.activo ?? false
         }))
     );
 
@@ -50,14 +50,12 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
         activo: equipamiento.activo || false,
     });
 
-
-
     const handleSwitch = (v: boolean) => {
         setData('activo', v);
     }
 
     const [showError, setShowError] = useState(true);
-    /** Mostrar error si existe */
+    
     useEffect(() => {
         if (errors.error) {
             setShowError(true);
@@ -94,10 +92,6 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
         }
     };
 
-    /**
-     * Funciones para equipos [cards de la sección]
-     */
-
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedEquipo, setSelectedEquipo] = useState<Equipo | null>(null);
 
@@ -125,7 +119,6 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
                 icon: 'success',
             });
         } catch (error) {
-            // Si hay error, revertimos el cambio en la UI
             equipo.activo = !equipo.activo;
             SwalError2(error, 'error al actualizar')
         }
@@ -147,8 +140,8 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
             Esta acción es irreversible.`,
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#d33', // rojo
-            cancelButtonColor: '#6b7280', // gris
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6b7280',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar',
             reverseButtons: true,
@@ -156,8 +149,6 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
         if (r.isConfirmed) {
             try {
                 const url = routesEquipos.destroy.url({ equipamiento: equipamiento.id!, equipo: equipo.id! });
-                // Es lo mismo que:
-                // const url = route('cms.galeria.equipamiento.equipo.destroy', [equipamiento.id, equipo.id]);
                 await apiDelete(url)
                 setEquipos(prevEquipos => prevEquipos.filter(e => e.id !== equipo.id));
                 SwalToast('¡Registro eliminado correctamente!');
@@ -166,8 +157,9 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
             }
         }
     }
+    
     const toEditEquipo = (equipo: Equipo) => () => {
-         const editUrl = route('cms.galeria.equipamiento.equipo.edit', { equipamiento: equipamiento.id, equipo: equipo.id });
+        const editUrl = route('cms.galeria.equipamiento.equipo.edit', { equipamiento: equipamiento.id, equipo: equipo.id });
         const backUrl = route('cms.galeria.equipamiento.edit', { id: equipamiento.id });
 
         router.visit(`${editUrl}?backUrl=${encodeURIComponent(backUrl)}`);
@@ -177,26 +169,29 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={isEdit ? 'Editar Sección' : 'Crear Sección'} />
 
-            <div className="mb-6 md:p-15 p-10">
+            <div className="mb-6 md:p-15 p-10 bg-white dark:bg-neutral-800">
                 <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-semibold">
+                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-neutral-100">
                         {isEdit ? 'Editar Sección' : 'Crear Nueva Sección'}
                     </h1>
                     <Link href={route('cms.galeria.equipamiento.index')}>
-                        <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-300 text-white rounded">
+                        <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-500 text-white rounded">
                             <LucideIcons.ArrowBigLeft className="w-4 h-4 mr-2" />
                             Regresar
                         </button>
                     </Link>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     {errors.error && showError && (
-                        <div className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+                        <div 
+                            className="relative py-4 px-6 mb-4 text-sm text-red-700 bg-red-100 dark:bg-red-900 dark:text-red-300 rounded-lg" 
+                            role="alert"
+                        >
                             {errors.error}
                             <button
                                 type="button"
-                                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                                className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                                 onClick={() => setShowError(false)}
                                 aria-label="Cerrar alerta"
                             >
@@ -204,51 +199,70 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
                             </button>
                         </div>
                     )}
+                    
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Categoría</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                            Categoría
+                        </label>
                         <input
                             type="text"
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             value={data.categoria}
                             onChange={(e) => setData('categoria', e.target.value)}
                         />
-                        {errors.categoria && <div className="text-red-500 text-sm">{errors.categoria}</div>}
+                        {errors.categoria && (
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.categoria}</div>
+                        )}
                     </div>
 
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Título</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                            Título
+                        </label>
                         <input
                             type="text"
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             value={data.titulo}
                             onChange={(e) => setData('titulo', e.target.value)}
                         />
-                        {errors.titulo && <div className="text-red-500 text-sm">{errors.titulo}</div>}
+                        {errors.titulo && (
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.titulo}</div>
+                        )}
                     </div>
 
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Subtítulo</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                            Subtítulo
+                        </label>
                         <input
                             type="text"
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             value={data.subtitulo}
                             onChange={(e) => setData('subtitulo', e.target.value)}
                         />
-                        {errors.subtitulo && <div className="text-red-500 text-sm">{errors.subtitulo}</div>}
+                        {errors.subtitulo && (
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.subtitulo}</div>
+                        )}
                     </div>
 
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700">Descripción</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
+                            Descripción
+                        </label>
                         <textarea
-                            className="w-full border rounded px-3 py-2"
+                            className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                             value={data.descripcion}
                             onChange={(e) => setData('descripcion', e.target.value)}
                         />
-                        {errors.descripcion && <div className="text-red-500 text-sm">{errors.descripcion}</div>}
+                        {errors.descripcion && (
+                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.descripcion}</div>
+                        )}
                     </div>
 
                     <div className="flex items-center space-x-2">
-                        <label htmlFor="activo" className="font-bold">Activo</label>
+                        <label htmlFor="activo" className="font-bold text-gray-700 dark:text-neutral-200">
+                            Activo
+                        </label>
                         <Switch
                             id="activo"
                             checked={data.activo}
@@ -260,9 +274,10 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
                         <button
                             type="submit"
                             disabled={processing}
-                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                            className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 disabled:bg-gray-400 dark:disabled:bg-neutral-600 text-white px-6 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar' : 'Crear'}
+                            <LucideIcons.Save className="w-5 h-5" />
+                            {processing ? 'Guardando...' : isEdit ? 'Actualizar' : 'Crear'}
                         </button>
                     </div>
 
@@ -270,7 +285,9 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
                         <div>
                             <Separator className="mt-10" />
                             <div className="flex items-center justify-between mt-6 mb-4">
-                                <h2 className="text-xl font-semibold">Equipos en esta sección</h2>
+                                <h2 className="text-xl font-semibold text-gray-900 dark:text-neutral-100">
+                                    Equipos en esta sección
+                                </h2>
                                 <button
                                     type="button"
                                     className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded cursor-pointer"
@@ -281,7 +298,7 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                 {equipos.length === 0 && (
-                                    <div className="col-span-full text-center text-gray-500 py-8">
+                                    <div className="col-span-full text-center text-gray-500 dark:text-neutral-400 py-8">
                                         No hay equipos registrados en esta sección.
                                     </div>
                                 )}
@@ -289,49 +306,51 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
                                 {equipos.map((equipo, idx) => (
                                     <div
                                         key={idx}
-                                        className="bg-white rounded-lg shadow p-4 flex flex-col items-center group transition-all duration-300 hover:shadow-lg hover:border-blue-500 border-2 border-transparent"
+                                        className="bg-white dark:bg-neutral-700 rounded-lg shadow p-4 flex flex-col items-center group transition-all duration-300 hover:shadow-lg hover:border-blue-500 dark:hover:border-blue-400 border-2 border-transparent"
                                     >
-                                    <div className="relative w-full h-48 mb-4 overflow-hidden group">
-                                        <img
-                                            onClick={() => { toShowDetalles(equipo)(); }}
-                                            src={equipo.image || "/storage/default_card.svg"}
-                                            loading='lazy'
-                                            alt={equipo.servicio || 'Equipo'}
-                                            className="w-full h-48 object-cover rounded cursor-pointer transition-transform duration-300 group-hover:scale-110"
-                                        />
-                                    </div>
-                                    <h2 className="text-lg font-semibold truncate w-full" title={equipo.servicio || '-'}>
-                                        {equipo.servicio || '-'}
-                                    </h2>
+                                        <div className="relative w-full h-48 mb-4 overflow-hidden group">
+                                            <img
+                                                onClick={() => { toShowDetalles(equipo)(); }}
+                                                src={equipo.image || "/storage/default_card.svg"}
+                                                loading='lazy'
+                                                alt={equipo.servicio || 'Equipo'}
+                                                className="w-full h-48 object-cover rounded cursor-pointer transition-transform duration-300 group-hover:scale-110"
+                                            />
+                                        </div>
+                                        <h2 className="text-lg font-semibold truncate w-full text-gray-900 dark:text-neutral-100" title={equipo.servicio || '-'}>
+                                            {equipo.servicio || '-'}
+                                        </h2>
 
-                                    <Separator className="my-4 w-full" />
-                                    <div className="flex flex-col items-center">
-                                        <span className="font-bold text-gray-700 mb-1">Activo</span>
-                                        <Switch
-                                            type="success"
-                                            checked={equipo.activo}
-                                            onCheckedChange={() => handleSwitchEquipo(equipo)}
-                                        />
+                                        <Separator className="my-4 w-full dark:bg-neutral-600" />
+                                        <div className="flex flex-col items-center">
+                                            <span className="font-bold text-gray-700 dark:text-neutral-200 mb-1">
+                                                Activo
+                                            </span>
+                                            <Switch
+                                                type="success"
+                                                checked={equipo.activo}
+                                                onCheckedChange={() => handleSwitchEquipo(equipo)}
+                                            />
+                                        </div>
+                                        <div className="flex gap-2 mt-3">
+                                            <button
+                                                type="button"
+                                                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-neutral-600 transition cursor-pointer"
+                                                title="Editar"
+                                                onClick={() => toEditEquipo(equipo)()}
+                                            >
+                                                <LucideIcons.Edit className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-neutral-600 transition cursor-pointer"
+                                                title="Eliminar"
+                                                onClick={() => onDeleteEquipo(equipo)}
+                                            >
+                                                <LucideIcons.Trash2 className="w-5 h-5 text-red-600 dark:text-red-400" />
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="flex gap-2 mt-3">
-                                        <button
-                                            type="button"
-                                            className="p-2 rounded hover:bg-gray-100 transition cursor-pointer"
-                                            title="Editar"
-                                            onClick={() => toEditEquipo(equipo)()}
-                                        >
-                                            <LucideIcons.Edit className="w-5 h-5 text-orange-600" />
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="p-2 rounded hover:bg-gray-100 transition cursor-pointer"
-                                            title="Eliminar"
-                                            onClick={() => onDeleteEquipo(equipo)}
-                                        >
-                                            <LucideIcons.Trash2 className="w-5 h-5 text-red-600" />
-                                        </button>
-                                    </div>
-                                </div>
                                 ))}
                             </div>
                         </div>
@@ -339,7 +358,6 @@ export default function FormEquipamiento({ equipamiento }: { equipamiento: Equip
 
                 </form>
 
-                {/* Dialog para mostrar a detalle la data de equipo */}
                 {selectedEquipo && (
                     <DialogEquipo
                         open={dialogOpen}
