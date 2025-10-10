@@ -1,13 +1,13 @@
 import AuthenticatedSessionController from '@/actions/App/Http/Controllers/Auth/AuthenticatedSessionController';
 import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
+// import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
-import { register } from '@/routes';
-import { request } from '@/routes/password';
+// import { register } from '@/routes';
+// import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 
@@ -48,7 +48,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                     <Label htmlFor="password" className="text-gray-700 dark:text-neutral-200">
                                         Contraseña
                                     </Label>
-                                    {canResetPassword && (
+                                    {/* {canResetPassword && (
                                         <TextLink
                                             href={request()}
                                             className="ml-auto text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
@@ -56,7 +56,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                         >
                                             Forgot password?
                                         </TextLink>
-                                    )}
+                                    )} */}
                                 </div>
                                 <Input
                                     id="password"
@@ -79,7 +79,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                     className="border-gray-300 dark:border-neutral-600 data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-500"
                                 />
                                 <Label htmlFor="remember" className="text-gray-700 dark:text-neutral-200">
-                                    Recuerdame
+                                    Recuérdame
                                 </Label>
                             </div>
 
@@ -91,11 +91,11 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                 data-test="login-button"
                             >
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin mr-2" />}
-                                Log in
+                                Iniciar sesión
                             </Button>
                         </div>
 
-                        <div className="text-center text-sm text-gray-600 dark:text-neutral-400">
+                        {/* <div className="text-center text-sm text-gray-600 dark:text-neutral-400">
                             Don't have an account?{' '}
                             <TextLink
                                 href={register()}
@@ -104,7 +104,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             >
                                 Sign up
                             </TextLink>
-                        </div>
+                        </div> */}
                     </>
                 )}
             </Form>
