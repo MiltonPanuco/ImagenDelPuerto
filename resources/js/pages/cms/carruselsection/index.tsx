@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import * as LucideIcons from 'lucide-react';
+import * as Icons from 'lucide-react'
 import { Switch } from '@/components/ui/switch';
 import Swal from 'sweetalert2';
 
@@ -112,9 +113,9 @@ export default function Index({
                         </p>
                     </div>
                     <Link href={route('cms.carrusel.create', section)}>
-                        <button className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition">
-                            <LucideIcons.Plus className="w-4 h-4 mr-2" />
-                            Nuevo Item
+                        <button type="button" className="inline-flex items-center px-4 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-neutral-800 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" >
+                            <Icons.Plus className="w-4 h-4 mr-2" />
+                            Nueva Elección
                         </button>
                     </Link>
                 </div>

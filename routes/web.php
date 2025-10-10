@@ -4,6 +4,7 @@ use App\Http\Controllers\Cms\EleccionController;
 use App\Http\Controllers\Cms\Galeria\GaleriaRecuerdosController;
 use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoController;
 use App\Http\Controllers\Cms\ServicioController;
+use App\Http\Controllers\Cms\ServicioVarioController;
 use App\Http\Controllers\Cms\MisionController;
 use App\Http\Controllers\Cms\OfrecemosController;
 use App\Http\Controllers\Cms\EstadisticasController;
@@ -86,7 +87,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('estadisticas', EstadisticasController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.estadisticas');
         Route::patch('estadisticas/{estadistica}/activo', [EstadisticasController::class, 'toggleActivo'])->name('cms.estadisticas.activo');
 
-
+        
         /** GALLERY */
 
         Route::resource('galeria/recuerdos', GaleriaRecuerdosController::class)->only(['index', 'create', 'store', 'update', 'destroy'])->names('cms.galeria.recuerdos');
@@ -107,6 +108,13 @@ Route::middleware('auth')->group(function () {
         Route::patch('galeria/equipamiento/{equipamiento}/equipos/{equipo}/activo', [GaleriaEquipamientoEquipoController::class, 'toggleActivo'])->name('cms.galeria.equipamiento.equipo.activo');
         Route::post('galeria/equipamiento/{equipamiento}/equipos/{equipo}/replaceImage', [GaleriaEquipamientoEquipoController::class, 'replaceImage'])->name('cms.galeria.equipamiento.equipo.replaceImage');
     
+
+        /** SERVICE */
+
+        /** Servicios Varios */
+        Route::resource('servicios-varios', ServicioVarioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios-varios');
+        Route::patch('servicios-varios/{serviciosVario}/activo', [ServicioVarioController::class, 'toggleActivo'])->name('cms.servicios-varios.activo');
+
 
         /** CONTACT */
 

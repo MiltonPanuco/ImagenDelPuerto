@@ -16,6 +16,7 @@ import { index as cmsEquipamiento } from '@/routes/cms/galeria/equipamiento';
 import { index as cmsAtencion } from '@/routes/cms/atencion';
 import { index as cmsCitas } from '@/routes/cms/citas';
 import { index as cmsSociales } from '@/routes/cms/sociales';
+import { index as cmsServiciosVarios } from '@/routes/cms/servicios-varios';
 
 import { type NavItem } from '@/types';
 import {
@@ -30,7 +31,8 @@ import {
     LayoutGrid,
     Users,
     FileText,
-    Share2
+    Share2,
+    Wrench
 } from 'lucide-react';
 
 const homeItems: NavItem[] = [
@@ -54,6 +56,7 @@ const galleryItems: NavItem[] = [
 
 const serviceItems: NavItem[] = [
     { title: 'Carrusel Servicio', icon: Images, href: route('cms.carrusel.index', 'service') },
+    { title: 'Servicios Varios', icon: Wrench, href: cmsServiciosVarios() },
 ];
 
 const contactItems: NavItem[] = [

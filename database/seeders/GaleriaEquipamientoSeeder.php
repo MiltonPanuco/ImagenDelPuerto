@@ -101,13 +101,13 @@ class GaleriaEquipamientoSeeder extends Seeder
                         'id_galeria_equipamiento' => 2,
                         'icon' => 'Heart',
                         'color' => 'emerald',
-                        'servicio' => 'Electrocardiógrafo 12 Derivaciones',
-                        'descripcion' => 'Monitor cardíaco profesional con análisis automático e interpretación',
+                        'servicio' => 'Electrocardiógrafo',
+                        'descripcion' => 'Equipo portátil de alto rendimiento que ofrece registros ECG precisos y confiables.',
                         'activo' => true,
                         'caracteristicas' => json_encode([
-                            '12 derivaciones',
-                            'Pantalla táctil 10"',
-                            'Impresora térmica'
+                            'Pantalla LCD de alta resolución',
+                            'Diseño ultracompacto y ergonómico',
+                            'Interpretación avanzada'
                         ]),
                         'image' => null,
                         'created_at' => now(),
@@ -125,25 +125,7 @@ class GaleriaEquipamientoSeeder extends Seeder
                         'caracteristicas' => json_encode([
                             'Gel conductor',
                             'Adhesivo hipoalergénico',
-                            'Pack 100 unidades'
-                        ]),
-                        'image' => null,
-                        'created_at' => now(),
-                        'updated_at' => now()
-                    ],
-                    [
-                        'id' => 6,
-                        'orden' => 3,
-                        'id_galeria_equipamiento' => 2,
-                        'icon' => 'Heart',
-                        'color' => 'emerald',
-                        'servicio' => 'Monitor Holter 24h',
-                        'descripcion' => 'Sistema de monitoreo cardíaco continuo para estudios prolongados',
-                        'activo' => true,
-                        'caracteristicas' => json_encode([
-                            'Grabación 24-48h',
-                            'Memoria 1GB',
-                            'Análisis automático'
+                            'Alta conductividad'
                         ]),
                         'image' => null,
                         'created_at' => now(),
