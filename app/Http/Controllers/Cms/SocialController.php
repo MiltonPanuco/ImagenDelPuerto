@@ -14,8 +14,8 @@ class SocialController extends Controller
     {
         $sociales = Social::select(
             'id', 
-            'title as nombre',           // Alias para DataTable
-            'description as descripcion', // Alias para DataTable
+            'title as nombre',           
+            'description as descripcion', 
             'url', 
             'color', 
             'icon', 
@@ -48,7 +48,6 @@ class SocialController extends Controller
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            // Extraer solo el color si viene con prefijo bg-
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }
@@ -65,7 +64,6 @@ class SocialController extends Controller
     /** Formulario para editar */
     public function edit(Social $social)
     {
-        // Preparar color para el formulario
         $social->color = 'bg-' . $social->color . '-500';
 
         return Inertia::render('cms/sociales/formSocial', [

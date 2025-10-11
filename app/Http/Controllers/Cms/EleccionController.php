@@ -22,12 +22,11 @@ class EleccionController extends Controller
     /** Formulario para editar */
     public function edit(Eleccion $eleccion)
     {
-        // ✅ Convertir el modelo a array para evitar problemas con Inertia
         $eleccionData = [
             'id' => $eleccion->id,
             'title' => $eleccion->title,
             'icon' => $eleccion->icon,
-            'color' => 'bg-' . $eleccion->color . '-500', // Agregar prefijo y sufijo
+            'color' => 'bg-' . $eleccion->color . '-500', 
             'descripcion' => $eleccion->descripcion,
             'caracteristicas' => $eleccion->caracteristicas ?? [],
             'activo' => $eleccion->activo,
@@ -57,11 +56,9 @@ class EleccionController extends Controller
             'icon.required'     => 'El ícono es obligatorio.',
         ]);
 
-        // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            // Si el color tiene el prefijo 'bg-', extraer solo el color
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }
@@ -77,7 +74,6 @@ class EleccionController extends Controller
     /** Formulario para crear */
     public function create()
     {
-        // ✅ Pasar datos vacíos pero estructurados correctamente
         return Inertia::render('cms/eleccion/formEleccion', [
             'eleccion' => [
                 'title' => '',
@@ -110,11 +106,9 @@ class EleccionController extends Controller
             'icon.required'     => 'El ícono es obligatorio.',
         ]);
 
-        // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            // Si el color tiene el prefijo 'bg-', extraer solo el color
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }

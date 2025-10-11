@@ -23,7 +23,7 @@ class MisionController extends Controller
     /** Formulario para editar */
     public function edit(Mision $mision)
     {
-        $mision->color = 'bg-' . $mision->color . '-500'; // Agregar prefijo y sufijo para el color
+        $mision->color = 'bg-' . $mision->color . '-500';
         return Inertia::render('cms/mision/formMision', [
             'mision' => $mision
         ]);
@@ -36,7 +36,7 @@ class MisionController extends Controller
             'descripcion'   => 'required|string',
             'icon'          => 'required|string|max:100',
             'color'         => 'required|string|max:50',
-            'activo'        => 'nullable|boolean', // Cambiado a nullable
+            'activo'        => 'nullable|boolean', 
         ], [
             'title.required'  => 'El nombre del título es obligatorio.',
             'title.max'       => 'El nombre del título no debe exceder los 255 caracteres.',
@@ -47,14 +47,12 @@ class MisionController extends Controller
             'icon.required'     => 'El ícono es obligatorio.',
         ]);
 
-        // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
             if (strpos($data['color'], 'bg-') === 0) {
                 $colorParts = explode('-', $data['color']);
-                $data['color'] = $colorParts[1] ?? $data['color']; // Manejo seguro
+                $data['color'] = $colorParts[1] ?? $data['color']; 
             }
             
             $mision->update($data);
@@ -93,7 +91,7 @@ class MisionController extends Controller
             'descripcion' => 'required|string',
             'icon'        => 'required|string|max:100',
             'color'       => 'required|string|max:50',
-            'activo'      => 'nullable|boolean', // Cambiado a nullable
+            'activo'      => 'nullable|boolean', 
         ], [
             'title.required'  => 'El nombre del título es obligatorio.',
             'title.max'       => 'El nombre del título no debe exceder los 255 caracteres.',
@@ -104,17 +102,13 @@ class MisionController extends Controller
             'icon.required'     => 'El ícono es obligatorio.',
         ]);
 
-        // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            // Debug: ver color antes de procesar
             Log::info('Color recibido:', ['color' => $data['color']]);
 
-            // Extraer solo el color sin el prefijo 'bg-' y sufijo '-500'
             if (strpos($data['color'], 'bg-') === 0) {
                 $colorParts = explode('-', $data['color']);
-                // Si viene 'bg-blue-500', tomar 'blue'
                 $data['color'] = $colorParts[1] ?? $data['color'];
             }
 

@@ -3,62 +3,65 @@ import { type FormEvent, useState, useEffect } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import * as LucideIcons from 'lucide-react';
-import { iconOptions, colorOptions } from '@/pages/cms/catalogos';
+import { colorOptions } from '@/pages/cms/catalogos';
 import TagsInput from '@/components/ui/TagsInput';
 import Swal from 'sweetalert2';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Gestionar Servicios Varios', href: 'cms.servicios-varios.index' },
+    { title: 'Gestionar Renta de Equipos', href: 'cms.renta-equipos.index' },
     { title: 'Formulario' }
 ];
 
-interface ServicioVario {
+interface RentaEquipo {
     id?: number;
     title: string;
     subtitle?: string;
-    descripcion: string;
-    imagenes?: string[];
-    caracteristicas: string[];
+    description?: string;
+    images?: string[];
+    caracteristicas?: string[];
+    color?: string;
     activo: boolean;
     orden: number;
-    icon: string;
-    color: string;
 }
 
 interface FormData {
     title: string;
     subtitle: string;
-    descripcion: string;
+    description: string;
     caracteristicas: string[];
+    color: string;
     activo: boolean;
     orden: number;
-    imagenes: File[];
+    images: File[];
     imagenes_existentes: string[];
-    icon: string;
-    color: string;
 }
 
-// Constantes para validación
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB en bytes
+const MAX_FILE_SIZE = 5 * 1024 * 1024; 
 const MAX_IMAGES = 5;
 
-export default function FormServicioVario({ serviciosVario }: { serviciosVario?: ServicioVario }) {
-    const isEdit = !!serviciosVario?.id;
+export default function FormRentaEquipos({ rentaEquipo }: { rentaEquipo?: RentaEquipo }) {
+    const isEdit = !!rentaEquipo?.id;
 
     const { data, setData, post, processing, errors } = useForm<FormData>({
-        title: serviciosVario?.title || '',
-        subtitle: serviciosVario?.subtitle || '',
-        descripcion: serviciosVario?.descripcion || '',
-        caracteristicas: serviciosVario?.caracteristicas || [],
-        activo: serviciosVario?.activo ?? true,
-        orden: serviciosVario?.orden || 0,
-        imagenes: [],
-        imagenes_existentes: serviciosVario?.imagenes || [],
-        icon: serviciosVario?.icon || '',
-        color: serviciosVario?.color || '',
+        title: rentaEquipo?.title || '',
+        subtitle: rentaEquipo?.subtitle || '',
+        description: rentaEquipo?.description || '',
+        caracteristicas: rentaEquipo?.caracteristicas || [],
+        color: rentaEquipo?.color || '',
+        activo: rentaEquipo?.activo ?? true,
+        orden: rentaEquipo?.orden || 0,
+        images: [],
+        imagenes_existentes: rentaEquipo?.images?.map(img => {
+            try {
+                const url = new URL(img, window.location.origin);
+                return url.pathname.replace('/storage/', '');
+            } catch {
+                return img.replace(/^.*\/storage\//, '');
+            }
+        }) || [],
     });
 
-    const [caracteristicas, setCaracteristicas] = useState<string[]>(serviciosVario?.caracteristicas || []);
+    const [caracteristicas, setCaracteristicas] = useState<string[]>(rentaEquipo?.caracteristicas || []);
     const [previews, setPreviews] = useState<string[]>([]);
     const [showError, setShowError] = useState(true);
 
@@ -76,9 +79,8 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newFiles = Array.from(e.target.files || []);
-        const totalImages = data.imagenes_existentes.length + data.imagenes.length + newFiles.length;
+        const totalImages = data.imagenes_existentes.length + data.images.length + newFiles.length;
 
-        // Validación 1: Límite de cantidad de imágenes
         if (totalImages > MAX_IMAGES) {
             Swal.fire({
                 icon: 'warning',
@@ -89,7 +91,6 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
             return;
         }
 
-        // Validación 2: Tamaño de cada archivo
         const invalidFiles = newFiles.filter(file => file.size > MAX_FILE_SIZE);
 
         if (invalidFiles.length > 0) {
@@ -110,8 +111,7 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
             return;
         }
 
-        // Si todas las validaciones pasan, agregar las imágenes
-        setData('imagenes', [...data.imagenes, ...newFiles]);
+        setData('images', [...data.images, ...newFiles]);
         setPreviews([...previews, ...newFiles.map(f => URL.createObjectURL(f))]);
         e.target.value = '';
     };
@@ -123,9 +123,9 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
     };
 
     const removeNewImage = (index: number) => {
-        const newImages = [...data.imagenes];
+        const newImages = [...data.images];
         newImages.splice(index, 1);
-        setData('imagenes', newImages);
+        setData('images', newImages);
 
         const newPreviews = [...previews];
         URL.revokeObjectURL(newPreviews[index]);
@@ -139,34 +139,33 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
         const formData = new FormData();
         formData.append('title', data.title);
         formData.append('subtitle', data.subtitle || '');
-        formData.append('descripcion', data.descripcion);
+        formData.append('description', data.description || '');
+        formData.append('color', data.color || '');
         formData.append('activo', data.activo ? '1' : '0');
         formData.append('orden', data.orden.toString());
-        formData.append('icon', data.icon || '');
-        formData.append('color', data.color || '');
         data.caracteristicas.forEach((c, i) => formData.append(`caracteristicas[${i}]`, c));
         data.imagenes_existentes.forEach((img, i) => formData.append(`imagenes_existentes[${i}]`, img));
-        data.imagenes.forEach(file => formData.append('imagenes[]', file));
+        data.images.forEach(file => formData.append('images[]', file));
         if (isEdit) formData.append('_method', 'PUT');
 
         const url = isEdit
-            ? route('cms.servicios-varios.update', serviciosVario!.id)
-            : route('cms.servicios-varios.store');
+            ? route('cms.renta-equipos.update', rentaEquipo!.id)
+            : route('cms.renta-equipos.store');
 
         router.post(url, formData as any, {
             forceFormData: true,
             onSuccess: () => {
                 Swal.fire({
                     icon: 'success',
-                    title: isEdit ? 'Servicio actualizado' : 'Servicio creado',
+                    title: isEdit ? 'Equipo actualizado' : 'Equipo creado',
                     text: isEdit
-                        ? 'El servicio ha sido actualizado correctamente.'
-                        : 'El servicio ha sido creado correctamente.',
+                        ? 'El equipo ha sido actualizado correctamente.'
+                        : 'El equipo ha sido creado correctamente.',
                     timer: 2000,
                     showConfirmButton: false,
                     timerProgressBar: true,
                 }).then(() => {
-                    if (!isEdit) window.location.href = route('cms.servicios-varios.index');
+                    if (!isEdit) window.location.href = route('cms.renta-equipos.index');
                 });
             }
         });
@@ -176,14 +175,14 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={isEdit ? 'Editar Servicio' : 'Crear Servicio'} />
+            <Head title={isEdit ? 'Editar Equipo' : 'Crear Equipo'} />
 
             <div className="md:p-15 p-10 bg-white dark:bg-neutral-800">
                 <div className="flex items-center justify-between mb-6">
                     <h1 className="text-2xl font-semibold text-gray-900 dark:text-neutral-100">
-                        {isEdit ? 'Editar Servicio Varios' : 'Crear Nuevo Servicio Varios'}
+                        {isEdit ? 'Editar Renta de Equipo' : 'Crear Nueva Renta de Equipo'}
                     </h1>
-                    <Link href={route('cms.servicios-varios.index')}>
+                    <Link href={route('cms.renta-equipos.index')}>
                         <button className="inline-flex items-center px-4 py-2 bg-red-400 hover:bg-red-500 text-white rounded">
                             <LucideIcons.ArrowBigLeft className="w-4 h-4 mr-2" />
                             Regresar
@@ -229,71 +228,14 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
                     </div>
 
                     <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">Descripción *</label>
+                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">Descripción</label>
                         <textarea
                             className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                            value={data.descripcion}
-                            onChange={(e) => setData('descripcion', e.target.value)}
+                            value={data.description}
+                            onChange={(e) => setData('description', e.target.value)}
                             rows={5}
                         />
-                        {errors.descripcion && <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.descripcion}</div>}
-                    </div>
-
-                    <div>
-                        <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
-                            Ícono
-                        </label>
-                        <div className="grid grid-cols-6 gap-3 max-h-48 overflow-y-auto pr-2 border rounded p-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600">
-                            {iconOptions.map((icon) => {
-                                const IconComponent =
-                                    LucideIcons[icon as keyof typeof LucideIcons];
-                                const isSelected = data.icon === icon;
-                                const colorClass = data.color ? data.color.replace('bg-', 'text-') : 'text-blue-500';
-
-                                return (
-                                    <button
-                                        key={icon}
-                                        type="button"
-                                        onClick={() => setData('icon', icon)}
-                                        className={`cursor-pointer group transition duration-150 ease-in-out border rounded p-2 flex items-center justify-center
-                                                                ${isSelected ? 'ring-2 ring-blue-500 bg-gray-100 dark:bg-neutral-600' : 'border-gray-300 dark:border-neutral-500 hover:border-gray-400 dark:hover:border-neutral-400'}
-                                                                hover:scale-105 hover:shadow-md
-                                                            `}
-                                        title={icon}
-                                    >
-                                        <IconComponent
-                                            className={`w-6 h-6 transition duration-200 ${isSelected ? colorClass : 'text-gray-700 dark:text-neutral-200 group-hover:text-gray-900 dark:group-hover:text-neutral-50'}`}
-                                        />
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        {data.icon && (
-                            <div className="mt-4 flex items-center space-x-2">
-                                <span className="text-sm text-gray-600 dark:text-neutral-400">Seleccionado:</span>
-                                {(() => {
-                                    const SelectedIcon =
-                                        LucideIcons[data.icon as keyof typeof LucideIcons];
-                                    const colorClass = data.color ? data.color.replace('bg-', 'text-') : 'text-blue-500';
-                                    return (
-                                        <div className="flex items-center space-x-2">
-                                            <SelectedIcon
-                                                className={`w-8 h-8 ${colorClass} transition`}
-                                            />
-                                            <span
-                                                className={`text-sm font-medium ${colorClass}`}
-                                            >
-                                                {data.icon}
-                                            </span>
-                                        </div>
-                                    );
-                                })()}
-                            </div>
-                        )}
-                        {errors.icon && (
-                            <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.icon}</div>
-                        )}
+                        {errors.description && <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.description}</div>}
                     </div>
 
                     <div>
@@ -344,8 +286,16 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
                                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                                     {data.imagenes_existentes.map((img, i) => (
                                         <div key={i} className="relative group">
-                                            <img src={`/storage/${img}`} alt={`Imagen ${i}`} className="w-full h-32 object-cover rounded border border-gray-300 dark:border-neutral-600" />
-                                            <button type="button" onClick={() => removeExistingImage(i)} className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <img
+                                                src={img.startsWith('http') ? img : `/storage/${img}`}
+                                                alt={`Imagen ${i}`}
+                                                className="w-full h-32 object-cover rounded border border-gray-300 dark:border-neutral-600"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => removeExistingImage(i)}
+                                                className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                            >
                                                 <LucideIcons.X className="w-4 h-4" />
                                             </button>
                                         </div>
@@ -370,22 +320,22 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
                             </div>
                         )}
 
-                        {data.imagenes_existentes.length + data.imagenes.length < MAX_IMAGES && (
+                        {data.imagenes_existentes.length + data.images.length < MAX_IMAGES && (
                             <div className="border-2 border-dashed border-gray-300 dark:border-neutral-600 rounded-lg p-6 text-center">
-                                <input type="file" multiple accept="image/*" onChange={handleImageChange} className="hidden" id="imagenes" />
-                                <label htmlFor="imagenes" className="cursor-pointer inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 dark:text-blue-400">
+                                <input type="file" multiple accept="image/*" onChange={handleImageChange} className="hidden" id="images" />
+                                <label htmlFor="images" className="cursor-pointer inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 dark:text-blue-400">
                                     <LucideIcons.Upload className="w-5 h-5" />
                                     Seleccionar imágenes
                                 </label>
                                 <p className="text-sm text-gray-500 dark:text-neutral-400 mt-2">
-                                    {MAX_IMAGES - data.imagenes_existentes.length - data.imagenes.length} imágenes disponibles
+                                    {MAX_IMAGES - data.imagenes_existentes.length - data.images.length} imágenes disponibles
                                 </p>
                                 <p className="text-xs text-gray-400 dark:text-neutral-500 mt-1">
                                     Tamaño máximo por imagen: {formatFileSize(MAX_FILE_SIZE)}
                                 </p>
                             </div>
                         )}
-                        {errors.imagenes && <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.imagenes}</div>}
+                        {errors.images && <div className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.images}</div>}
                     </div>
 
                     <div>
@@ -428,7 +378,7 @@ export default function FormServicioVario({ serviciosVario }: { serviciosVario?:
                             disabled={processing}
                             className="flex items-center gap-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Servicio' : 'Crear Servicio'}
+                            <LucideIcons.Save /> {processing ? 'Guardando...' : isEdit ? 'Actualizar Equipo' : 'Crear Equipo'}
                         </button>
                     </div>
                 </form>

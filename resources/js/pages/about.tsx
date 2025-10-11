@@ -117,8 +117,8 @@ export default function AboutSection({ carruselAbout = [], mision, vision, ofrec
                                         <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:bottom-6 md:left-6 md:right-6">
                                             <div className="bg-white rounded-lg p-2.5 sm:p-3 shadow-md">
                                                 <div className="text-center">
-                                                    <h3 className="text-xs sm:text-sm md:text-base font-medium text-slate-900">Dr. Fidel</h3>
-                                                    <p className="text-slate-500 text-[10px] sm:text-xs">Lorem Ipsum • XX+ años</p>
+                                                    <h3 className="text-xs sm:text-sm md:text-base font-medium text-slate-900">Lic. Fidel Correa Rodríguez</h3>
+                                                    <p className="text-slate-500 text-[10px] sm:text-xs">Licenciado En Radiología</p>
                                                     <div className="mt-1.5 sm:mt-2 pt-1.5 sm:pt-2 border-t border-slate-100">
                                                         <p className="text-slate-600 text-[10px] sm:text-xs italic">
                                                             "Tu salud y comodidad, nuestra prioridad"

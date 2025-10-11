@@ -22,6 +22,8 @@ interface FormCarruselSectionProps {
     sectionTitle?: string;
 }
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
 export default function Form({
     item,
     section,
@@ -54,12 +56,27 @@ export default function Form({
         if (errors.error) setShowError(true);
     }, [errors.error]);
 
+    const formatFileSize = (bytes: number): string => {
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    };
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+
         if (file) {
+            if (file.size > MAX_FILE_SIZE) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Imagen demasiado grande',
+                    html: `La imagen <strong>${file.name}</strong> (${formatFileSize(file.size)}) excede el tamaño máximo permitido de ${formatFileSize(MAX_FILE_SIZE)}`,
+                    confirmButtonText: 'Entendido'
+                });
+                e.target.value = '';
+                return;
+            }
+
             setData('image', file);
 
-            // Crear preview
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result as string);
@@ -71,7 +88,6 @@ export default function Form({
     const handleRemoveImage = () => {
         setImagePreview(null);
         setData('image', null);
-        // Resetear el input file
         const fileInput = document.getElementById('image-input') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
     };
@@ -142,14 +158,13 @@ export default function Form({
                         </div>
                     )}
 
-                    {/* Imagen */}
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Imagen del Carrusel {!isEdit && <span className="text-red-500">*</span>}
+                            <span className="text-gray-400 font-normal ml-2">(Máximo {formatFileSize(MAX_FILE_SIZE)})</span>
                         </label>
 
                         <div className="flex items-start gap-4">
-                            {/* Preview de la imagen */}
                             {imagePreview && (
                                 <div className="relative w-40 h-24 rounded overflow-hidden border-2 border-gray-300 dark:border-neutral-600 flex-shrink-0">
                                     <img
@@ -168,7 +183,6 @@ export default function Form({
                                 </div>
                             )}
 
-                            {/* Input de archivo */}
                             <div className="flex-1">
                                 <input
                                     id="image-input"
@@ -200,7 +214,6 @@ export default function Form({
                         </div>
                     </div>
 
-                    {/* Título Principal */}
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Título Principal <span className="text-gray-400">(opcional)</span>
@@ -219,7 +232,6 @@ export default function Form({
                         )}
                     </div>
 
-                    {/* Título Secundario */}
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Título Secundario <span className="text-gray-400">(opcional)</span>
@@ -238,7 +250,6 @@ export default function Form({
                         )}
                     </div>
 
-                    {/* Orden */}
                     <div>
                         <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-neutral-200">
                             Orden de visualización
@@ -260,7 +271,6 @@ export default function Form({
                         )}
                     </div>
 
-                    {/* Activo */}
                     <div className="flex items-center space-x-2">
                         <input
                             id="activo"
@@ -274,7 +284,6 @@ export default function Form({
                         </label>
                     </div>
 
-                    {/* Botones */}
                     <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-neutral-700">
                         <Link href={route('cms.carrusel.index', section)}>
                             <button

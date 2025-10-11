@@ -21,7 +21,7 @@ class ServicioController extends Controller
     /** Formulario para editar */
     public function edit(Servicio $servicio)
     {
-        $servicio->color = 'bg-' . $servicio->color . '-500'; // Agregar prefijo y sufijo para el color
+        $servicio->color = 'bg-' . $servicio->color . '-500';
         return Inertia::render('cms/servicios/formServicio', [
             'servicio' => $servicio
         ]);
@@ -49,11 +49,9 @@ class ServicioController extends Controller
             'icon.required'     => 'El ícono es obligatorio.',
         ]);
 
-        // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }

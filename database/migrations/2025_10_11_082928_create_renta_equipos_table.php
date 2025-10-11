@@ -8,22 +8,22 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('servicios_varios', function (Blueprint $table) {
+        Schema::create('renta_equipos', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('subtitle')->nullable();
-            $table->text('descripcion')->nullable();
-            $table->json('imagenes')->nullable(); 
-            $table->json('caracteristicas')->nullable();
+            $table->text('description')->nullable();
+            $table->json('images')->nullable(); 
+            $table->json('caracteristicas')->nullable(); 
+            $table->string('color')->nullable();
             $table->boolean('activo')->default(true);
             $table->integer('orden')->default(0);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('servicios_varios');
+        Schema::dropIfExists('renta_equipos');
     }
 };

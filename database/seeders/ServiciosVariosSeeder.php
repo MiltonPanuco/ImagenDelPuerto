@@ -30,7 +30,9 @@ class ServiciosVariosSeeder extends Seeder
                     'service/electro5.jpg'
                 ],
                 'activo' => true,
-                'orden' => 1
+                'orden' => 1,
+                'color' => 'blue',
+                'icon' => 'Activity',
             ],
             [
                 'title' => 'Rayos X',
@@ -51,7 +53,9 @@ class ServiciosVariosSeeder extends Seeder
                     'service/rx5.jpg',
                 ],
                 'activo' => true,
-                'orden' => 2
+                'orden' => 2,
+                'color' => 'emerald',
+                'icon' => 'Zap',
             ]
         ];
 

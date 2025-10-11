@@ -13,6 +13,7 @@ use App\Http\Controllers\Cms\DataController;
 use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoEquipoController;
 use App\Http\Controllers\Cms\AtencionController;
 use App\Http\Controllers\Cms\CarruselSectionController;
+use App\Http\Controllers\Cms\RentaEquipoController;
 use App\Http\Controllers\WebPageController;
 use App\Http\Controllers\Cms\SocialController;
 use Illuminate\Support\Facades\Route;
@@ -115,6 +116,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('servicios-varios', ServicioVarioController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.servicios-varios');
         Route::patch('servicios-varios/{serviciosVario}/activo', [ServicioVarioController::class, 'toggleActivo'])->name('cms.servicios-varios.activo');
 
+        /** Renta de Equipos */
+        Route::resource('renta-equipos', RentaEquipoController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.renta-equipos');
+        Route::patch('renta-equipos/{rentaEquipo}/activo', [RentaEquipoController::class, 'toggleActivo'])->name('cms.renta-equipos.activo');
 
         /** CONTACT */
 

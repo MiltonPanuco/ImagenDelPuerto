@@ -14,6 +14,7 @@ import { index as cmsEstadisticas } from '@/routes/cms/estadisticas';
 import { index as cmsGaleriaRecuerdos } from '@/routes/cms/galeria/recuerdos';
 import { index as cmsEquipamiento } from '@/routes/cms/galeria/equipamiento';
 import { index as cmsAtencion } from '@/routes/cms/atencion';
+import { index as cmsRentaEquipo } from '@/routes/cms/renta-equipos';
 import { index as cmsCitas } from '@/routes/cms/citas';
 import { index as cmsSociales } from '@/routes/cms/sociales';
 import { index as cmsServiciosVarios } from '@/routes/cms/servicios-varios';
@@ -23,7 +24,7 @@ import {
     Briefcase,
     ClipboardCheck,
     Target,
-    Eye,
+    ShoppingBag,
     Package,
     BarChart,
     Image,
@@ -57,6 +58,7 @@ const galleryItems: NavItem[] = [
 const serviceItems: NavItem[] = [
     { title: 'Carrusel Servicio', icon: Images, href: route('cms.carrusel.index', 'service') },
     { title: 'Servicios Varios', icon: Wrench, href: cmsServiciosVarios() },
+    { title: 'Renta Equipo', icon: ShoppingBag, href: cmsRentaEquipo() },
 ];
 
 const contactItems: NavItem[] = [

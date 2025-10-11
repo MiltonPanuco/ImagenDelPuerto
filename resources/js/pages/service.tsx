@@ -1,66 +1,29 @@
 "use client"
 
-import type React from "react"
-
 import "@styles/global.css"
 
 import NavbarLayout from "../layouts/navbar-layout"
 import CarouselLayout from "../layouts/carousel-layout"
 import FooterLayout from "../layouts/footer-layout"
 
-import { useState } from "react"
-import {
-    Droplets,
-    Bed,
-    ArrowUp,
-    Church as Crutch,
-    Wind,
-    Armchair as Wheelchair,
-    Stethoscope,
-    Activity,
-    ChevronLeft,
-    ChevronRight,
-    Star,
-    Clock,
-    Shield,
-    Zap,
-} from "lucide-react"
+import { Shield, Zap, ChevronLeft, ChevronRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import * as Icons from "lucide-react"
+import { useState } from "react"
 
-const sliderService = [
-    {
-        image: "storage/service/carrusel1.jpg",
-        title: "Rayos X",
-        description: "Tu centro de confianza para radiografías especializadas",
-    },
-    {
-        image: "storage/service/carrusel2.jpg",
-        title: "Electrocardiogramas",
-        description: "Monitoreo preciso de tu corazón para un diagnóstico seguro",
-    },
-    {
-        image: "storage/service/carrusel3.jpg",
-        title: "Equipo Médico",
-        description: "Tecnología de calidad para el cuidado y bienestar de tu salud",
-    },
-]
+const phone_wp = "523223602224"
 
-function ImageCarousel({ images, title }: { images: string[]; title: string }) {
+function ImageSlider({ images, title }: { images: string[]; title: string }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [touchStart, setTouchStart] = useState(0)
     const [touchEnd, setTouchEnd] = useState(0)
-    const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null)
 
     const nextImage = () => {
-        setSlideDirection("left")
         setCurrentIndex((prev) => (prev + 1) % images.length)
-        setTimeout(() => setSlideDirection(null), 500)
     }
 
     const prevImage = () => {
-        setSlideDirection("right")
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
-        setTimeout(() => setSlideDirection(null), 500)
     }
 
     const handleTouchStart = (e: React.TouchEvent) => {
@@ -72,21 +35,13 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
     }
 
     const handleTouchEnd = () => {
-        if (!touchStart || !touchEnd) return
-
-        const distance = touchStart - touchEnd
-        const isLeftSwipe = distance > 50
-        const isRightSwipe = distance < -50
-
-        if (isLeftSwipe) {
+        if (touchStart - touchEnd > 75) {
             nextImage()
         }
-        if (isRightSwipe) {
+
+        if (touchStart - touchEnd < -75) {
             prevImage()
         }
-
-        setTouchStart(0)
-        setTouchEnd(0)
     }
 
     return (
@@ -97,47 +52,41 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
             onTouchEnd={handleTouchEnd}
         >
             <img
-                key={currentIndex}
                 src={images[currentIndex] || "/placeholder.svg"}
-                alt={`${title} - Imagen ${currentIndex + 1}`}
-                className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${slideDirection === "left"
-                    ? "animate-slide-in-left"
-                    : slideDirection === "right"
-                        ? "animate-slide-in-right"
-                        : ""
-                    }`}
+                alt={`${title} - ${currentIndex + 1}`}
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
             />
-
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {images.length > 1 && (
                 <>
                     <button
                         onClick={prevImage}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm hover:bg-white text-slate-700 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110 opacity-0 group-hover:opacity-100 cursor-pointer"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-900 rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+                        aria-label="Imagen anterior"
                     >
-                        <ChevronLeft className="h-4 w-4" />
+                        <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                         onClick={nextImage}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm hover:bg-white text-slate-700 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110 opacity-0 group-hover:opacity-100 cursor-pointer"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-900 rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+                        aria-label="Imagen siguiente"
                     >
-                        <ChevronRight className="h-4 w-4" />
+                        <ChevronRight className="w-5 h-5" />
                     </button>
-                </>
-            )}
 
-            {images.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
-                    {images.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setCurrentIndex(index)}
-                            className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${index === currentIndex ? "bg-white scale-125 shadow-lg" : "bg-white/60 hover:bg-white/80"
-                                }`}
-                        />
-                    ))}
-                </div>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {images.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setCurrentIndex(idx)}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? "bg-white w-6" : "bg-white/50 hover:bg-white/75"
+                                    }`}
+                                aria-label={`Ir a imagen ${idx + 1}`}
+                            />
+                        ))}
+                    </div>
+                </>
             )}
         </div>
     )
@@ -147,18 +96,13 @@ function ImageCarouselEquipment({ images, title }: { images: string[]; title: st
     const [currentIndex, setCurrentIndex] = useState(0)
     const [touchStart, setTouchStart] = useState(0)
     const [touchEnd, setTouchEnd] = useState(0)
-    const [slideDirection, setSlideDirection] = useState<"left" | "right" | null>(null)
 
     const nextImage = () => {
-        setSlideDirection("left")
         setCurrentIndex((prev) => (prev + 1) % images.length)
-        setTimeout(() => setSlideDirection(null), 500)
     }
 
     const prevImage = () => {
-        setSlideDirection("right")
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
-        setTimeout(() => setSlideDirection(null), 500)
     }
 
     const handleTouchStart = (e: React.TouchEvent) => {
@@ -170,21 +114,13 @@ function ImageCarouselEquipment({ images, title }: { images: string[]; title: st
     }
 
     const handleTouchEnd = () => {
-        if (!touchStart || !touchEnd) return
-
-        const distance = touchStart - touchEnd
-        const isLeftSwipe = distance > 50
-        const isRightSwipe = distance < -50
-
-        if (isLeftSwipe) {
+        if (touchStart - touchEnd > 75) {
             nextImage()
         }
-        if (isRightSwipe) {
+
+        if (touchStart - touchEnd < -75) {
             prevImage()
         }
-
-        setTouchStart(0)
-        setTouchEnd(0)
     }
 
     return (
@@ -195,17 +131,10 @@ function ImageCarouselEquipment({ images, title }: { images: string[]; title: st
             onTouchEnd={handleTouchEnd}
         >
             <img
-                key={currentIndex}
                 src={images[currentIndex] || "/placeholder.svg"}
-                alt={`${title} - Imagen ${currentIndex + 1}`}
-                className={`w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-110 ${slideDirection === "left"
-                    ? "animate-slide-in-left"
-                    : slideDirection === "right"
-                        ? "animate-slide-in-right"
-                        : ""
-                    }`}
+                alt={`${title} - ${currentIndex + 1}`}
+                className="w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-110"
             />
-
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {images.length > 1 && (
@@ -222,268 +151,75 @@ function ImageCarouselEquipment({ images, title }: { images: string[]; title: st
                     >
                         <ChevronRight className="h-4 w-4" />
                     </button>
-                </>
-            )}
 
-            {images.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
-                    {images.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setCurrentIndex(index)}
-                            className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${index === currentIndex ? "bg-white scale-125 shadow-lg" : "bg-white/60 hover:bg-white/80"
-                                }`}
-                        />
-                    ))}
-                </div>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
+                        {images.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCurrentIndex(index)}
+                                className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${index === currentIndex ? "bg-white scale-125 shadow-lg" : "bg-white/60 hover:bg-white/80"
+                                    }`}
+                            />
+                        ))}
+                    </div>
+                </>
             )}
         </div>
     )
 }
 
-export default function ServicesSection() {
-    const diagnosticServices = [
-        {
-            icon: Stethoscope,
-            title: "Rayos X",
-            subtitle: "Estudios Radiológicos Completos",
-            images: [
-                "storage/service/rx1.jpg",
-                "storage/service/rx2.jpg",
-                "storage/service/rx3.jpg",
-                "storage/service/rx4.jpg",
-                "storage/service/rx5.jpg",
-            ],
-            description:
-                "Realizamos estudios radiológicos de tórax, abdomen, extremidades y columna vertebral con equipos portátiles de última generación.",
-            features: [
-                "Rayos X de tórax y abdomen",
-                "Estudios de extremidades",
-                "Radiografías de columna",
-                "Entrega de resultados en 24 horas",
-                "Interpretación por radiólogos certificados",
-            ],
-            color: "bg-blue-600",
-            bgColor: "bg-blue-50",
-            hoverColor: "hover:bg-blue-100",
-            rating: 4.9,
-            deliveryTime: "24h",
-        },
-        {
-            icon: Activity,
-            title: "Electrocardiogramas",
-            subtitle: "Monitoreo Cardíaco Profesional",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Evaluación completa de la actividad eléctrica del corazón con electrocardiógrafos digitales de 12 derivaciones.",
-            features: [
-                "ECG de 12 derivaciones",
-                "Interpretación cardiológica",
-                "Reportes digitales inmediatos",
-            ],
-            color: "bg-emerald-600",
-            bgColor: "bg-emerald-50",
-            hoverColor: "hover:bg-emerald-100",
-            rating: 4.8,
-            deliveryTime: "Inmediato",
-        },
-    ]
+interface CarruselItem {
+    id: number
+    image: string
+    title1?: string
+    title2?: string
+    activo: boolean
+}
 
-    const medicalEquipment = [
-        {
-            icon: Droplets,
-            title: "Bombas de Infusión",
-            subtitle: "Administración Precisa de Medicamentos",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Bombas de infusión programables para administración controlada de medicamentos, sueros y nutrición parenteral.",
-            features: [
-                "Control de flujo programable",
-                "Alarmas de seguridad integradas",
-                "Batería de larga duración",
-                "Compatible con múltiples medicamentos",
-                "Capacitación incluida para familiares",
-            ],
-            color: "bg-pink-600",
-            bgColor: "bg-pink-50",
-            hoverColor: "hover:bg-pink-100",
-            badgeColor: "bg-pink-600",
-            rating: 4.9,
-            availability: "Disponible",
-        },
-        {
-            icon: Bed,
-            title: "Camas de Hospital",
-            subtitle: "Confort y Funcionalidad Médica",
-            images: [
-                "storage/service/camilla-1.jpeg",
-                "storage/service/camilla-2.jpeg",
-                "storage/service/camilla-3.jpeg",
-                "storage/service/camilla-4.jpeg",
-            ],
-            description:
-                "Camas hospitalarias eléctricas y manuales con colchones antiescaras. Diseñadas para brindar comodidad al paciente.",
-            features: [
-                "Altura y posición ajustables",
-                "Colchones antiescaras incluidos",
-                "Barandales de seguridad",
-                "Ruedas con frenos",
-                "Fácil limpieza y desinfección",
-            ],
-            color: "bg-purple-600",
-            bgColor: "bg-purple-50",
-            hoverColor: "hover:bg-purple-100",
-            badgeColor: "bg-purple-600",
-            rating: 4.7,
-            availability: "Disponible",
-        },
-        {
-            icon: Crutch,
-            title: "Muletas",
-            subtitle: "Apoyo Seguro para la Movilidad",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Muletas axilares y de antebrazo en diferentes tamaños, fabricadas con materiales ligeros y resistentes.",
-            features: [
-                "Altura totalmente ajustable",
-                "Empuñaduras ergonómicas acolchadas",
-                "Puntas antideslizantes",
-                "Materiales ligeros y resistentes",
-                "Disponibles en diferentes tamaños",
-            ],
-            color: "bg-teal-600",
-            bgColor: "bg-teal-50",
-            hoverColor: "hover:bg-teal-100",
-            badgeColor: "bg-teal-600",
-            rating: 4.5,
-            availability: "Disponible",
-        },
-        {
-            icon: Wind,
-            title: "Concentradores de Oxígeno",
-            subtitle: "Oxigenoterapia Domiciliaria Confiable",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Concentradores de oxígeno de alta eficiencia para terapia respiratoria continua. Equipos silenciosos con alarmas.",
-            features: [
-                "Concentración de oxígeno hasta 95%",
-                "Funcionamiento silencioso",
-                "Alarmas de seguridad integradas",
-                "Bajo consumo energético",
-                "Mantenimiento técnico incluido",
-            ],
-            color: "bg-cyan-600",
-            bgColor: "bg-cyan-50",
-            hoverColor: "hover:bg-cyan-100",
-            badgeColor: "bg-cyan-600",
-            rating: 4.8,
-            availability: "Limitado",
-        },
-        {
-            icon: Wheelchair,
-            title: "Silla de Ruedas Estándar",
-            subtitle: "Máx. 100 kg",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Silla de ruedas manual ligera y resistente, diseñada para uso diario con capacidad máxima de 100 kg.",
-            features: [
-                "Diseño compacto y plegable",
-                "Asiento acolchado estándar",
-                "Reposapiés removibles",
-                "Frenos de seguridad",
-                "Marco de acero reforzado",
-            ],
-            color: "bg-indigo-600",
-            bgColor: "bg-indigo-50",
-            hoverColor: "hover:bg-indigo-100",
-            badgeColor: "bg-indigo-600",
-            rating: 4.6,
-            availability: "Disponible",
-        },
-        {
-            icon: Wheelchair,
-            title: "Silla de Ruedas Bariátrica",
-            subtitle: "Máx. 180 kg",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Silla de ruedas diseñada para usuarios bariátricos, con capacidad de carga de hasta 180 kg y estructura reforzada.",
-            features: [
-                "Asiento extra ancho y cómodo",
-                "Ruedas reforzadas de gran resistencia",
-                "Estructura de acero de alta durabilidad",
-                "Reposabrazos acolchados",
-                "Frenos de seguridad dobles",
-            ],
-            color: "bg-sky-600",
-            bgColor: "bg-sky-50",
-            hoverColor: "hover:bg-sky-100",
-            badgeColor: "bg-sky-600",
-            rating: 4.8,
-            availability: "Disponible",
-        },
-        {
-            icon: Wheelchair,
-            title: "Silla de Ruedas con Elevapiernas",
-            subtitle: "Confort y Recuperación",
-            images: [
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-                "https://i.pinimg.com/736x/e3/43/31/e343317954049432825ccd54f0aa1068.jpg",
-            ],
-            description:
-                "Silla de ruedas equipada con sistema de elevapiernas para mayor comodidad en pacientes con necesidades de recuperación.",
-            features: [
-                "Reposapiernas ajustables y elevados",
-                "Asiento acolchado ergonómico",
-                "Reposabrazos removibles",
-                "Estructura de acero plegable",
-                "Frenos de seguridad",
-            ], 
-            color: "bg-emerald-600",
-            bgColor: "bg-emerald-50",
-            hoverColor: "hover:bg-emerald-100",
-            badgeColor: "bg-emerald-600",
-            rating: 4.9,
-            availability: "Disponible",
-        },
+interface ServicioVario {
+    title: string
+    subtitle: string
+    descripcion: string
+    imagenes: string[] | string
+    caracteristicas: string[]
+    activo: boolean
+    icon: keyof typeof Icons
+    color: string
+}
 
-    ]
+interface RentaEquipo {
+    title: string
+    subtitle: string
+    description: string
+    images: string[]
+    caracteristicas: string[]
+    activo: boolean
+    color: string
+}
 
+interface ServiceProps {
+    carruselService: CarruselItem[]
+    serviciovario: ServicioVario[]
+    rentaequipos: RentaEquipo[]
+}
+
+export default function Service({ carruselService = [], serviciovario = [], rentaequipos = [] }: ServiceProps) {
     const sendWhatsAppMessage = (productName: string, isService = false) => {
-        const phoneNumber = "523223602224"
         const message = `Hola, me interesa ${productName}, quisiera información sobre ${isService ? "el servicio" : "el producto"}`
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+        const whatsappUrl = `https://wa.me/${phone_wp}?text=${encodeURIComponent(message)}`
         window.open(whatsappUrl, "_blank")
+    }
+
+    const getColorClasses = (color: string) => {
+        const bgColor = color.startsWith('bg-') ? color : `bg-${color}-500`
+        const textColor = bgColor.replace('bg-', 'text-')
+        const hoverBgColor = bgColor.replace('-500', '-600')
+        return { bgColor, textColor, hoverBgColor }
     }
 
     return (
         <NavbarLayout>
-            <CarouselLayout slides={sliderService} />
+            <CarouselLayout slides={carruselService} />
 
             <div className="min-h-screen bg-slate-50">
                 <section className="min-h-screen bg-white flex items-center justify-center">
@@ -519,76 +255,73 @@ export default function ServicesSection() {
                         </div>
 
                         <div className="grid lg:grid-cols-2 gap-8">
-                            {diagnosticServices.map((service, index) => (
-                                <Card
-                                    key={index}
-                                    className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-700 rounded-3xl hover:scale-[1.02]"
-                                >
-                                    <div className="absolute top-6 left-6 z-10">
-                                        <div
-                                            className={`w-16 h-16 ${service.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}
+                            {serviciovario
+                                .filter((servicio) => servicio.activo)
+                                .map((servicio, index) => {
+                                    const IconComponent = Icons[servicio.icon]
+                                    const { bgColor, textColor, hoverBgColor } = getColorClasses(servicio.color)
+                                    const imageArray = Array.isArray(servicio.imagenes) ? servicio.imagenes : [servicio.imagenes]
+
+                                    return (
+                                        <Card
+                                            key={index}
+                                            className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-700 rounded-3xl hover:scale-[1.02]"
                                         >
-                                            <service.icon className="h-8 w-8 text-white" />
-                                        </div>
-                                    </div>
-
-                                    <CardContent className="p-0">
-                                        <div className="relative p-6 pb-4">
-                                            <ImageCarousel images={service.images} title={service.title} />
-                                        </div>
-
-                                        <div className="px-6 pb-6">
-                                            <div className="flex items-center justify-between mb-4">
-                                                <div className="flex items-center space-x-1">
-                                                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                                                    <span className="text-sm font-medium text-slate-700">{service.rating}</span>
-                                                </div>
-                                                <div className="flex items-center space-x-1 text-emerald-600">
-                                                    <Clock className="h-4 w-4" />
-                                                    <span className="text-sm font-medium">{service.deliveryTime}</span>
+                                            <div className="absolute top-6 left-6 z-10">
+                                                <div
+                                                    className={`w-16 h-16 ${hoverBgColor} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}
+                                                >
+                                                    {IconComponent && <IconComponent className="h-8 w-8 text-white" />}
                                                 </div>
                                             </div>
 
-                                            <h3 className="text-3xl font-light text-slate-900 mb-2">{service.title}</h3>
-                                            <p className="text-lg font-medium text-emerald-600 mb-4">{service.subtitle}</p>
-                                            <p className="text-slate-600 leading-relaxed text-pretty mb-6">{service.description}</p>
+                                            <CardContent className="p-0">
+                                                <div className="relative p-6 pb-4">
+                                                    <ImageSlider images={imageArray} title={servicio.title} />
+                                                </div>
 
-                                            <div className="space-y-3">
-                                                <h4 className="text-lg font-medium text-slate-900 mb-4 flex items-center">
-                                                    <Shield className="h-5 w-5 text-emerald-500 mr-2" />
-                                                    Incluye:
-                                                </h4>
-                                                <div className="grid grid-cols-1 gap-2">
-                                                    {service.features.map((feature, featureIndex) => (
-                                                        <div
-                                                            key={featureIndex}
-                                                            className="flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors duration-200"
-                                                        >
-                                                            <div className="w-2 h-2 bg-emerald-500 rounded-full flex-shrink-0"></div>
-                                                            <span className="text-slate-600 text-sm">{feature}</span>
+                                                <div className="px-6 pb-6">
+                                                    <h3 className="text-3xl font-light text-slate-900 mb-2">{servicio.title}</h3>
+                                                    <p className={`text-lg font-medium ${textColor} mb-4`}>{servicio.subtitle}</p>
+                                                    <p className="text-slate-600 leading-relaxed text-pretty mb-6">{servicio.descripcion}</p>
+
+                                                    <div className="space-y-3">
+                                                        <h4 className="text-lg font-medium text-slate-900 mb-4 flex items-center">
+                                                            <Shield className={`h-5 w-5 ${textColor} mr-2`} />
+                                                            Incluye:
+                                                        </h4>
+                                                        <div className="grid grid-cols-1 gap-2">
+                                                            {servicio.caracteristicas.map((caracteristica, featureIndex) => (
+                                                                <div
+                                                                    key={featureIndex}
+                                                                    className="flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors duration-200"
+                                                                >
+                                                                    <div className={`w-2 h-2 ${bgColor} rounded-full flex-shrink-0`}></div>
+                                                                    <span className="text-slate-600 text-sm">{caracteristica}</span>
+                                                                </div>
+                                                            ))}
                                                         </div>
-                                                    ))}
-                                                </div>
-                                            </div>
+                                                    </div>
 
-                                            <button
-                                                onClick={() => sendWhatsAppMessage(service.title, true)}
-                                                className={`w-full mt-6 ${service.color} text-white py-3 px-6 rounded-2xl font-medium hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 cursor-pointer`}
-                                            >
-                                                <span>Solicitar Servicio</span>
-                                                <Zap className="h-4 w-4" />
-                                            </button>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                                                    <button
+                                                        onClick={() => sendWhatsAppMessage(servicio.title, true)}
+                                                        className={`w-full mt-6 ${hoverBgColor} text-white py-3 px-6 rounded-2xl font-medium hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 cursor-pointer`}
+                                                    >
+                                                        <span>Solicitar Servicio</span>
+                                                        <Zap className="h-4 w-4" />
+                                                    </button>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    )
+                                })}
                         </div>
                     </div>
                 </section>
 
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-20" id="products">
+                        <div className="text-center mb-20">
                             <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
                                 Renta de Equipo Médico
                             </div>
@@ -603,52 +336,53 @@ export default function ServicesSection() {
                         </div>
 
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {medicalEquipment.map((equipment, index) => (
-                                <Card
-                                    key={index}
-                                    className="group relative overflow-hidden bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-3xl hover:scale-105"
-                                >
-                                    <CardContent className="p-0">
-                                        <div className="relative p-4 pb-2">
-                                            <ImageCarouselEquipment images={equipment.images} title={equipment.title} />
-                                        </div>
+                            {rentaequipos
+                                .filter((equipo) => equipo.activo)
+                                .map((equipo, index) => {
+                                    const { hoverBgColor } = getColorClasses(equipo.color)
 
-                                        <div className="px-4 pb-4">
-                                            <div className="flex items-center justify-between mb-3">
-                                                <div className="flex items-center space-x-1">
-                                                    <Star className="h-3 w-3 text-yellow-400 fill-current" />
-                                                    <span className="text-xs font-medium text-slate-600">{equipment.rating}</span>
+                                    return (
+                                        <Card
+                                            key={index}
+                                            className="group relative overflow-hidden bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-3xl hover:scale-105"
+                                        >
+                                            <CardContent className="p-0">
+                                                <div className="relative p-4 pb-2">
+                                                    <ImageCarouselEquipment images={equipo.images} title={equipo.title} />
                                                 </div>
-                                            </div>
 
-                                            <h3 className="text-xl font-light text-slate-900 mb-1">{equipment.title}</h3>
-                                            <p className="text-sm font-medium text-emerald-600 mb-3">{equipment.subtitle}</p>
-                                            <p className="text-slate-600 leading-relaxed text-pretty mb-4 text-xs">{equipment.description}</p>
+                                                <div className="px-4 pb-4">
+                                                    <h3 className="text-xl font-light text-slate-900 mb-1">{equipo.title}</h3>
+                                                    <p className="text-sm font-medium text-emerald-600 mb-3">{equipo.subtitle}</p>
+                                                    <p className="text-slate-600 leading-relaxed text-pretty mb-4 text-xs">
+                                                        {equipo.description}
+                                                    </p>
 
-                                            <div className="space-y-2 mb-4">
-                                                <h4 className="text-xs font-medium text-slate-900 mb-2">Características principales:</h4>
-                                                <div className="space-y-1">
-                                                    {equipment.features.slice(0, 3).map((feature, featureIndex) => (
-                                                        <div key={featureIndex} className="flex items-start space-x-2">
-                                                            <div className="w-1 h-1 bg-emerald-500 rounded-full flex-shrink-0 mt-1.5"></div>
-                                                            <span className="text-slate-600 text-xs leading-relaxed">{feature}</span>
+                                                    <div className="space-y-2 mb-4">
+                                                        <h4 className="text-xs font-medium text-slate-900 mb-2">Características principales:</h4>
+                                                        <div className="space-y-1">
+                                                            {equipo.caracteristicas.slice(0, 3).map((caracteristica, featureIndex) => (
+                                                                <div key={featureIndex} className="flex items-start space-x-2">
+                                                                    <div className="w-1 h-1 bg-emerald-500 rounded-full flex-shrink-0 mt-1.5"></div>
+                                                                    <span className="text-slate-600 text-xs leading-relaxed">
+                                                                        {caracteristica}
+                                                                    </span>
+                                                                </div>
+                                                            ))}
                                                         </div>
-                                                    ))}
-                                                </div>
-                                            </div>
+                                                    </div>
 
-                                            <div className="flex space-x-2">
-                                                <button
-                                                    onClick={() => sendWhatsAppMessage(equipment.title)}
-                                                    className={`flex-1 ${equipment.color} text-white py-2 px-3 rounded-xl text-xs font-medium hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer`}
-                                                >
-                                                    Rentar
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                                                    <button
+                                                        onClick={() => sendWhatsAppMessage(equipo.title)}
+                                                        className={`w-full ${hoverBgColor} text-white py-2 px-3 rounded-xl text-xs font-medium hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer`}
+                                                    >
+                                                        Rentar
+                                                    </button>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    )
+                                })}
                         </div>
                     </div>
                 </section>

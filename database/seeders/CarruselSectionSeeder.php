@@ -74,7 +74,7 @@ class CarruselSectionSeeder extends Seeder
                 'section' => 'service',
                 'image' => 'carrusel/service/carrusel1.jpg',
                 'title1' => 'Rayos X',
-                'title2' => 'Tu centor de confianza para radiografías especializadas',
+                'title2' => 'Tu centro de confianza para radiografías especializadas',
                 'order' => 1,
                 'activo' => true,
             ],

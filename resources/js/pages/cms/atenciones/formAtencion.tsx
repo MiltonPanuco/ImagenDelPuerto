@@ -261,8 +261,8 @@ export default function FormAtencion({ atencion }: { atencion: Atencion }) {
                             {processing
                                 ? 'Guardando...'
                                 : isEdit
-                                ? 'Actualizar Atención'
-                                : 'Crear Atención'}
+                                    ? 'Actualizar Atención'
+                                    : 'Crear Atención'}
                         </button>
                     </div>
                 </form>

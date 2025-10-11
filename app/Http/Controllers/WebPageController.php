@@ -10,7 +10,9 @@ use App\Models\Mision;
 use App\Models\Ofrecemos;
 use App\Models\Atencion;
 use App\Models\Estadisticas;
+use App\Models\RentaEquipo;
 use App\Models\Cita;
+use App\Models\ServicioVario;
 use App\Models\Social;
 use App\Models\CarruselSection;
 
@@ -51,8 +53,34 @@ class WebPageController extends Controller
     {
         $carruselService = $this->getCarrusel('service');
         
+        $serviciovario = ServicioVario::where('activo', true)
+            ->orderBy('orden', 'asc')
+            ->get();
+        
+        foreach ($serviciovario as $servicio) {
+            if (!empty($servicio->imagenes)) {
+                $servicio->imagenes = array_map(function($imagen) {
+                    return asset('storage/' . $imagen);
+                }, $servicio->imagenes);
+            }
+        }
+
+        $rentaequipos = RentaEquipo::where('activo', true)
+            ->orderBy('orden', 'asc')
+            ->get();
+        
+        foreach ($rentaequipos as $equipo) {
+            if (!empty($equipo->images)) {
+                $equipo->images = array_map(function($imagen) {
+                    return asset('storage/' . $imagen);
+                }, $equipo->images);
+            }
+        }
+
         return Inertia::render('service', [
             'carruselService' => $carruselService,
+            'serviciovario' => $serviciovario,
+            'rentaequipos' => $rentaequipos,
         ]);
     }
 

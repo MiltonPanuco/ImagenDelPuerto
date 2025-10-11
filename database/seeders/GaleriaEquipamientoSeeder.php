@@ -109,7 +109,7 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Diseño ultracompacto y ergonómico',
                             'Interpretación avanzada'
                         ]),
-                        'image' => null,
+                        'image' => 'gallery/electrocardiografo.jpeg',
                         'created_at' => now(),
                         'updated_at' => now()
                     ],
@@ -127,7 +127,7 @@ class GaleriaEquipamientoSeeder extends Seeder
                             'Adhesivo hipoalergénico',
                             'Alta conductividad'
                         ]),
-                        'image' => null,
+                        'image' => 'gallery/electrodos-desechables.jpg',
                         'created_at' => now(),
                         'updated_at' => now()
                     ],

@@ -22,7 +22,7 @@ class OfrecemosController extends Controller
     /** Formulario para editar */
     public function edit(Ofrecemos $ofrecemos)
     {
-        $ofrecemos->color = 'bg-' . $ofrecemos->color . '-500'; // Agregar prefijo y sufijo para el color
+        $ofrecemos->color = 'bg-' . $ofrecemos->color . '-500'; 
         return Inertia::render('cms/ofrecemos/formOfrecemos', [
             'ofrecemos' => $ofrecemos
         ]);
@@ -46,11 +46,9 @@ class OfrecemosController extends Controller
             'icon.required'     => 'El ícono es obligatorio.',
         ]);
 
-        // Si 'activo' no viene (checkbox no marcado), forzar false
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            // Si el color tiene el prefijo 'bg-', extraer solo el color; si no, dejarlo igual
             if (strpos($data['color'], 'bg-') === 0) {
                 $data['color'] = explode('-', $data['color'])[1];
             }
@@ -94,7 +92,7 @@ class OfrecemosController extends Controller
         $data['activo'] = $data['activo'] ?? false;
 
         try {
-            $data['color'] = explode('-', $data['color'])[1]; // Extraer solo el color sin el prefijo 'bg-'
+            $data['color'] = explode('-', $data['color'])[1];
             Ofrecemos::create($data);
             return redirect()->route('cms.ofrecemos.index')->with('success', 'Ofrecemos creado correctamente');
         } catch (Exception $e) {
