@@ -26,16 +26,20 @@ class DatabaseSeeder extends Seeder
         // );
 
         $this->call([
-            WebPageSeeder::class,
-            EleccionSeeder::class,
-            MisionSeeder::class,
-            VisionSeeder::class,
-            GaleriaRecuerdoSeeder::class,
-            OfrecemosSeeder::class,
             AtencionSeeder::class,
+            CarruselSectionSeeder::class,
+            CitaSeeder::class,
+            EleccionSeeder::class,
             EstadisticasSeeder::class,
             GaleriaEquipamientoSeeder::class,
-            CitaSeeder::class,
+            GaleriaRecuerdoSeeder::class,
+            MisionSeeder::class,
+            OfrecemosSeeder::class,
+            RentaEquiposSeeder::class,
+            ServiciosVariosSeeder::class,
+            SocialesSeeder::class,
+            WebPageSeeder::class,
+            // VisionSeeder::class,
         ]);
 
     }
