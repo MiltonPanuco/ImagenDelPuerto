@@ -33,7 +33,6 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
     };
 
     const handleFileAccepted = (archivos) => {
-        /** El primero del arreglo [porque maxfiles = 1] */
         setImagen(archivos[0]);
     };
 
@@ -50,66 +49,74 @@ const DialogImage: React.FC<GaleriaRecuerdoFormProps> = ({
     return (
         <Dialog open={open} onClose={onClose}>
             <form onSubmit={handleSubmit}>
-                <DialogContent showCloseButton={false} className="bg-white dark:bg-neutral-800">
+                <DialogContent showCloseButton={false} className="bg-white dark:bg-neutral-800 max-h-[90vh] flex flex-col">
                     <DialogTitle className="text-gray-900 dark:text-neutral-100">
                         {isEdit ? 'Editar' : 'Agregar'} Recuerdo a Galería
                     </DialogTitle>
                     <DialogDescription className="text-gray-600 dark:text-neutral-400">
                         Completa el formulario para {isEdit ? 'editar' : 'agregar'} una nueva imagen a la galería de recuerdos.
                     </DialogDescription>
-
-                    <label htmlFor="title" className="font-bold text-gray-700 dark:text-neutral-200">Título</label>
-                    <Input
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Título"
-                        className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
-                    />
-
-                    <label htmlFor="date" className="font-bold text-gray-700 dark:text-neutral-200">Fecha</label>
-                    <Input
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        placeholder="Fecha"
-                        className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
-                    />
-
-                    <label htmlFor="descripcion" className="font-bold text-gray-700 dark:text-neutral-200">Descripción</label>
-                    <textarea
-                        className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                        value={descripcion}
-                        placeholder='Descripción'
-                        onChange={(e) => setDescripcion(e.target.value)}
-                        rows={3}
-                    />
-
-                    {!isEdit && (
-                        <>
-                            <label htmlFor="imagen" className="font-bold text-gray-700 dark:text-neutral-200">Imagen</label>
-                            <FileUpload
-                                maxFiles={1}
-                                maxFileSizeMb={5}
-                                showPreview={true}
-                                hideOnLimit={true}
-                                acceptedFileTypes={['image/*']}
-                                onFileAccepted={handleFileAccepted}
-                                onFileRejected={rejected => {
-                                    console.error('Archivos rechazados:', rejected);
-                                }}
+                    
+                    <div className="overflow-y-auto flex-1 pr-2 space-y-4">
+                        <div>
+                            <label htmlFor="title" className="font-bold text-gray-700 dark:text-neutral-200">Título</label>
+                            <Input
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="Título"
+                                className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
                             />
-                        </>
-                    )}
+                        </div>
 
-                    <div className="flex flex-col items-center">
-                        <label htmlFor="activo" className="font-bold text-gray-700 dark:text-neutral-200">Activo</label>
-                        <Switch
-                            id="activo"
-                            checked={activo}
-                            onCheckedChange={setActivo}
-                        />
+                        <div>
+                            <label htmlFor="date" className="font-bold text-gray-700 dark:text-neutral-200">Fecha</label>
+                            <Input
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                placeholder="Fecha"
+                                className="bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:ring-blue-500 dark:focus:ring-blue-400"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="descripcion" className="font-bold text-gray-700 dark:text-neutral-200">Descripción</label>
+                            <textarea
+                                className="w-full border rounded px-3 py-2 bg-gray-50 dark:bg-neutral-700 border-gray-300 dark:border-neutral-600 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                                value={descripcion}
+                                placeholder='Descripción'
+                                onChange={(e) => setDescripcion(e.target.value)}
+                                rows={3}
+                            />
+                        </div>
+
+                        {!isEdit && (
+                            <div>
+                                <label htmlFor="imagen" className="font-bold text-gray-700 dark:text-neutral-200">Imagen</label>
+                                <FileUpload
+                                    maxFiles={1}
+                                    maxFileSizeMb={5}
+                                    showPreview={true}
+                                    hideOnLimit={true}
+                                    acceptedFileTypes={['image/*']}
+                                    onFileAccepted={handleFileAccepted}
+                                    onFileRejected={rejected => {
+                                        console.error('Archivos rechazados:', rejected);
+                                    }}
+                                />
+                            </div>
+                        )}
+
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="activo" className="font-bold text-gray-700 dark:text-neutral-200">Activo</label>
+                            <Switch
+                                id="activo"
+                                checked={activo}
+                                onCheckedChange={setActivo}
+                            />
+                        </div>
                     </div>
 
-                    <Separator className="mb-3 dark:bg-neutral-700" />
+                    <Separator className="my-3 dark:bg-neutral-700" />
                     <DialogFooter>
                         <Button
                             type="button"
