@@ -69,7 +69,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                 <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12 h-16 w-full max-w-8xl mx-auto">
                     <a href="/" className="flex items-center space-x-3 group hover:scale-[1.02] transition-all duration-300">
                         <img
-                            src="logo_idp.png"
+                            src="logo_idp.svg"
                             alt="Imagen del Puerto Logo"
                             className={`w-11 h-11 sm:w-12 sm:h-12 object-contain transition-all duration-500 group-hover:scale-105 ${isScrolled ? "drop-shadow-md" : "drop-shadow-lg"
                                 }`}
@@ -122,7 +122,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                 <div className="relative flex items-center justify-between p-6 border-b border-border/50">
                                     <a href="/" className="relative flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
                                         <img
-                                            src="logo_idp.png"
+                                            src="logo_idp.svg"
                                             alt="Imagen del Puerto Logo"
                                             className="w-11 h-11 object-contain transition-all duration-500 group-hover:scale-105 drop-shadow-lg"
                                         />

@@ -46,7 +46,7 @@ export default function FooterLayout() {
                     <div className="space-y-5 lg:pr-8">
                         <div className="flex items-center space-x-3 group">
                             <img
-                                src="/logo_idp.png"
+                                src="/logo_idp.svg"
                                 alt="Imagen del Puerto Logo"
                                 className="w-12 h-12 sm:w-14 sm:h-14 object-contain transition-all duration-300 group-hover:scale-105"
                             />
