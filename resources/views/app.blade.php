@@ -5,6 +5,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {{-- Meta Tags Básicos --}}
+    <meta name="description" content="{{ $metaDescription ?? 'Descripción de tu aplicación' }}">
+    <meta name="keywords" content="{{ $metaKeywords ?? 'laravel, app' }}">
+    <meta name="author" content="{{ config('app.name') }}">
+
+    {{-- Open Graph (Facebook, WhatsApp, LinkedIn) --}}
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta property="og:title" content="{{ $metaTitle ?? config('app.name') }}">
+    <meta property="og:description" content="{{ $metaDescription ?? 'Descripción de tu aplicación' }}">
+    <meta property="og:image" content="{{ $metaImage ?? asset('images/og-image.png') }}">
+    <meta property="og:url" content="{{ $metaUrl ?? url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+    {{-- Twitter Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $metaTitle ?? config('app.name') }}">
+    <meta name="twitter:description" content="{{ $metaDescription ?? 'Descripción de tu aplicación' }}">
+    <meta name="twitter:image" content="{{ $metaImage ?? asset('images/og-image.png') }}">
+    <meta name="twitter:site" content="@tu_usuario">
+
+    {{-- Theme Color --}}
+    <meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1e40af" media="(prefers-color-scheme: dark)">
+
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
     <script>
         (function () {
@@ -20,7 +45,6 @@
         })();
     </script>
 
-    {{-- Inline style to set the HTML background color based on our theme in app.css --}}
     <style>
         html {
             background-color: oklch(1 0 0);
@@ -165,7 +189,7 @@
         }
     </style>
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ $metaTitle ?? config('app.name', 'Laravel') }}</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -194,17 +218,14 @@
     @inertia
 
     <script>
-        // Variable para controlar el tiempo mínimo
         let minimumTimePassed = false;
         let appReady = false;
 
-        // Mínimo 2 segundos
         setTimeout(function () {
             minimumTimePassed = true;
             hideLoaderIfReady();
         }, 2000);
 
-        // Cuando React/Inertia esté listo
         document.addEventListener('DOMContentLoaded', function () {
             requestAnimationFrame(function () {
                 requestAnimationFrame(function () {
