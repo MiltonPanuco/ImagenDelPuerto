@@ -69,7 +69,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                 <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12 h-16 w-full max-w-8xl mx-auto">
                     <a href="/" className="flex items-center space-x-3 group hover:scale-[1.02] transition-all duration-300">
                         <img
-                            src="logo_idp.png"
+                            src="logo_idp.svg"
                             alt="Imagen del Puerto Logo"
                             className={`w-11 h-11 sm:w-12 sm:h-12 object-contain transition-all duration-500 group-hover:scale-105 ${isScrolled ? "drop-shadow-md" : "drop-shadow-lg"
                                 }`}
@@ -121,7 +121,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                 <div className="relative flex items-center justify-between p-6 border-b border-border/50">
                                     <a href="/" className="relative flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
                                         <img
-                                            src="logo_idp.png"
+                                            src="logo_idp.svg"
                                             alt="Imagen del Puerto Logo"
                                             className="w-11 h-11 object-contain transition-all duration-500 group-hover:scale-105 drop-shadow-lg"
                                         />
@@ -181,29 +181,29 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                                 Renta
                                             </span>
                                         </div>
-                                        
+
                                         <div className="flex items-center justify-center gap-3 pt-2">
-                                            <a 
-                                                href="https://wa.me/5213223602224" 
-                                                target="_blank" 
+                                            <a
+                                                href="https://wa.me/5213223602224"
+                                                target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="group flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-xl"
                                                 aria-label="WhatsApp"
                                             >
                                                 <MessageCircle className="w-5 h-5 text-white transition-transform duration-300 group-hover:rotate-12" />
                                             </a>
-                                            <a 
-                                                href="https://www.facebook.com/p/Imagen-del-Puerto-61560994465369/" 
-                                                target="_blank" 
+                                            <a
+                                                href="https://www.facebook.com/p/Imagen-del-Puerto-61560994465369/"
+                                                target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="group flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-xl"
                                                 aria-label="Facebook"
                                             >
                                                 <Facebook className="w-5 h-5 text-white transition-transform duration-300 group-hover:rotate-12" />
                                             </a>
-                                            <a 
-                                                href="https://www.instagram.com/imagen_del_puerto/" 
-                                                target="_blank" 
+                                            <a
+                                                href="https://www.instagram.com/imagen_del_puerto/"
+                                                target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="group flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-xl"
                                                 aria-label="Instagram"
