@@ -4,31 +4,40 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    {{-- Meta Tags Básicos --}}
-    <meta name="description" content="{{ $metaDescription ?? 'Descripción de tu aplicación' }}">
-    <meta name="keywords" content="{{ $metaKeywords ?? 'laravel, app' }}">
-    <meta name="author" content="{{ config('app.name') }}">
-
-    {{-- Open Graph (Facebook, WhatsApp, LinkedIn) --}}
-    <meta property="og:site_name" content="{{ config('app.name') }}">
-    <meta property="og:title" content="{{ $metaTitle ?? config('app.name') }}">
-    <meta property="og:description" content="{{ $metaDescription ?? 'Descripción de tu aplicación' }}">
-    <meta property="og:image" content="{{ $metaImage ?? asset('images/og-image.png') }}">
-    <meta property="og:url" content="{{ $metaUrl ?? url()->current() }}">
+    
+    <!-- Información general -->
+    <title>Imagen Del Puerto</title>
+    <meta name="description" content="En Imagen Del Puerto cuidamos de ti con precisión y calidez. Realizamos radiografías, electrocardiogramas y ofrecemos renta de equipo médico en Puerto Vallarta. Tu salud y comodidad, nuestra prioridad.">
+    <meta name="keywords" content="Rayos X, Puerto Vallarta, Radiografías, Electrocardiogramas, Renta de equipo médico, Imagen Del Puerto, Estudios médicos, Salud, Diagnóstico, Hospital en Vallarta">
+    <meta name="author" content="Imagen Del Puerto">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph (para compartir en Facebook, WhatsApp, etc.) -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Imagen Del Puerto">
+    <meta property="og:description" content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
+    <meta property="og:image" content="{{ asset('favicon.svg') }}">
+    <meta property="og:site_name" content="Imagen Del Puerto">
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-    {{-- Twitter Card --}}
+    
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $metaTitle ?? config('app.name') }}">
-    <meta name="twitter:description" content="{{ $metaDescription ?? 'Descripción de tu aplicación' }}">
-    <meta name="twitter:image" content="{{ $metaImage ?? asset('images/og-image.png') }}">
-    <meta name="twitter:site" content="@tu_usuario">
+    <meta name="twitter:title" content="Imagen Del Puerto">
+    <meta name="twitter:description" content="Atención profesional, tecnología moderna y un trato cálido. En Imagen Del Puerto realizamos estudios médicos de calidad.">
+    <meta name="twitter:image" content="{{ asset('favicon.svg') }}">
+    <meta name="twitter:site" content="@imagen_del_puerto">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Información de contacto -->
+    <meta name="contact:phone" content="322 360 2224, 322 310 0019">
+    <meta name="contact:facebook" content="https://www.facebook.com/p/Imagen-del-Puerto-61560994465369/">
+    <meta name="contact:instagram" content="https://www.instagram.com/imagen_del_puerto/">
 
-    {{-- Theme Color --}}
-    <meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#1e40af" media="(prefers-color-scheme: dark)">
 
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
     <script>
@@ -189,7 +198,7 @@
         }
     </style>
 
-    <title inertia>{{ $metaTitle ?? config('app.name', 'Laravel') }}</title>
+    <title>Imagen Del Puerto</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
