@@ -5,38 +5,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <!-- Información general -->
-    <title>Imagen Del Puerto</title>
-    <meta name="description" content="En Imagen Del Puerto cuidamos de ti con precisión y calidez. Realizamos radiografías, electrocardiogramas y ofrecemos renta de equipo médico en Puerto Vallarta. Tu salud y comodidad, nuestra prioridad.">
-    <meta name="keywords" content="Rayos X, Puerto Vallarta, Radiografías, Electrocardiogramas, Renta de equipo médico, Imagen Del Puerto, Estudios médicos, Salud, Diagnóstico, Hospital en Vallarta">
-    <meta name="author" content="Imagen Del Puerto">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph (para compartir en Facebook, WhatsApp, etc.) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Imagen Del Puerto">
-    <meta property="og:description" content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
-    <meta property="og:image" content="{{ asset('favicon.svg') }}">
-    <meta property="og:site_name" content="Imagen Del Puerto">
-    <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Imagen Del Puerto">
-    <meta name="twitter:description" content="Atención profesional, tecnología moderna y un trato cálido. En Imagen Del Puerto realizamos estudios médicos de calidad.">
-    <meta name="twitter:image" content="{{ asset('favicon.svg') }}">
-    <meta name="twitter:site" content="@imagen_del_puerto">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
-    <!-- Información de contacto -->
-    <meta name="contact:phone" content="322 360 2224, 322 310 0019">
-    <meta name="contact:facebook" content="https://www.facebook.com/p/Imagen-del-Puerto-61560994465369/">
-    <meta name="contact:instagram" content="https://www.instagram.com/imagen_del_puerto/">
+<!-- Información general -->
+<title>Imagen Del Puerto</title>
+<meta name="description" content="En Imagen Del Puerto cuidamos de ti con precisión y calidez. Realizamos radiografías, electrocardiogramas y ofrecemos renta de equipo médico en Puerto Vallarta. Tu salud y comodidad, nuestra prioridad.">
+<meta name="keywords" content="Rayos X, Puerto Vallarta, Radiografías, Electrocardiogramas, Renta de equipo médico, Imagen Del Puerto, Estudios médicos, Salud, Diagnóstico, Hospital en Vallarta">
+<meta name="author" content="Imagen Del Puerto">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (para Facebook, WhatsApp, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ url()->current() }}">
+<meta property="og:title" content="Imagen Del Puerto">
+<meta property="og:description" content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
+<meta property="og:image" content="{{ asset('og-image.jpg') }}">
+<meta property="og:site_name" content="Imagen Del Puerto">
+<meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Imagen Del Puerto">
+<meta name="twitter:description" content="Atención profesional, tecnología moderna y un trato cálido. En Imagen Del Puerto realizamos estudios médicos de calidad.">
+<meta name="twitter:image" content="{{ asset('og-image.jpg') }}">
+<meta name="twitter:site" content="@imagen_del_puerto">
+
+<!-- Favicon dinámico (modo claro/oscuro) -->
+<link rel="icon" href="{{ asset('favicon-light.svg') }}" type="image/svg+xml" media="(prefers-color-scheme: light)">
+<link rel="icon" href="{{ asset('favicon-dark.svg') }}" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+<link rel="alternate icon" href="{{ asset('favicon-light.ico') }}" sizes="32x32" media="(prefers-color-scheme: light)">
+<link rel="alternate icon" href="{{ asset('favicon-dark.ico') }}" sizes="32x32" media="(prefers-color-scheme: dark)">
+
+<!-- Apple Touch Icon (para iPhone/iPad) -->
+<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" sizes="180x180">
+
+<!-- Información de contacto (opcional) -->
+<meta name="contact:phone" content="322 360 2224, 322 310 0019">
+<meta name="contact:facebook" content="https://www.facebook.com/p/Imagen-del-Puerto-61560994465369/">
+<meta name="contact:instagram" content="https://www.instagram.com/imagen_del_puerto/">
 
 
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
