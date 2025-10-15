@@ -17,7 +17,7 @@
 <meta property="og:url" content="{{ url()->current() }}">
 <meta property="og:title" content="Imagen Del Puerto">
 <meta property="og:description" content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
-<meta property="og:image" content="{{ asset('og-image.png') }}">
+<meta property="og:image" content="{{ url('og-image.png') }}">
 <meta property="og:site_name" content="Imagen Del Puerto">
 <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -25,17 +25,17 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Imagen Del Puerto">
 <meta name="twitter:description" content="Atención profesional, tecnología moderna y un trato cálido. En Imagen Del Puerto realizamos estudios médicos de calidad.">
-<meta name="twitter:image" content="{{ asset('og-image.jpg') }}">
+<meta name="twitter:image" content="{{ url('og-image.png') }}">
 <meta name="twitter:site" content="@imagen_del_puerto">
 
 <!-- Favicon dinámico (modo claro/oscuro) -->
-<link rel="icon" href="{{ asset('favicon-light.svg') }}" type="image/svg+xml" media="(prefers-color-scheme: light)">
-<link rel="icon" href="{{ asset('favicon-dark.svg') }}" type="image/svg+xml" media="(prefers-color-scheme: dark)">
-<link rel="alternate icon" href="{{ asset('favicon-light.ico') }}" sizes="32x32" media="(prefers-color-scheme: light)">
-<link rel="alternate icon" href="{{ asset('favicon-dark.ico') }}" sizes="32x32" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="{{ url('favicon-light.svg') }}" type="image/svg+xml" media="(prefers-color-scheme: light)">
+<link rel="icon" href="{{ url('favicon-dark.svg') }}" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+<link rel="alternate icon" href="{{ url('favicon-light.ico') }}" sizes="32x32" media="(prefers-color-scheme: light)">
+<link rel="alternate icon" href="{{ url('favicon-dark.ico') }}" sizes="32x32" media="(prefers-color-scheme: dark)">
 
 <!-- Apple Touch Icon (para iPhone/iPad) -->
-<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" sizes="180x180">
+<link rel="apple-touch-icon" href="{{ url('apple-touch-icon.png') }}" sizes="180x180">
 
 <!-- Información de contacto (opcional) -->
 <meta name="contact:phone" content="322 360 2224, 322 310 0019">
@@ -203,10 +203,6 @@
     </style>
 
     <title>Imagen Del Puerto</title>
-
-    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
-    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
