@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
 <!-- Información general -->
 <title>Imagen Del Puerto</title>
 <meta name="description" content="En Imagen Del Puerto cuidamos de ti con precisión y calidez. Realizamos radiografías, electrocardiogramas y ofrecemos renta de equipo médico en Puerto Vallarta. Tu salud y comodidad, nuestra prioridad.">
@@ -17,7 +17,7 @@
 <meta property="og:url" content="{{ url()->current() }}">
 <meta property="og:title" content="Imagen Del Puerto">
 <meta property="og:description" content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
-<meta property="og:image" content="{{ asset('og-image.jpg') }}">
+<meta property="og:image" content="{{ asset('og-image.png') }}">
 <meta property="og:site_name" content="Imagen Del Puerto">
 <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -204,9 +204,9 @@
 
     <title>Imagen Del Puerto</title>
 
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
