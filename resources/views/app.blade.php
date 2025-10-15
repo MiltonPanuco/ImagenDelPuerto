@@ -17,7 +17,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="Imagen Del Puerto">
     <meta property="og:description"content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
-    <meta property="og:image" content="{{ asset('og-image.jpg') }}">
+    <meta property="og:image" content="{{ asset('og-image.png') }}">
     <meta property="og:site_name" content="Imagen Del Puerto">
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Imagen Del Puerto">
     <meta name="twitter:description" content="Atención profesional, tecnología moderna y un trato cálido. En Imagen Del Puerto realizamos estudios médicos de calidad.">
-    <meta name="twitter:image" content="{{ asset('og-image.jpg') }}">
+    <meta name="twitter:image" content="{{ asset('og-image.png') }}">
     <meta name="twitter:site" content="@imagen_del_puerto">
 
     <!-- Favicon dinámico (modo claro/oscuro) -->
