@@ -61,11 +61,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
     return (
         <div className="min-h-screen bg-background">
             <nav
-                className={`fixed top-0 left-0 right-0 z-[50] transition-all duration-300 ${isScrolled
-                    ? "bg-card/95 backdrop-blur-xl shadow-xl border-b border-border/50"
-                    : "bg-card/80 backdrop-blur-md shadow-lg border-b border-border/30"
-                    }`}
-            >
+                className={`navbar-fixed-light fixed top-0 left-0 right-0 z-[50] transition-all duration-300 ${isScrolled ? "bg-card/95 backdrop-blur-xl shadow-xl border-b border-border/50" : "bg-card/80 backdrop-blur-md shadow-lg border-b border-border/30"}`} >
                 <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12 h-16 w-full max-w-8xl mx-auto">
                     <a href="/" className="flex items-center space-x-3 group hover:scale-[1.02] transition-all duration-300">
                         <img
