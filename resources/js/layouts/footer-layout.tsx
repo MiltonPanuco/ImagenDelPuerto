@@ -46,17 +46,17 @@ export default function FooterLayout() {
                     <div className="space-y-5 lg:pr-8">
                         <div className="flex items-center space-x-3 group">
                             <img
-                                src="/logo_idp.svg"
+                                src="/logo_idp.png"
                                 alt="Imagen del Puerto Logo"
                                 className="w-12 h-12 sm:w-14 sm:h-14 object-contain transition-all duration-300 group-hover:scale-105"
                             />
                             <div>
-                                <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">Imagen del Puerto</h3>
+                                <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">Imagen del Puerto</h3>
                                 <p className="text-[10px] sm:text-xs text-blue-700 font-semibold tracking-wider">SERVICIOS MÉDICOS</p>
                             </div>
                         </div>
 
-                        <p className="text-muted-foreground leading-relaxed text-pretty max-w-md text-sm sm:text-base">
+                        <p className="text-slate-600 leading-relaxed text-pretty max-w-md text-sm sm:text-base">
                             Brindamos servicios médicos de excelencia con tecnología de vanguardia y atención humana especializada. Tu
                             salud es nuestra prioridad.
                         </p>
@@ -64,7 +64,7 @@ export default function FooterLayout() {
 
                     {/* Services */}
                     <div className="space-y-5">
-                        <h4 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
+                        <h4 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
                             <div className="w-1 h-5 sm:h-6 bg-blue-700 rounded-full"></div>
                             Nuestros Servicios
                         </h4>
@@ -73,7 +73,7 @@ export default function FooterLayout() {
                                 <li key={index}>
                                     <a
                                         href={service.url}
-                                        className="group flex items-center gap-3 text-muted-foreground hover:text-blue-700 transition-all duration-200"
+                                        className="group flex items-center gap-3 text-slate-600 hover:text-blue-700 transition-all duration-200"
                                     >
                                         <div className="w-2 h-2 bg-blue-700/40 group-hover:bg-blue-700 rounded-full transition-all duration-200 group-hover:scale-125"></div>
                                         <span className="text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-200">
@@ -87,7 +87,7 @@ export default function FooterLayout() {
 
                     {/* Contact */}
                     <div className="space-y-5">
-                        <h4 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
+                        <h4 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
                             <div className="w-1 h-5 sm:h-6 bg-blue-700 rounded-full"></div>
                             Contacto
                         </h4>
@@ -102,8 +102,8 @@ export default function FooterLayout() {
                                         key={index}
                                         {...contactProps}
                                         className={`group flex items-center gap-3 transition-all duration-200 ${contact.href
-                                            ? "text-muted-foreground hover:text-blue-700 cursor-pointer"
-                                            : "text-muted-foreground"
+                                            ? "text-slate-600 hover:text-blue-700 cursor-pointer"
+                                            : "text-slate-600"
                                             }`}
                                     >
                                         <div
@@ -126,20 +126,20 @@ export default function FooterLayout() {
             <div className="border-t border-slate-200 bg-white/80 backdrop-blur-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-                        <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
+                        <p className="text-xs sm:text-sm text-slate-600 text-center sm:text-left">
                             © {currentYear} Imagen del Puerto. Todos los derechos reservados.
                         </p>
 
                         <div className="flex items-center gap-4 sm:gap-6">
                             <a
                                 href="/privacy"
-                                className="text-xs sm:text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200 whitespace-nowrap"
+                                className="text-xs sm:text-sm text-slate-600 hover:text-blue-700 transition-colors duration-200 whitespace-nowrap"
                             >
                                 Aviso de privacidad
                             </a>
                             <a
                                 href="/terms"
-                                className="text-xs sm:text-sm text-muted-foreground hover:text-blue-700 transition-colors duration-200 whitespace-nowrap"
+                                className="text-xs sm:text-sm text-slate-600 hover:text-blue-700 transition-colors duration-200 whitespace-nowrap"
                             >
                                 Términos y condiciones
                             </a>
