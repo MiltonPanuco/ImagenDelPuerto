@@ -61,7 +61,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
     return (
         <div className="min-h-screen bg-background">
             <nav
-                className={`navbar-fixed-light fixed top-0 left-0 right-0 z-[50] transition-all duration-300 ${isScrolled ? "bg-card/95 backdrop-blur-xl shadow-xl border-b border-border/50" : "bg-card/80 backdrop-blur-md shadow-lg border-b border-border/30"}`} >
+                className={`navbar-fixed-light fixed top-0 left-0 right-0 z-[50] transition-all duration-300 ${isScrolled ? "!bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50" : "!bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/30"}`} >
                 <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12 h-16 w-full max-w-8xl mx-auto">
                     <a href="/" className="flex items-center space-x-3 group hover:scale-[1.02] transition-all duration-300">
                         <img
@@ -71,10 +71,10 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                 }`}
                         />
                         <div className="flex flex-col">
-                            <span className="text-base sm:text-lg lg:text-xl font-semibold text-foreground tracking-tight leading-none bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text group-hover:from-blue-600 group-hover:to-blue-800 transition-all duration-300">
+                            <span className="text-base sm:text-lg lg:text-xl font-semibold !text-gray-900 tracking-tight leading-none bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text group-hover:from-blue-600 group-hover:to-blue-800 transition-all duration-300">
                                 Imagen del Puerto
                             </span>
-                            <span className="text-[10px] sm:text-xs text-muted-foreground/80 font-medium tracking-[0.15em] uppercase mt-0.5">Servicios Médicos</span>
+                            <span className="text-[10px] sm:text-xs !text-gray-600 font-medium tracking-[0.15em] uppercase mt-0.5">Servicios Médicos</span>
                         </div>
                     </a>
 
@@ -86,7 +86,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                     key={item.name}
                                     variant="ghost"
                                     size="lg"
-                                    className={`relative group flex items-center space-x-2.5 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 rounded-xl hover:bg-blue-50/80 hover:scale-[1.03] ${item.color}`}
+                                    className={`relative group flex items-center space-x-2.5 px-5 py-2.5 text-sm font-medium !text-gray-600 transition-all duration-300 rounded-xl hover:!bg-blue-50/80 hover:scale-[1.03] ${item.color}`}
                                     asChild
                                 >
                                     <a href={item.href}>
@@ -106,16 +106,16 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                             <Button
                                 variant="ghost"
                                 size="lg"
-                                className="lg:hidden relative p-2.5 hover:bg-blue-50/80 hover:text-blue-700 transition-all duration-500 rounded-xl border border-transparent hover:border-blue-200/50 hover:shadow-md hover:scale-105 group"
+                                className="lg:hidden relative p-2.5 hover:!bg-blue-50/80 hover:!text-blue-700 transition-all duration-500 rounded-xl border border-transparent hover:border-blue-200/50 hover:shadow-md hover:scale-105 group"
                                 aria-label="Abrir menú de navegación"
                             >
                                 <Menu className="w-6 h-6 transition-transform duration-500 group-hover:rotate-180" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="right" className="w-80 sm:w-96 p-0 bg-background border-l border-border/50 shadow-2xl z-[60]">
+                        <SheetContent side="right" className="w-80 sm:w-96 p-0 !bg-white border-l border-gray-200/50 shadow-2xl z-[60]">
                             <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
                             <div className="flex flex-col h-full">
-                                <div className="relative flex items-center justify-between p-6 border-b border-border/50">
+                                <div className="relative flex items-center justify-between p-6 border-b border-gray-200/50">
                                     <a href="/" className="relative flex items-center space-x-3 group" onClick={() => setIsOpen(false)}>
                                         <img
                                             src="logo_idp.png"
@@ -123,8 +123,8 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                             className="w-11 h-11 object-contain transition-all duration-500 group-hover:scale-105 drop-shadow-lg"
                                         />
                                         <div className="flex flex-col">
-                                            <span className="font-semibold text-foreground text-lg leading-none bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text">Imagen del Puerto</span>
-                                            <span className="text-[10px] text-muted-foreground/80 font-medium tracking-[0.15em] uppercase mt-1">
+                                            <span className="font-semibold !text-gray-900 text-lg leading-none bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text">Imagen del Puerto</span>
+                                            <span className="text-[10px] !text-gray-600 font-medium tracking-[0.15em] uppercase mt-1">
                                                 Servicios Médicos
                                             </span>
                                         </div>
@@ -139,7 +139,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                                 <Button
                                                     key={item.name}
                                                     variant="ghost"
-                                                    className={`group w-full justify-start space-x-4 px-5 py-4 text-base font-medium text-muted-foreground transition-all duration-300 rounded-xl hover:bg-blue-50/80 hover:scale-[1.02] hover:translate-x-1 ${item.color}`}
+                                                    className={`group w-full justify-start space-x-4 px-5 py-4 text-base font-medium !text-gray-600 transition-all duration-300 rounded-xl hover:!bg-blue-50/80 hover:scale-[1.02] hover:translate-x-1 ${item.color}`}
                                                     asChild
                                                     onClick={() => setIsOpen(false)}
                                                 >
@@ -157,23 +157,23 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                                     </nav>
                                 </div>
 
-                                <div className="relative p-6 bg-muted/30 border-t border-border/50">
+                                <div className="relative p-6 !bg-gray-50/30 border-t border-gray-200/50">
                                     <div className="relative space-y-4">
                                         <div className="flex items-center justify-center gap-2 mb-4">
                                             <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full animate-pulse shadow-lg shadow-blue-500/50"></div>
-                                            <p className="text-sm font-semibold text-foreground bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text">Servicios Médicos Profesionales</p>
+                                            <p className="text-sm font-semibold !text-gray-900 bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text">Servicios Médicos Profesionales</p>
                                             <div className="w-2 h-2 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-full animate-pulse shadow-lg shadow-emerald-500/50"></div>
                                         </div>
-                                        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground/90">
-                                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50/50 border border-blue-200/30">
+                                        <div className="flex flex-wrap items-center justify-center gap-3 text-xs !text-gray-600">
+                                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full !bg-blue-50/50 border border-blue-200/30">
                                                 <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full"></div>
                                                 Rayos X
                                             </span>
-                                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50/50 border border-emerald-200/30">
+                                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full !bg-emerald-50/50 border border-emerald-200/30">
                                                 <div className="w-1.5 h-1.5 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-full"></div>
                                                 ECG
                                             </span>
-                                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50/50 border border-orange-200/30">
+                                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full !bg-orange-50/50 border border-orange-200/30">
                                                 <div className="w-1.5 h-1.5 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full"></div>
                                                 Renta
                                             </span>

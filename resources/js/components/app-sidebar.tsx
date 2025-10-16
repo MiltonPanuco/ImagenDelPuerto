@@ -16,6 +16,7 @@ import { index as cmsEquipamiento } from '@/routes/cms/galeria/equipamiento';
 import { index as cmsAtencion } from '@/routes/cms/atencion';
 import { index as cmsRentaEquipo } from '@/routes/cms/renta-equipos';
 import { index as cmsCitas } from '@/routes/cms/citas';
+import { index as cmsQuienes } from '@/routes/cms/quienes';
 import { index as cmsSociales } from '@/routes/cms/sociales';
 import { index as cmsServiciosVarios } from '@/routes/cms/servicios-varios';
 
@@ -40,6 +41,7 @@ const homeItems: NavItem[] = [
     { title: 'Carrusel Home', icon: Images, href: route('cms.carrusel.index', 'home') },
     { title: 'Servicios', icon: Briefcase, href: cmsServicios() },
     { title: 'Elecciones', icon: ClipboardCheck, href: cmsEleccion() },
+    { title: 'Quienes', icon: Users, href: cmsQuienes() },
 ];
 
 const aboutItems: NavItem[] = [

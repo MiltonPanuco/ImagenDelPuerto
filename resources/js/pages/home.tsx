@@ -32,6 +32,14 @@ interface Servicio {
     caracteristicas: string[]
 }
 
+interface Quienes {
+    id: number
+    title: string
+    icon: keyof typeof Icons
+    color: string
+    descripcion: string
+}
+
 interface Eleccion {
     title: string
     icon: keyof typeof Icons
@@ -43,10 +51,11 @@ interface Eleccion {
 interface HomeProps {
     carruselHome: CarruselItem[]
     servicios: Servicio[]
+    quienes: Quienes[]
     elecciones: Eleccion[]
 }
 
-export default function Home({ carruselHome = [], servicios = [], elecciones = [] }: HomeProps) {
+export default function Home({ carruselHome = [], servicios = [], elecciones = [], quienes = [] }: HomeProps) {
     const randomTestimonials = getRandomTestimonials()
 
     return (
@@ -161,6 +170,44 @@ export default function Home({ carruselHome = [], servicios = [], elecciones = [
                     </div>
                 </section>
 
+                <section className="py-20 sm:py-32 pb-12 sm:pb-16 bg-white">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <div className="mb-12">
+                            <div className="inline-block text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">
+                                Nos movemos hasta donde tú estés
+                            </div>
+                            <h3 className="text-4xl sm:text-5xl md:text-6xl font-medium text-slate-900 mb-6 sm:mb-8 text-balance">
+                                ¿En dónde
+                                <span className="block font-semibold text-emerald-600">atendemos?</span>
+                            </h3>
+                            <p className="text-lg sm:text-xl text-slate-600 mb-12 sm:mb-16 text-pretty leading-relaxed max-w-2xl mx-auto">
+                                Escríbenos y agenda una cita con nosotros, somos tu mejor opción.
+                            </p>
+                        </div>
+
+                        {/* Grid 2x2 */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            {(quienes || []).map((item) => {
+                                const IconComponent = Icons[item.icon as keyof typeof Icons] || Icons.AlertCircle
+
+                                return (
+                                    <div
+                                        key={item.id}
+                                        className={`flex flex-col items-center p-8 rounded-2xl bg-${item.color}-50 hover:bg-${item.color}-100 transition-colors duration-300`}
+                                    >
+                                        <div className={`w-20 h-20 bg-${item.color}-600 rounded-xl flex items-center justify-center mb-6`}>
+                                            <IconComponent className="h-10 w-10 text-white" />
+                                        </div>
+                                        <h4 className="font-medium text-slate-900 mb-3 text-lg">{item.title}</h4>
+                                        <p className="text-sm text-slate-600 text-center">{item.descripcion}</p>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </section>
+
+
                 <section className="py-32 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
@@ -252,6 +299,7 @@ export default function Home({ carruselHome = [], servicios = [], elecciones = [
                         </div>
                     </div>
                 </section>
+
             </div>
 
             <FooterLayout />

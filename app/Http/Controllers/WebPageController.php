@@ -15,6 +15,7 @@ use App\Models\Cita;
 use App\Models\ServicioVario;
 use App\Models\Social;
 use App\Models\CarruselSection;
+use App\Models\Quien;
 
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -26,11 +27,13 @@ class WebPageController extends Controller
         $carruselHome = $this->getCarrusel('home');
         $servicios = Servicio::where('activo', true)->limit(3)->get();
         $elecciones = Eleccion::where('activo', true)->limit(3)->get();
+        $quienes = Quien::where('activo', true)->limit(6)->get();
 
         return Inertia::render('home', [
             'carruselHome' => $carruselHome,
             'servicios' => $servicios,
             'elecciones' => $elecciones,
+            'quienes' => $quienes,
         ]);
     }
 

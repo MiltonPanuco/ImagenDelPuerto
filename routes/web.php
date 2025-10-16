@@ -12,6 +12,7 @@ use App\Http\Controllers\Cms\CitaController;
 use App\Http\Controllers\Cms\DataController;
 use App\Http\Controllers\Cms\Galeria\GaleriaEquipamientoEquipoController;
 use App\Http\Controllers\Cms\AtencionController;
+use App\Http\Controllers\Cms\QuienController;
 use App\Http\Controllers\Cms\CarruselSectionController;
 use App\Http\Controllers\Cms\RentaEquipoController;
 use App\Http\Controllers\WebPageController;
@@ -69,6 +70,14 @@ Route::middleware('auth')->group(function () {
         /** Elecciones */
         Route::resource('eleccion', EleccionController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('cms.eleccion');
         Route::patch('eleccion/{eleccion}/activo', [EleccionController::class, 'toggleActivo'])->name('cms.eleccion.activo');
+
+        /** QUIENES */
+        Route::resource('quienes', QuienController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+            ->parameters(['quienes' => 'quien']) 
+            ->names('cms.quienes');
+        Route::patch('quienes/{quien}/activo', [QuienController::class, 'toggleActivo'])
+            ->name('cms.quienes.activo');
 
 
         /** ABOUT */
