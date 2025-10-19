@@ -16,8 +16,10 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="Imagen Del Puerto">
-    <meta property="og:description"content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
+    <meta property="og:description" content="Radiografías, electrocardiogramas y renta de equipo médico en Puerto Vallarta. En Imagen Del Puerto te atendemos con tecnología moderna y atención humana.">
     <meta property="og:image" content="{{ asset('og-image.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Imagen Del Puerto">
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -28,16 +30,14 @@
     <meta name="twitter:image" content="{{ asset('og-image.png') }}">
     <meta name="twitter:site" content="@imagen_del_puerto">
 
-    <!-- Favicon dinámico (modo claro/oscuro) -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}?v={{ time() }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}?v={{ time() }}">
+    <!-- Favicons optimizados -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('favicon-48x48.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
 
-    <!-- Apple Touch Icon (para iPhone/iPad) -->
-    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" sizes="180x180">
-
-    <!-- Información de contacto (opcional) -->
+    <!-- Información de contacto -->
     <meta name="contact:phone" content="322 360 2224, 322 310 0019">
     <meta name="contact:facebook" content="https://www.facebook.com/p/Imagen-del-Puerto-61560994465369/">
     <meta name="contact:instagram" content="https://www.instagram.com/imagen_del_puerto/">
@@ -170,12 +170,6 @@
             display: none;
         }
     </style>
-
-    <title>Imagen Del Puerto</title>
-
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
