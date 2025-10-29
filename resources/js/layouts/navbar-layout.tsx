@@ -106,7 +106,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
                             <Button
                                 variant="ghost"
                                 size="lg"
-                                className="lg:hidden relative p-2.5 hover:!bg-blue-50/80 hover:!text-blue-700 transition-all duration-500 rounded-xl border border-transparent hover:border-blue-200/50 hover:shadow-md hover:scale-105 group"
+                                className="lg:hidden relative p-2.5 !text-gray-700 hover:!text-blue-700 hover:!bg-blue-50/80 transition-all duration-500 rounded-xl border border-gray-200/50 hover:border-blue-200/50 hover:shadow-md hover:scale-105 group"
                                 aria-label="Abrir menú de navegación"
                             >
                                 <Menu className="w-6 h-6 transition-transform duration-500 group-hover:rotate-180" />

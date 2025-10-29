@@ -19,7 +19,7 @@ return new class extends Migration
             
             // Campos del carrusel
             $table->string('image');
-            $table->string('title1');
+            $table->string('title1')->nullable();
             $table->string('title2')->nullable();
             
             // Control de orden y visibilidad
