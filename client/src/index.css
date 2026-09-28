@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --color-charcoal: #28262d;
+  --color-ink: #17151b;
+  --color-violet: #423e49;
+  --color-rx-blue: #6e7190;
+  --color-lavender: #acb4d3;
+  --color-steel: #767378;
+  --color-mist: #eeeef2;
+  --color-background: #ffffff;
+  --color-foreground: #28262d;
+  --color-border: rgb(66 62 73 / 16%);
+  --color-ring: #6e7190;
+  --ease-brand: cubic-bezier(0.23, 1, 0.32, 1);
+  --animate-rise: rise 0.7s var(--ease-brand) both;
+  --animate-shimmer: shimmer 1.35s infinite;
+  --animate-loader-clockwise: loader-clockwise 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+  --animate-loader-counterclockwise: loader-counterclockwise 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shimmer {
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes loader-clockwise {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes loader-counterclockwise {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes whatsapp-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-7px);
+    }
+  }
+
+  @keyframes lightbox-in {
+    from {
+      opacity: 0;
+      transform: scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: white;
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-rx-blue);
+    outline-offset: 4px;
+  }
+
+  ::selection {
+    background: var(--color-lavender);
+    color: var(--color-ink);
+  }
+}
+
+@layer utilities {
+  .whatsapp-float {
+    animation: whatsapp-float 4.2s var(--ease-brand) infinite;
+  }
+
+  .whatsapp-float:hover,
+  .whatsapp-float:focus-within {
+    animation-play-state: paused;
+  }
+
+  .reveal-ready {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.75s var(--ease-brand),
+      transform 0.75s var(--ease-brand);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal-ready.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .whatsapp-float {
+      animation: none;
+    }
+
+    .reveal-ready,
+    .reveal-ready.reveal-visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}
