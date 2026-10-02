@@ -1,5 +1,5 @@
 export const SITE_URL = "https://imagendelpuerto.com";
-export const DEFAULT_SOCIAL_IMAGE = `${SITE_URL}/storage/images/imagen-del-puerto-hero-optimized.webp`;
+export const DEFAULT_SOCIAL_IMAGE = `${SITE_URL}/storage/icons/web-app-manifest-512x512.png`;
 
 export type PageMetadata = {
   title: string;

@@ -59,6 +59,8 @@ export const equipmentImages = {
 };
 
 export const galleryImages = [
+  "promocion-estudios-domicilio.webp",
+  "promocion-estudio-sueno.webp",
   "recuerdos-1.webp",
   "recuerdos-2.webp",
   "recuerdos-3.webp",

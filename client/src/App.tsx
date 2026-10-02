@@ -69,7 +69,7 @@ function PageEffects() {
     setMeta("property", "og:type", "website");
     setMeta("property", "og:url", canonical);
     setMeta("property", "og:image", DEFAULT_SOCIAL_IMAGE);
-    setMeta("name", "twitter:card", "summary_large_image");
+    setMeta("name", "twitter:card", "summary");
     setMeta("name", "twitter:title", page.title);
     setMeta("name", "twitter:description", page.description);
     setMeta("name", "twitter:image", DEFAULT_SOCIAL_IMAGE);

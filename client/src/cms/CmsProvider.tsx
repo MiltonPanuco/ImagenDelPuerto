@@ -48,7 +48,11 @@ const fallbackRentalImages = Object.fromEntries(
 );
 const fallbackGallery = [...galleryImages, ...serviceImages.xray, ...serviceImages.ecg].map((src, index) => ({
   src,
-  alt: `Galería Imagen del Puerto ${index + 1}`,
+  alt: index === 0
+    ? "Servicios de Imagen del Puerto a domicilio"
+    : index === 1
+      ? "Promoción de estudio del sueño a domicilio"
+      : `Galería Imagen del Puerto ${index + 1}`,
 }));
 const CmsContext = createContext<CmsValue | null>(null);
 
@@ -96,7 +100,9 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       audiences: remote.audiences?.length ? remote.audiences.map(({ number, name, description }) => [number, name, description]) : fallbackAudiences,
       process: remote.process?.length ? remote.process.map(({ number, title, description }) => [number, title, description]) : fallbackProcess,
       faqs: remote.faqs?.length ? remote.faqs.map(({ question, answer }) => [question, answer]) : fallbackFaqs,
-      gallery: remote.gallery?.length ? remote.gallery.map(({ imageUrl, title }) => ({ src: imageUrl, alt: title })) : fallbackGallery,
+      gallery: remote.gallery?.length
+        ? [fallbackGallery[0], fallbackGallery[1], ...remote.gallery.map(({ imageUrl, title }) => ({ src: imageUrl, alt: title }))]
+        : fallbackGallery,
       text,
       image,
     };

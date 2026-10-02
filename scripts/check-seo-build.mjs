@@ -26,6 +26,14 @@ try {
   assert.match(serviceHtml, /rel="canonical" href="https:\/\/imagendelpuerto\.com\/servicios\/rayos-x"/);
   assert.match(serviceHtml, /"@type":"Service"/);
   assert.match(serviceHtml, /id="page-hero-preload"[^>]+traslado-equipo-rayos-x\.webp/);
+  assert.match(serviceHtml, /property="og:image" content="https:\/\/imagendelpuerto\.com\/storage\/icons\/web-app-manifest-512x512\.png"/);
+
+  const galleryImage = await request("/storage/images/promocion-estudios-domicilio.webp");
+  assert.equal(galleryImage.status, 200);
+  assert.match(galleryImage.headers.get("content-type") ?? "", /image\/webp/);
+  const sleepStudyImage = await request("/storage/images/promocion-estudio-sueno.webp");
+  assert.equal(sleepStudyImage.status, 200);
+  assert.match(sleepStudyImage.headers.get("content-type") ?? "", /image\/webp/);
 
   const expectedTitles = {
     "/": "Imagen del Puerto | Inicio",
