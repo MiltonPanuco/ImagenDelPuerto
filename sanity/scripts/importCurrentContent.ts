@@ -17,7 +17,7 @@ import {
   serviceImages,
 } from "../../frontend/client/src/assets";
 
-type LocalizedString = { es: string; en: string };
+type LocalizedString = { es: string };
 type ImageValue = {
   _type: "image";
   asset: { _type: "reference"; _ref: string };
@@ -33,7 +33,7 @@ type Entry = {
   value?: LocalizedString;
   source?: string;
   alt?: string;
-  image?: { es: ImageValue; en: ImageValue };
+  image?: { es: ImageValue };
 };
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -48,11 +48,7 @@ const argument = (name: string) => {
 };
 const keyFor = (value: string) =>
   value.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 96);
-// ponytail: English starts as a lossless copy of Spanish; editors replace `.en` in Studio before publishing English.
-const localized = (value: string): LocalizedString => ({
-  es: value,
-  en: value,
-});
+const localized = (value: string): LocalizedString => ({ es: value });
 const text = (
   key: string,
   label: string,
@@ -254,9 +250,6 @@ const pages = [
       media.hero,
       "Atención de Imagen del Puerto",
     ),
-    text("hero.coordinates", "Hero · Coordenadas", "20°39' N\n105°13' W"),
-    text("hero.brand", "Hero · Marca", "IMAGEN DEL PUERTO"),
-    text("hero.code", "Hero · Código", "MEDICAL IMAGING / 01"),
     text(
       "hero.title",
       "Hero · Título",
@@ -268,7 +261,6 @@ const pages = [
       "Rayos X, electrocardiogramas, poligrafía respiratoria y renta de equipo médico con atención profesional, rápida y personalizada.",
       "longText",
     ),
-    text("hero.side", "Hero · Texto lateral", "PRECISIÓN\nA TU PUERTA"),
     text(
       "services.eyebrow",
       "Servicios · Etiqueta",
@@ -1006,11 +998,11 @@ async function asset(source: string) {
 const imageValue = async (
   source: string,
   alt?: string,
-  bilingualAlt = false,
+  localizedAlt = false,
 ): Promise<ImageValue> => ({
   _type: "image" as const,
   asset: { _type: "reference" as const, _ref: await asset(source) },
-  ...(alt ? { alt: bilingualAlt ? localized(alt) : alt } : {}),
+  ...(alt ? { alt: localizedAlt ? localized(alt) : alt } : {}),
 });
 
 async function hydratePage(document: ReturnType<typeof page>) {
@@ -1019,7 +1011,7 @@ async function hydratePage(document: ReturnType<typeof page>) {
       if (!entry.source) return entry;
       const { source, alt, ...rest } = entry;
       const uploaded = await imageValue(source, alt);
-      return { ...rest, image: { es: uploaded, en: uploaded } };
+      return { ...rest, image: { es: uploaded } };
     }),
   );
   return { ...document, entries };

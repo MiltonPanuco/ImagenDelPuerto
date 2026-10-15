@@ -20,13 +20,12 @@ const argument = (name: string) => {
 };
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
-// ponytail: existing Spanish is copied to English during structural migration; editors replace `.en` before enabling English publicly.
 const localized = (value: unknown) =>
-  typeof value === "string" ? { es: value, en: value } : value;
+  typeof value === "string" ? { es: value } : value;
 const localizedImage = (value: unknown) => {
   if (!value || typeof value !== "object" || "es" in value || "en" in value)
     return value;
-  return { es: value, en: value };
+  return { es: value };
 };
 const localizedAlt = (value: unknown) => {
   if (!value || typeof value !== "object") return value;
@@ -37,6 +36,12 @@ const localizedAlt = (value: unknown) => {
 };
 const same = (left: unknown, right: unknown) =>
   JSON.stringify(left) === JSON.stringify(right);
+const fixedHomeEntries = new Set([
+  "hero.coordinates",
+  "hero.brand",
+  "hero.code",
+  "hero.side",
+]);
 
 const localizedFields: Record<string, string[]> = {
   siteSettings: ["businessName", "location", "copyright"],
@@ -64,9 +69,20 @@ function changesFor(document: Document) {
   };
 
   if (document._type === "pageContent" && Array.isArray(document.entries)) {
+    const entries =
+      document.page === "home"
+        ? document.entries.filter(
+            (entry) =>
+              !entry ||
+              typeof entry !== "object" ||
+              !fixedHomeEntries.has(
+                String((entry as Record<string, unknown>).key),
+              ),
+          )
+        : document.entries;
     assign(
       "entries",
-      document.entries.map((entry) => {
+      entries.map((entry) => {
         if (!entry || typeof entry !== "object") return entry;
         const item = entry as Record<string, unknown>;
         return {

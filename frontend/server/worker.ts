@@ -44,11 +44,7 @@ export default {
     if (path === "/api/content") {
       try {
         const response = await fetch(
-          sanityContentUrl(
-            env.SANITY_PROJECT_ID,
-            env.SANITY_DATASET,
-            url.searchParams.get("lang")
-          ),
+          sanityContentUrl(env.SANITY_PROJECT_ID, env.SANITY_DATASET),
           {
             headers: { Accept: "application/json" },
           }

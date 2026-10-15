@@ -23,6 +23,7 @@ export const pageContentType = defineType({
       name: "page",
       title: "Página",
       type: "string",
+      hidden: true,
       readOnly: true,
       validation: (Rule) => Rule.required(),
       options: {
@@ -31,7 +32,9 @@ export const pageContentType = defineType({
     }),
     defineField({
       name: "entries",
-      title: "Campos editables",
+      title: "Contenido de esta página",
+      description:
+        "Abre cada elemento para editarlo. El orden y los nombres están conectados con el diseño de la web.",
       type: "array",
       options: { sortable: false },
       of: [
@@ -44,6 +47,7 @@ export const pageContentType = defineType({
               name: "key",
               title: "Clave",
               type: "string",
+              hidden: true,
               readOnly: true,
               validation: (Rule) => Rule.required(),
             }),
@@ -51,6 +55,7 @@ export const pageContentType = defineType({
               name: "label",
               title: "Nombre del campo",
               type: "string",
+              hidden: true,
               readOnly: true,
               validation: (Rule) => Rule.required(),
             }),
@@ -58,6 +63,7 @@ export const pageContentType = defineType({
               name: "kind",
               title: "Tipo",
               type: "string",
+              hidden: true,
               readOnly: true,
               initialValue: "text",
               options: {
@@ -84,10 +90,14 @@ export const pageContentType = defineType({
             }),
           ],
           preview: {
-            select: { title: "label", subtitle: "value.es", media: "image.es" },
-            prepare: ({ title, subtitle, media }) => ({
+            select: {
+              title: "label",
+              spanish: "value.es",
+              media: "image.es",
+            },
+            prepare: ({ title, spanish, media }) => ({
               title,
-              subtitle: subtitle?.slice(0, 90),
+              subtitle: spanish ? spanish.slice(0, 95) : "Imagen",
               media,
             }),
           },
@@ -102,7 +112,7 @@ export const pageContentType = defineType({
       title:
         PAGE_CONTENT.find(([value]) => value === page)?.[1] ||
         "Contenido de página",
-      subtitle: "Página única · ES / EN",
+      subtitle: "Página única",
     }),
   },
 });

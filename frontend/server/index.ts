@@ -73,12 +73,11 @@ async function startServer() {
     res.setHeader("Cache-Control", "no-store");
     res.status(200).type("text").send("ok");
   });
-  app.get("/api/content", async (req, res) => {
+  app.get("/api/content", async (_req, res) => {
     try {
-      const response = await fetch(
-        sanityContentUrl(undefined, undefined, req.query.lang),
-        { headers: { Accept: "application/json" } }
-      );
+      const response = await fetch(sanityContentUrl(), {
+        headers: { Accept: "application/json" },
+      });
       if (!response.ok) throw new Error(`Sanity respondió ${response.status}`);
       res.setHeader(
         "Cache-Control",

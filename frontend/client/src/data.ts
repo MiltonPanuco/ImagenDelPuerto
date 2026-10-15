@@ -8,6 +8,15 @@ export const site = {
   location: "Puerto Vallarta y Bahía de Banderas, México",
 };
 
+export const DEFAULT_WHATSAPP_MESSAGE =
+  "Hola, deseo información sobre los servicios de Imagen del Puerto.";
+
+export function whatsappHref(base: string, message = DEFAULT_WHATSAPP_MESSAGE) {
+  const url = new URL(base);
+  url.searchParams.set("text", message);
+  return url.toString();
+}
+
 export const services = [
   {
     number: "01",

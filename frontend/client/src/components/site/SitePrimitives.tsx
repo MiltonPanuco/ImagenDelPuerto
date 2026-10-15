@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { whatsappHref } from "@/data";
 import { useCms } from "@/cms/CmsProvider";
 import { media } from "@/assets";
 import { CONTAINER } from "@/components/layout/constants";
@@ -17,7 +18,8 @@ export const heroAssets = {
   respiratory: media.contactHero,
 };
 
-export const SECTION_PAD = "py-[126px] max-[900px]:py-[88px] max-[680px]:py-[72px]";
+export const SECTION_PAD =
+  "py-[126px] max-[900px]:py-[88px] max-[680px]:py-[72px]";
 export const SECTION_DARK = "bg-ink text-white";
 export const BUTTON =
   "inline-flex min-h-[47px] items-center justify-center gap-2.5 rounded-full px-[19px] text-xs font-semibold transition-[transform,background,color,border-color] duration-200 ease-brand active:scale-[.97]";
@@ -25,7 +27,10 @@ export const TEXT_LINK =
   "inline-flex items-center gap-2 border-b border-charcoal/30 pb-[5px] text-xs font-semibold text-charcoal transition-[gap,border-color] duration-200 hover:gap-[13px] hover:border-charcoal";
 export const FIELD_BORDER = "border-[rgb(66_62_73_/_18%)]";
 
-export function coverStyle(image?: string, gradient?: string): React.CSSProperties {
+export function coverStyle(
+  image?: string,
+  gradient?: string
+): React.CSSProperties {
   return {
     backgroundImage:
       [gradient, image && `url(${image})`].filter(Boolean).join(", ") ||
@@ -84,7 +89,8 @@ export function AnimatedStat({
       ref={ref}
     >
       <strong className="block font-display text-[47px] font-medium tracking-[-.08em] text-rx-blue max-[680px]:text-4xl">
-        {String(count).padStart(2, "0")}{suffix}
+        {String(count).padStart(2, "0")}
+        {suffix}
       </strong>
       <span className="block text-xs leading-[1.35] text-steel max-[680px]:text-[10px]">
         {label}
@@ -122,7 +128,8 @@ export function RentalImageCarousel({
   }, [images.length, lightbox, paused]);
 
   const navigateLightbox = (direction: -1 | 1) => {
-    const next = ((lightbox ?? active) + direction + images.length) % images.length;
+    const next =
+      ((lightbox ?? active) + direction + images.length) % images.length;
     setLightbox(next);
     setActive(next);
   };
@@ -139,13 +146,23 @@ export function RentalImageCarousel({
         className="absolute inset-0 cursor-pointer border-0 bg-transparent p-0"
         type="button"
         onClick={() => setLightbox(active)}
-        aria-label={text("global", "rentalGallery.open", "Ampliar fotografías de {producto}").replace("{producto}", name)}
+        aria-label={text(
+          "global",
+          "rentalGallery.open",
+          "Ampliar fotografías de {producto}"
+        ).replace("{producto}", name)}
       >
         {images.map((image, index) => (
           <img
             className={`absolute inset-0 size-full object-contain p-5 transition-[opacity,transform] duration-700 ease-brand ${index === active ? "scale-100 opacity-100" : "pointer-events-none scale-[.985] opacity-0"}`}
             src={image}
-            alt={text("global", "rentalGallery.imageAlt", "{producto}, vista {numero}").replace("{producto}", name).replace("{numero}", String(index + 1))}
+            alt={text(
+              "global",
+              "rentalGallery.imageAlt",
+              "{producto}, vista {numero}"
+            )
+              .replace("{producto}", name)
+              .replace("{numero}", String(index + 1))}
             loading="lazy"
             aria-hidden={index !== active}
             key={image}
@@ -161,7 +178,13 @@ export function RentalImageCarousel({
             <button
               className={`size-2 rounded-full border-0 transition-[background-color,transform] duration-300 ${index === active ? "scale-125 bg-charcoal" : "bg-steel/35 hover:bg-steel"}`}
               type="button"
-              aria-label={text("global", "rentalGallery.showView", "Mostrar vista {numero} de {producto}").replace("{numero}", String(index + 1)).replace("{producto}", name)}
+              aria-label={text(
+                "global",
+                "rentalGallery.showView",
+                "Mostrar vista {numero} de {producto}"
+              )
+                .replace("{numero}", String(index + 1))
+                .replace("{producto}", name)}
               onClick={() => setActive(index)}
               key={image}
             />
@@ -171,18 +194,18 @@ export function RentalImageCarousel({
       {lightbox !== null && (
         <ImageLightbox
           image={images[lightbox]}
-          alt={text("global", "rentalGallery.expandedAlt", "{producto}, vista ampliada {numero}").replace("{producto}", name).replace("{numero}", String(lightbox + 1))}
+          alt={text(
+            "global",
+            "rentalGallery.expandedAlt",
+            "{producto}, vista ampliada {numero}"
+          )
+            .replace("{producto}", name)
+            .replace("{numero}", String(lightbox + 1))}
           onClose={() => setLightbox(null)}
           onPrevious={
-            images.length > 1
-              ? () => navigateLightbox(-1)
-              : undefined
+            images.length > 1 ? () => navigateLightbox(-1) : undefined
           }
-          onNext={
-            images.length > 1
-              ? () => navigateLightbox(1)
-              : undefined
-          }
+          onNext={images.length > 1 ? () => navigateLightbox(1) : undefined}
           position={`${lightbox + 1} / ${images.length}`}
         />
       )}
@@ -216,14 +239,18 @@ export function ImageLightbox({
     returnFocusRef.current = document.activeElement as HTMLElement | null;
     const app = document.getElementById("root");
     const previousInert = app?.inert ?? false;
-    const frame = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+    const frame = window.requestAnimationFrame(() =>
+      closeButtonRef.current?.focus()
+    );
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") actionsRef.current.onClose();
       if (event.key === "ArrowLeft") actionsRef.current.onPrevious?.();
       if (event.key === "ArrowRight") actionsRef.current.onNext?.();
       if (event.key !== "Tab" || !dialogRef.current) return;
       const focusable = Array.from(
-        dialogRef.current.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]")
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          "button:not([disabled]), a[href]"
+        )
       );
       if (!focusable.length) return;
       const first = focusable[0];
@@ -255,7 +282,11 @@ export function ImageLightbox({
       className="fixed inset-0 z-[1000] grid cursor-default place-items-center overflow-hidden bg-ink/95 p-[clamp(14px,4vw,48px)] backdrop-blur-md motion-safe:animate-[lightbox-in_.25s_ease-out_both]"
       role="dialog"
       aria-modal="true"
-      aria-label={text("global", "lightbox.dialog", "Vista ampliada de la imagen")}
+      aria-label={text(
+        "global",
+        "lightbox.dialog",
+        "Vista ampliada de la imagen"
+      )}
       onClick={onClose}
     >
       <button
@@ -343,7 +374,6 @@ export function ProgressiveImage({
   );
 }
 
-
 export function Eyebrow({
   children,
   light = false,
@@ -399,9 +429,7 @@ export function WhatsAppButton({
   message?: string;
 }) {
   const { site, text } = useCms();
-  const href = message
-    ? `${site.whatsapp}?text=${encodeURIComponent(message)}`
-    : site.whatsapp;
+  const href = whatsappHref(site.whatsapp, message);
   return (
     <a
       className={`${BUTTON} bg-charcoal text-white hover:-translate-y-0.5 hover:bg-violet`}

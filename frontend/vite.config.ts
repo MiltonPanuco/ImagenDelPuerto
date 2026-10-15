@@ -21,15 +21,9 @@ const cmsApi = {
       ) => void;
     };
   }) {
-    server.middlewares.use("/api/content", async (req, res) => {
+    server.middlewares.use("/api/content", async (_req, res) => {
       try {
-        const language = new URL(
-          req.url || "/",
-          "http://localhost"
-        ).searchParams.get("lang");
-        const response = await fetch(
-          sanityContentUrl(undefined, undefined, language)
-        );
+        const response = await fetch(sanityContentUrl());
         res.statusCode = response.status;
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         res.end(await response.text());

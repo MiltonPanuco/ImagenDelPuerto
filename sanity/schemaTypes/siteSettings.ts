@@ -22,6 +22,7 @@ export const siteSettingsType = defineType({
       title: "Teléfono visible",
       type: "string",
       group: "contact",
+      description: "Texto que verá la persona, por ejemplo +52 322 360 2224.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -29,6 +30,7 @@ export const siteSettingsType = defineType({
       title: "Enlace telefónico",
       type: "url",
       group: "contact",
+      description: "Usa el formato tel:+523223602224, sin espacios.",
       validation: (Rule) => Rule.required().uri({ scheme: ["tel"] }),
     }),
     defineField({
@@ -36,6 +38,8 @@ export const siteSettingsType = defineType({
       title: "WhatsApp",
       type: "url",
       group: "contact",
+      description:
+        "Enlace completo de wa.me utilizado por los botones del sitio.",
       validation: (Rule) => Rule.required().uri({ scheme: ["http", "https"] }),
     }),
     defineField({
@@ -50,6 +54,7 @@ export const siteSettingsType = defineType({
       title: "Ubicación",
       type: "localizedString",
       group: "contact",
+      description: "Zona de cobertura mostrada en el sitio.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -72,6 +77,7 @@ export const siteSettingsType = defineType({
       type: "image",
       group: "footer",
       options: { hotspot: true },
+      description: "Usa una versión legible sobre el fondo oscuro del pie.",
       fields: [
         defineField({
           name: "alt",
@@ -90,6 +96,9 @@ export const siteSettingsType = defineType({
     }),
   ],
   preview: {
-    prepare: () => ({ title: "Ajustes generales", subtitle: "Sitio completo" }),
+    prepare: () => ({
+      title: "Ajustes generales",
+      subtitle: "Contacto, redes y pie de página",
+    }),
   },
 });

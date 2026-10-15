@@ -1,45 +1,51 @@
 import { defineField, defineType } from "sanity";
 
-const requiredLanguages = (value: unknown) => {
+const requiredSpanish = (value: unknown) => {
   const localized = value as { es?: string; en?: string } | undefined;
   if (!localized) return true;
-  return localized?.es?.trim() && localized?.en?.trim()
-    ? true
-    : "Completa las versiones en español e inglés.";
+  return localized.es?.trim() ? true : "Completa el contenido en español.";
 };
 
 export const localizedTypes = [
   defineType({
     name: "localizedString",
-    title: "Texto bilingüe",
+    title: "Texto",
     type: "object",
-    options: { columns: 2 },
     fields: [
-      defineField({ name: "es", title: "Español", type: "string" }),
-      defineField({ name: "en", title: "English", type: "string" }),
+      defineField({ name: "es", title: "Contenido", type: "string" }),
+      defineField({
+        name: "en",
+        title: "Contenido anterior",
+        type: "string",
+        hidden: true,
+      }),
     ],
-    validation: (Rule) => Rule.custom(requiredLanguages),
+    validation: (Rule) => Rule.custom(requiredSpanish),
   }),
   defineType({
     name: "localizedText",
-    title: "Texto largo bilingüe",
+    title: "Texto largo",
     type: "object",
-    options: { columns: 2 },
     fields: [
-      defineField({ name: "es", title: "Español", type: "text", rows: 4 }),
-      defineField({ name: "en", title: "English", type: "text", rows: 4 }),
+      defineField({ name: "es", title: "Contenido", type: "text", rows: 4 }),
+      defineField({
+        name: "en",
+        title: "Contenido anterior",
+        type: "text",
+        rows: 4,
+        hidden: true,
+      }),
     ],
-    validation: (Rule) => Rule.custom(requiredLanguages),
+    validation: (Rule) => Rule.custom(requiredSpanish),
   }),
   defineType({
     name: "localizedImage",
-    title: "Imagen por idioma",
+    title: "Imagen",
     type: "object",
-    options: { columns: 2 },
     fields: [
       defineField({
         name: "es",
-        title: "Imagen en español",
+        title: "Imagen",
         type: "image",
         options: { hotspot: true },
         fields: [
@@ -47,23 +53,29 @@ export const localizedTypes = [
             name: "alt",
             title: "Texto alternativo",
             type: "string",
+            description:
+              "Describe la imagen para personas que usan lectores de pantalla.",
+            validation: (Rule) => Rule.required(),
           }),
         ],
       }),
       defineField({
         name: "en",
-        title: "Image in English",
+        title: "Imagen anterior",
         type: "image",
+        hidden: true,
         options: { hotspot: true },
         fields: [
           defineField({
             name: "alt",
-            title: "Alternative text",
+            title: "Texto alternativo",
             type: "string",
+            description: "Describe la imagen para lectores de pantalla.",
+            validation: (Rule) => Rule.required(),
           }),
         ],
       }),
     ],
-    description: "Puedes reutilizar el mismo asset en ambos idiomas.",
+    description: "Imagen y texto alternativo utilizados en la web.",
   }),
 ];

@@ -2,7 +2,7 @@
 
 Sitio web de **Imagen del Puerto**, un negocio de diagnóstico médico a domicilio y renta de equipo médico con cobertura en Puerto Vallarta y Bahía de Banderas.
 
-El repositorio está dividido en `frontend/` y `sanity/`. Incluye el sitio público, un servidor Node para producción y un Studio de Sanity bilingüe para administrar contenido. Si el CMS no está disponible, el sitio conserva contenido local en español como respaldo.
+El repositorio está dividido en `frontend/` y `sanity/`. Incluye el sitio público, un servidor Node para producción y un Studio de Sanity en español para administrar contenido. Si el CMS no está disponible, el sitio conserva contenido local en español como respaldo.
 
 ## Qué incluye
 
@@ -103,7 +103,7 @@ La ruta heredada `/service` redirige a `/servicios`. El servidor también normal
 
 `CmsProvider` solicita `/api/content` una vez al cargar la aplicación. El servidor consulta Sanity y mantiene una caché corta; ante un error puede entregar la última respuesta válida. Si no hay contenido remoto, el cliente utiliza `frontend/client/src/data.ts` y los recursos locales.
 
-El contenido editorial usa objetos `{es, en}` como en `beta/sanity`. El endpoint acepta `?lang=es` (predeterminado) o `?lang=en`; mientras se migran documentos antiguos, la consulta cae de forma segura al campo español y después al valor monolingüe anterior. El importador inicial duplica el español en inglés para no inventar traducciones: revisa y reemplaza cada valor `.en` en el Studio antes de habilitar la versión inglesa del sitio.
+El contenido editorial se administra únicamente en español. La consulta usa el campo español y conserva compatibilidad con documentos monolingües anteriores.
 
 El proyecto y dataset públicos se configuran así:
 
@@ -131,7 +131,7 @@ pnpm sanity:dev
 
 ### Importación inicial
 
-Para migrar documentos existentes al formato ES/EN sin reemplazar cambios editoriales, ejecuta primero la simulación y después la escritura confirmada:
+Para migrar documentos existentes al formato actual sin reemplazar cambios editoriales, ejecuta primero la simulación y después la escritura confirmada:
 
 ```powershell
 pnpm --dir sanity exec sanity exec scripts/migrateLocalizedContent.ts --with-user-token -- --confirm-project xkjqp0l8 --confirm-dataset production

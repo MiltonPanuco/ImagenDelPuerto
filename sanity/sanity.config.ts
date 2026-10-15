@@ -8,7 +8,7 @@ import { SINGLETON_TYPES, structure } from "./structure";
 
 export default defineConfig({
   name: "imagen-del-puerto",
-  title: "Imagen del Puerto · Contenido",
+  title: "Imagen del Puerto · Gestor de contenido",
   icon: BrandIcon,
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || "configure-project-id",
   dataset: process.env.SANITY_STUDIO_DATASET || "production",
@@ -23,9 +23,13 @@ export default defineConfig({
   document: {
     actions: (previous, context) =>
       SINGLETON_TYPES.includes(context.schemaType)
-        ? previous.filter(({ action }) => action !== "delete" && action !== "duplicate")
+        ? previous.filter(
+            ({ action }) => action !== "delete" && action !== "duplicate",
+          )
         : previous,
     newDocumentOptions: (previous) =>
-      previous.filter(({ templateId }) => !SINGLETON_TYPES.includes(templateId)),
+      previous.filter(
+        ({ templateId }) => !SINGLETON_TYPES.includes(templateId),
+      ),
   },
 });
