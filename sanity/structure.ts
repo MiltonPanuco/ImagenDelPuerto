@@ -1,5 +1,8 @@
 import { CogIcon } from "@sanity/icons/Cog";
+import { DocumentsIcon } from "@sanity/icons/Documents";
+import { EarthGlobeIcon } from "@sanity/icons/EarthGlobe";
 import { HelpCircleIcon } from "@sanity/icons/HelpCircle";
+import { HomeIcon } from "@sanity/icons/Home";
 import { ImagesIcon } from "@sanity/icons/Images";
 import { InfoOutlineIcon } from "@sanity/icons/InfoOutline";
 import { MasterDetailIcon } from "@sanity/icons/MasterDetail";
@@ -9,7 +12,13 @@ import { PAGE_CONTENT } from "./schemaTypes/pageContent";
 
 export const SINGLETON_TYPES = ["siteSettings", "pageContent"];
 
-const pageItem = (S: Parameters<StructureResolver>[0], page: typeof PAGE_CONTENT[number]) =>
+const page = (name: (typeof PAGE_CONTENT)[number][0]) =>
+  PAGE_CONTENT.find(([value]) => value === name)!;
+
+const pageItem = (
+  S: Parameters<StructureResolver>[0],
+  page: (typeof PAGE_CONTENT)[number],
+) =>
   S.listItem()
     .title(page[1])
     .child(
@@ -23,67 +32,72 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("Imagen del Puerto · Contenido")
     .items([
+      pageItem(S, page("home")).icon(HomeIcon),
       S.listItem()
-        .title("Configuración del sitio")
+        .title("Páginas")
+        .icon(MasterDetailIcon)
+        .child(
+          S.list()
+            .title("Páginas")
+            .items([
+              ...[
+                "about",
+                "services",
+                "serviceDetail",
+                "rental",
+                "gallery",
+                "contact",
+                "notFound",
+              ].map((name) =>
+                pageItem(S, page(name as (typeof PAGE_CONTENT)[number][0])),
+              ),
+            ]),
+        ),
+      S.listItem()
+        .title("Contenido")
+        .icon(ProjectsIcon)
+        .child(
+          S.list()
+            .title("Contenido")
+            .items([
+              S.documentTypeListItem("service").title("Servicios"),
+              S.documentTypeListItem("rentalProduct").title("Equipo en renta"),
+              S.documentTypeListItem("audience").title("Audiencias"),
+              S.documentTypeListItem("processStep").title("Pasos del proceso"),
+              S.documentTypeListItem("faq")
+                .title("Preguntas frecuentes")
+                .icon(HelpCircleIcon),
+              S.documentTypeListItem("galleryItem")
+                .title("Galería")
+                .icon(ImagesIcon),
+            ]),
+        ),
+      S.listItem()
+        .title("Legal")
+        .icon(DocumentsIcon)
+        .child(
+          S.list()
+            .title("Legal")
+            .items([pageItem(S, page("legal"))]),
+        ),
+      pageItem(S, page("seo")).icon(EarthGlobeIcon),
+      S.listItem()
+        .title("Configuración")
         .icon(CogIcon)
         .child(
           S.list()
-            .title("Configuración del sitio")
+            .title("Configuración")
             .items([
+              pageItem(S, page("global")),
               S.listItem()
                 .title("Datos generales y contacto")
-                .icon(CogIcon)
+                .icon(InfoOutlineIcon)
                 .child(
                   S.document()
                     .schemaType("siteSettings")
                     .documentId("site-settings")
                     .title("Datos generales y contacto"),
                 ),
-            ]),
-        ),
-      S.listItem()
-        .title("Páginas del sitio")
-        .icon(MasterDetailIcon)
-        .child(
-          S.list()
-            .title("Páginas del sitio")
-            .items(PAGE_CONTENT.map((page) => pageItem(S, page))),
-        ),
-      S.listItem()
-        .title("Servicios y renta")
-        .icon(ProjectsIcon)
-        .child(
-          S.list()
-            .title("Servicios y renta")
-            .items([
-              S.documentTypeListItem("service").title("Servicios"),
-              S.documentTypeListItem("rentalProduct").title("Equipo en renta"),
-            ]),
-        ),
-      S.listItem()
-        .title("Contenido informativo")
-        .icon(InfoOutlineIcon)
-        .child(
-          S.list()
-            .title("Contenido informativo")
-            .items([
-              S.documentTypeListItem("audience").title("Audiencias"),
-              S.documentTypeListItem("processStep").title("Pasos del proceso"),
-              S.documentTypeListItem("faq")
-                .title("Preguntas frecuentes")
-                .icon(HelpCircleIcon),
-            ]),
-        ),
-      S.listItem()
-        .title("Multimedia")
-        .icon(ImagesIcon)
-        .child(
-          S.list()
-            .title("Multimedia")
-            .items([
-              S.documentTypeListItem("galleryItem")
-                .title("Galería")
-                .icon(ImagesIcon),
             ]),
         ),
     ]);

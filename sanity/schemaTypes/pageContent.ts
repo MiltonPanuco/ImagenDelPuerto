@@ -40,41 +40,56 @@ export const pageContentType = defineType({
           title: "Campo editable",
           type: "object",
           fields: [
-            defineField({ name: "key", title: "Clave", type: "string", readOnly: true, validation: (Rule) => Rule.required() }),
-            defineField({ name: "label", title: "Nombre del campo", type: "string", readOnly: true, validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "key",
+              title: "Clave",
+              type: "string",
+              readOnly: true,
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "label",
+              title: "Nombre del campo",
+              type: "string",
+              readOnly: true,
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({
               name: "kind",
               title: "Tipo",
               type: "string",
               readOnly: true,
               initialValue: "text",
-              options: { list: [
-                { title: "Texto", value: "text" },
-                { title: "Texto largo", value: "longText" },
-                { title: "Enlace", value: "url" },
-                { title: "Imagen", value: "image" },
-                { title: "Markdown", value: "markdown" },
-              ] },
+              options: {
+                list: [
+                  { title: "Texto", value: "text" },
+                  { title: "Texto largo", value: "longText" },
+                  { title: "Enlace", value: "url" },
+                  { title: "Imagen", value: "image" },
+                  { title: "Markdown", value: "markdown" },
+                ],
+              },
             }),
             defineField({
               name: "value",
               title: "Contenido",
-              type: "text",
-              rows: 4,
+              type: "localizedText",
               hidden: ({ parent }) => parent?.kind === "image",
             }),
             defineField({
               name: "image",
               title: "Imagen",
-              type: "image",
-              options: { hotspot: true },
+              type: "localizedImage",
               hidden: ({ parent }) => parent?.kind !== "image",
-              fields: [defineField({ name: "alt", title: "Texto alternativo", type: "string" })],
             }),
           ],
           preview: {
-            select: { title: "label", subtitle: "value", media: "image" },
-            prepare: ({ title, subtitle, media }) => ({ title, subtitle: subtitle?.slice(0, 90), media }),
+            select: { title: "label", subtitle: "value.es", media: "image.es" },
+            prepare: ({ title, subtitle, media }) => ({
+              title,
+              subtitle: subtitle?.slice(0, 90),
+              media,
+            }),
           },
         }),
       ],
@@ -84,8 +99,10 @@ export const pageContentType = defineType({
   preview: {
     select: { page: "page" },
     prepare: ({ page }) => ({
-      title: PAGE_CONTENT.find(([value]) => value === page)?.[1] || "Contenido de página",
-      subtitle: "Página única",
+      title:
+        PAGE_CONTENT.find(([value]) => value === page)?.[1] ||
+        "Contenido de página",
+      subtitle: "Página única · ES / EN",
     }),
   },
 });

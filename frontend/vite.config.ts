@@ -6,16 +6,38 @@ import { sanityContentUrl } from "./shared/cms";
 
 const cmsApi = {
   name: "cms-api",
-  configureServer(server: { middlewares: { use: (path: string, handler: (_req: unknown, res: { statusCode: number; setHeader: (name: string, value: string) => void; end: (body: string) => void }) => void) => void } }) {
-    server.middlewares.use("/api/content", async (_req, res) => {
+  configureServer(server: {
+    middlewares: {
+      use: (
+        path: string,
+        handler: (
+          req: { url?: string },
+          res: {
+            statusCode: number;
+            setHeader: (name: string, value: string) => void;
+            end: (body: string) => void;
+          }
+        ) => void
+      ) => void;
+    };
+  }) {
+    server.middlewares.use("/api/content", async (req, res) => {
       try {
-        const response = await fetch(sanityContentUrl());
+        const language = new URL(
+          req.url || "/",
+          "http://localhost"
+        ).searchParams.get("lang");
+        const response = await fetch(
+          sanityContentUrl(undefined, undefined, language)
+        );
         res.statusCode = response.status;
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         res.end(await response.text());
       } catch {
         res.statusCode = 502;
-        res.end(JSON.stringify({ error: "Contenido temporalmente no disponible." }));
+        res.end(
+          JSON.stringify({ error: "Contenido temporalmente no disponible." })
+        );
       }
     });
   },

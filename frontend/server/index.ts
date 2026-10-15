@@ -30,20 +30,31 @@ async function startServer() {
     if (req.method !== "GET" && req.method !== "HEAD") return next();
     if (req.path === "/healthz") return next();
     const forwardedHost = req.get("x-forwarded-host")?.split(",")[0].trim();
-    const host = (forwardedHost || req.get("host") || "").toLowerCase().replace(/:\d+$/, "");
+    const host = (forwardedHost || req.get("host") || "")
+      .toLowerCase()
+      .replace(/:\d+$/, "");
     const canonicalHost = new URL(SITE_URL).host;
-    const isLocalHost = host === "localhost" || host === "127.0.0.1" || host === "::1";
+    const isLocalHost =
+      host === "localhost" || host === "127.0.0.1" || host === "::1";
     const legacyPath = legacyRedirects[req.path.toLowerCase()];
-    const normalizedPath = legacyPath ?? (req.path.length > 1 ? req.path.replace(/\/+$/, "") : req.path);
-    const needsCanonicalOrigin = process.env.NODE_ENV === "production" &&
+    const normalizedPath =
+      legacyPath ??
+      (req.path.length > 1 ? req.path.replace(/\/+$/, "") : req.path);
+    const needsCanonicalOrigin =
+      process.env.NODE_ENV === "production" &&
       Boolean(host) &&
       !isLocalHost &&
       (host !== canonicalHost || req.protocol !== "https");
     const needsCanonicalPath = normalizedPath !== req.path;
 
     if (needsCanonicalOrigin || needsCanonicalPath) {
-      const query = req.originalUrl.includes("?") ? req.originalUrl.slice(req.originalUrl.indexOf("?")) : "";
-      return res.redirect(308, `${needsCanonicalOrigin ? SITE_URL : ""}${normalizedPath}${query}`);
+      const query = req.originalUrl.includes("?")
+        ? req.originalUrl.slice(req.originalUrl.indexOf("?"))
+        : "";
+      return res.redirect(
+        308,
+        `${needsCanonicalOrigin ? SITE_URL : ""}${normalizedPath}${query}`
+      );
     }
     next();
   });
@@ -54,37 +65,56 @@ async function startServer() {
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
 
-  const indexTemplate = readFileSync(path.join(staticPath, "index.html"), "utf8");
+  const indexTemplate = readFileSync(
+    path.join(staticPath, "index.html"),
+    "utf8"
+  );
   app.get("/healthz", (_req, res) => {
     res.setHeader("Cache-Control", "no-store");
     res.status(200).type("text").send("ok");
   });
-  app.get("/api/content", async (_req, res) => {
+  app.get("/api/content", async (req, res) => {
     try {
-      const response = await fetch(sanityContentUrl(), { headers: { Accept: "application/json" } });
+      const response = await fetch(
+        sanityContentUrl(undefined, undefined, req.query.lang),
+        { headers: { Accept: "application/json" } }
+      );
       if (!response.ok) throw new Error(`Sanity respondió ${response.status}`);
-      res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+      res.setHeader(
+        "Cache-Control",
+        "public, max-age=60, stale-while-revalidate=300"
+      );
       res.type("json").send(await response.text());
     } catch (error) {
       console.error("No se pudo consultar el contenido de Sanity.", error);
       res.status(502).json({ error: "Contenido temporalmente no disponible." });
     }
   });
-  app.use(express.static(staticPath, {
-    index: false,
-    etag: true,
-    lastModified: true,
-    setHeaders(res, filePath) {
-      const normalized = filePath.replace(/\\/g, "/");
-      if (normalized.includes("/assets/")) {
-        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-      } else if (/\.(?:avif|gif|ico|jpe?g|png|webp|woff2?)$/i.test(normalized)) {
-        res.setHeader("Cache-Control", "public, max-age=2592000, stale-while-revalidate=86400");
-      } else {
-        res.setHeader("Cache-Control", "public, max-age=3600, stale-while-revalidate=86400");
-      }
-    },
-  }));
+  app.use(
+    express.static(staticPath, {
+      index: false,
+      etag: true,
+      lastModified: true,
+      setHeaders(res, filePath) {
+        const normalized = filePath.replace(/\\/g, "/");
+        if (normalized.includes("/assets/")) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        } else if (
+          /\.(?:avif|gif|ico|jpe?g|png|webp|woff2?)$/i.test(normalized)
+        ) {
+          res.setHeader(
+            "Cache-Control",
+            "public, max-age=2592000, stale-while-revalidate=86400"
+          );
+        } else {
+          res.setHeader(
+            "Cache-Control",
+            "public, max-age=3600, stale-while-revalidate=86400"
+          );
+        }
+      },
+    })
+  );
 
   // Serve route-specific metadata while keeping client-side routing.
   app.get("*", (req, res) => {
@@ -96,7 +126,14 @@ async function startServer() {
     res
       .status(indexable ? 200 : 404)
       .type("html")
-      .send(renderPage(indexTemplate, page ?? notFoundMetadata, canonical, indexable));
+      .send(
+        renderPage(
+          indexTemplate,
+          page ?? notFoundMetadata,
+          canonical,
+          indexable
+        )
+      );
   });
 
   const port = Number.parseInt(process.env.PORT ?? "3000", 10);
