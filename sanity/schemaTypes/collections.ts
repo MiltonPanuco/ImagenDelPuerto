@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { BrandIcon } from "../components/BrandIcon";
 
 const orderField = defineField({
   name: "order",
@@ -30,6 +31,7 @@ export const collectionTypes = [
     name: "service",
     title: "Servicio",
     type: "document",
+    icon: BrandIcon,
     groups: [
       { name: "content", title: "Contenido", default: true },
       { name: "media", title: "Imagen" },
@@ -203,6 +205,7 @@ export const collectionTypes = [
     name: "rentalProduct",
     title: "Equipo en renta",
     type: "document",
+    icon: BrandIcon,
     groups: [
       { name: "content", title: "Contenido", default: true },
       { name: "media", title: "Imágenes" },
@@ -286,6 +289,7 @@ export const collectionTypes = [
     name: "audience",
     title: "Audiencia",
     type: "document",
+    icon: BrandIcon,
     groups: [
       { name: "content", title: "Contenido", default: true },
       { name: "publication", title: "Orden" },
@@ -321,6 +325,7 @@ export const collectionTypes = [
     name: "processStep",
     title: "Paso del proceso",
     type: "document",
+    icon: BrandIcon,
     groups: [
       { name: "content", title: "Contenido", default: true },
       { name: "publication", title: "Orden" },
@@ -356,6 +361,7 @@ export const collectionTypes = [
     name: "faq",
     title: "Pregunta frecuente",
     type: "document",
+    icon: BrandIcon,
     groups: [
       { name: "content", title: "Contenido", default: true },
       { name: "publication", title: "Publicación" },
@@ -391,6 +397,7 @@ export const collectionTypes = [
     name: "galleryItem",
     title: "Elemento de galería",
     type: "document",
+    icon: BrandIcon,
     groups: [
       { name: "content", title: "Contenido", default: true },
       { name: "media", title: "Imagen" },

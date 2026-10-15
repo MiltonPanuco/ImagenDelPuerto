@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { BrandIcon } from "../components/BrandIcon";
 
 export const PAGE_CONTENT = [
   ["global", "Contenido global"],
@@ -18,6 +19,7 @@ export const pageContentType = defineType({
   name: "pageContent",
   title: "Contenido de página",
   type: "document",
+  icon: BrandIcon,
   fields: [
     defineField({
       name: "page",

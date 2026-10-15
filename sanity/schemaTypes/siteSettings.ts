@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import { BrandIcon } from "../components/BrandIcon";
 
 export const siteSettingsType = defineType({
   name: "siteSettings",
   title: "Ajustes generales",
   type: "document",
+  icon: BrandIcon,
   groups: [
     { name: "contact", title: "Contacto", default: true },
     { name: "social", title: "Redes sociales" },

@@ -2,8 +2,14 @@ export function BrandIcon() {
   return (
     <img
       alt=""
-      src="/static/logo-footer.webp"
-      style={{ display: "block", height: "100%", objectFit: "contain", width: "100%" }}
+      src="/static/favicon-96.png"
+      style={{
+        borderRadius: "50%",
+        display: "block",
+        height: "100%",
+        objectFit: "cover",
+        width: "100%",
+      }}
     />
   );
 }
